@@ -14,6 +14,23 @@ class SectionRepository implements SectionRepositoryInterface
         return view('Dashboard.Sections.index', compact('sections'));
     }
 
+
+    public function show($id)
+    {
+        $doctors = Section::findOrFail($id)->doctors;
+
+        // if ($doctors->isEmpty()) {
+        //     session()->flash('empty');
+        //     return redirect()->route('Sections.index');
+        // }
+
+        $section = Section::findOrFail($id);
+
+        return view('Dashboard.Sections.show_doctors', compact('doctors', 'section'));
+    }
+
+
+
     public function store($request)
     {
         Section::create([
