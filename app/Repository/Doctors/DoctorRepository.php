@@ -49,8 +49,9 @@ class DoctorRepository implements DoctorRepositoryInterface
             // store appointments with array
             // $doctors->appointments = implode(",", $request->appointments);
 
-            // sotre pivot table using sync method
-            $doctors->doctorappointments()->sync($request->appointments);
+
+            // insert pivot tABLE
+            $doctors->doctorappointments()->attach($request->appointments);
 
             $doctors->save();
 

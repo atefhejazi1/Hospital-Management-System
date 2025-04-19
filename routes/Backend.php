@@ -1,9 +1,14 @@
 <?php
 
+use App\Http\Controllers\Dashboard\AmbulanceController;
 use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Dashboard\DoctorController;
+use App\Http\Controllers\Dashboard\InsuranceController;
+use App\Http\Controllers\Dashboard\PatientController;
 use App\Http\Controllers\Dashboard\SectionController;
+use App\Http\Controllers\Dashboard\SingleServiceController;
 use Illuminate\Support\Facades\Route;
+use Livewire\Livewire;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
 Route::get('/Dashboard_Admin', [DashboardController::class, 'index']);
@@ -38,6 +43,42 @@ Route::group(
             Route::post('update_password', [DoctorController::class, 'update_password'])->name('update_password');
             Route::post('update_status', [DoctorController::class, 'update_status'])->name('update_status');
             //############################# End Doctors route ##########################################
+
+
+            //############################# Services route ##########################################
+
+            Route::resource('Service', SingleServiceController::class);
+
+            //############################# end Services route ######################################
+
+
+            //############################# GroupServices route ##########################################
+            Livewire::setUpdateRoute(function ($handle) {
+                return Route::post('/livewire/update', $handle);
+            });
+            Route::view('Add_GroupServices', 'livewire.GroupServices.include_create')->name('Add_GroupServices');
+
+            //############################# end GroupServices route ######################################
+
+
+            //############################# insurance route ##########################################
+
+            Route::resource('insurance', InsuranceController::class);
+
+            //############################# end insurance route ######################################
+
+            //############################# Ambulance route ##########################################
+
+            Route::resource('Ambulance', AmbulanceController::class);
+
+            //############################# end Ambulance route ######################################
+
+
+            //############################# Patients route ##########################################
+
+            Route::resource('Patients', PatientController::class);
+
+            //############################# end Patients route ######################################
 
         });
         require __DIR__ . '/auth.php';
