@@ -87,7 +87,8 @@
                                             @endforeach
                                         </td>
                                         <td>
-                                            <div class="dot-label bg-{{ $doctor->status == 1 ? 'success' : 'danger' }} ml-1">
+                                            <div
+                                                class="dot-label bg-{{ $doctor->status == 1 ? 'success' : 'danger' }} ml-1">
                                             </div>
                                             {{ $doctor->status == 1 ? trans('doctors.Enabled') : trans('doctors.Not_enabled') }}
                                         </td>

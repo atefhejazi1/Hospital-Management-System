@@ -80,6 +80,12 @@ Route::group(
 
             //############################# end Patients route ######################################
 
+
+            //############################# single_invoices route ##########################################
+
+            Route::view('single_invoices', 'livewire.single_invoices.index')->name('single_invoices');
+
+            //############################# end single_invoices route ######################################
         });
         require __DIR__ . '/auth.php';
     }
