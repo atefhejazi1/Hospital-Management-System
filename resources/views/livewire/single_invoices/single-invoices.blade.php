@@ -20,7 +20,7 @@
                     <select wire:model="patient_id" class="form-control" required>
                         <option value="">-- اختار من القائمة --</option>
                         @foreach ($Patients as $Patient)
-                            <option value="1">{{ $Patient->name }}</option>
+                            <option value="{{ $Patient->id }}">{{ $Patient->name }}</option>
                         @endforeach
                     </select>
                 </div>
@@ -45,7 +45,7 @@
 
                 <div class="col">
                     <label>نوع الفاتورة</label>
-                    <select wire:model="type" class="form-control">
+                    <select wire:model="type" class="form-control" {{ $updateMode ? 'disabled' : '' }}>
                         <option value="">-- اختار من القائمة --</option>
                         <option value="1">نقدي</option>
                         <option value="2">اجل</option>

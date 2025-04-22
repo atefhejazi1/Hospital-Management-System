@@ -1,23 +1,29 @@
 <?php
 
 
-namespace App\Interfaces\Patients;
+namespace App\Interfaces\Finance;
 
 
-interface PatientRepositoryInterface
+interface PaymentRepositoryInterface
 {
-    // Get All Patients
+    // get All Receipt
     public function index();
-    // Create New Patients
+
+    // show form add
     public function create();
-    // Store new Patients
+
+    // store Receipt
     public function store($request);
-    // edit Patients
+
+    // edit Receipt
     public function edit($id);
-    // show Patients
+
+    // show Receipt
     public function show($id);
-    // update Patients
+
+    // Update Receipt
     public function update($request);
-    // Deleted Patients
+
+    // destroy Receipt
     public function destroy($request);
 }

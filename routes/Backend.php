@@ -5,6 +5,8 @@ use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Dashboard\DoctorController;
 use App\Http\Controllers\Dashboard\InsuranceController;
 use App\Http\Controllers\Dashboard\PatientController;
+use App\Http\Controllers\Dashboard\PaymentAccountController;
+use App\Http\Controllers\Dashboard\ReceiptAccountController;
 use App\Http\Controllers\Dashboard\SectionController;
 use App\Http\Controllers\Dashboard\SingleServiceController;
 use Illuminate\Support\Facades\Route;
@@ -84,8 +86,31 @@ Route::group(
             //############################# single_invoices route ##########################################
 
             Route::view('single_invoices', 'livewire.single_invoices.index')->name('single_invoices');
+            Route::view('Print_single_invoices', 'livewire.single_invoices.print')->name('Print_single_invoices');
 
             //############################# end single_invoices route ######################################
+
+
+            //############################# Receipt route ##########################################
+
+            Route::resource('Receipt', ReceiptAccountController::class);
+
+            //############################# end Receipt route ######################################
+
+
+            //############################# Payment route ##########################################
+
+            Route::resource('Payment', PaymentAccountController::class);
+
+            //############################# end Payment route ######################################
+
+            //############################# Group invoices route ##########################################
+
+            Route::view('group_invoices', 'livewire.Group_invoices.index')->name('group_invoices');
+
+            Route::view('group_Print_single_invoices', 'livewire.Group_invoices.print')->name('group_Print_single_invoices');
+
+            //############################# end Group invoices route ######################################
         });
         require __DIR__ . '/auth.php';
     }
