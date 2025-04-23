@@ -19,7 +19,7 @@ class CreateGroupServices extends Component
     public $show_table = true;
     public $updateMode = false;
     public $group_id;
-
+    public $Total_after_discount = 0;
     public function mount()
     {
         $this->allServices = Service::all();
@@ -37,10 +37,17 @@ class CreateGroupServices extends Component
 
         return view('livewire.GroupServices.create-group-services', [
             'groups' => Group::all(),
-            'subtotal' => $Total_after_discount = $total - ((is_numeric($this->discount_value) ? $this->discount_value : 0)),
-            'total' => $Total_after_discount * (1 + (is_numeric($this->taxes) ? $this->taxes : 0) / 100)
+            'subtotal' => $this->Total_after_discount = $total - ((is_numeric($this->discount_value) ? $this->discount_value : 0)),
+            'total' => $this->Total_after_discount
         ]);
     }
+
+    public function updateTotalAfterDiscount()
+    {
+        $this->Total_after_discount * (1 + (is_numeric($this->taxes) ? $this->taxes : 0) / 100);
+    }
+
+
 
     public function addService()
     {

@@ -305,8 +305,10 @@
                         <a class="dropdown-item" href=""><i class="bx bx-slider-alt"></i> Account Settings</a>
                         @if (Auth::guard('web')->check())
                             <form method="POST" action="{{ route('logout') }}">
-                            @else
+                            @elseif (Auth::guard('admin')->check())
                                 <form method="POST" action="{{ route('logout.admin') }}">
+                                @elseif (Auth::guard('doctor')->check())
+                                    <form method="POST" action="{{ route('logout.doctor') }}">
                         @endif
 
                         @csrf

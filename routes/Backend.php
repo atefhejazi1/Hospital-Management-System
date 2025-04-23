@@ -22,16 +22,16 @@ Route::group(
     ],
     function () {
 
+        // ############################# Patient Dashboard route ##########################################
         Route::get('/dashboard/user', function () {
             return view('Dashboard.User.dashboard');
         })->middleware(['auth', 'verified'])->name('dashboard.user');
 
 
-
+        // ############################# Admin Dashboard route ##########################################
         Route::get('/dashboard/admin', function () {
             return view('Dashboard.Admin.dashboard');
         })->middleware(['auth:admin', 'verified'])->name('dashboard.admin');
-
 
 
         Route::middleware(['auth:admin'])->group(function () {
@@ -58,6 +58,8 @@ Route::group(
             Livewire::setUpdateRoute(function ($handle) {
                 return Route::post('/livewire/update', $handle);
             });
+
+
             Route::view('Add_GroupServices', 'livewire.GroupServices.include_create')->name('Add_GroupServices');
 
             //############################# end GroupServices route ######################################
@@ -112,6 +114,9 @@ Route::group(
 
             //############################# end Group invoices route ######################################
         });
+
+
+
         require __DIR__ . '/auth.php';
     }
 );

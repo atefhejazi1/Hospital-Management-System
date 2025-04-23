@@ -8,7 +8,8 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
         web: [
             __DIR__ . '/../routes/web.php',
-            __DIR__ . '/../routes/Backend.php', // ✅ ضيف ملف الداشبورد هنا
+            __DIR__ . '/../routes/Backend.php',
+            __DIR__ . '/../routes/doctor.php',
         ],
         commands: __DIR__ . '/../routes/console.php',
         health: '/up',
@@ -22,7 +23,6 @@ return Application::configure(basePath: dirname(__DIR__))
             'localeCookieRedirect'    => \Mcamara\LaravelLocalization\Middleware\LocaleCookieRedirect::class,
             'localeViewPath'          => \Mcamara\LaravelLocalization\Middleware\LaravelLocalizationViewPath::class,
         ]);
-
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //

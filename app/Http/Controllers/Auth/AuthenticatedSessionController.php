@@ -33,8 +33,8 @@ class AuthenticatedSessionController extends Controller
             return redirect()->intended('/dashboard/user');
         } elseif (Auth::guard('admin')) {
             return redirect()->intended('/dashboard/admin');
-        } else {
-            return redirect()->intended('/dashboard');
+        } elseif (Auth::guard('doctor')) {
+            return redirect()->intended('/dashboard/doctor');
         }
 
 
