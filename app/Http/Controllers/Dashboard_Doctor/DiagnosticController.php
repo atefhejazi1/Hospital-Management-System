@@ -3,50 +3,42 @@
 namespace App\Http\Controllers\Dashboard_Doctor;
 
 use App\Http\Controllers\Controller;
-use App\Interfaces\doctor_dashboard\InvoicesRepositoryInterface;
+use App\Interfaces\doctor_dashboard\DiagnosisRepositoryInterface;
 use Illuminate\Http\Request;
 
-class InvoicesController extends Controller
+class DiagnosticController extends Controller
 {
+    private $Diagnosis;
 
-    private $invoices;
-
-    public function __construct(InvoicesRepositoryInterface $invoices)
+    public function __construct(DiagnosisRepositoryInterface $Diagnosis)
     {
-        $this->invoices = $invoices;
+        $this->Diagnosis = $Diagnosis;
     }
 
     public function index()
     {
-        return $this->invoices->index();
+        //
     }
-
-    public function reviewInvoices()
-    {
-        return $this->invoices->reviewInvoices();
-    }
-
-    public function completedInvoices()
-    {
-        return $this->invoices->completedInvoices();
-    }
-
 
     public function create()
     {
         //
     }
 
-
     public function store(Request $request)
     {
-        //
+        return $this->Diagnosis->store($request);
+    }
+
+    public function addReview (Request $request)
+    {
+        return $this->Diagnosis->addReview($request);
     }
 
 
     public function show($id)
     {
-        //
+        return $this->Diagnosis->show($id);
     }
 
 
@@ -60,6 +52,7 @@ class InvoicesController extends Controller
     {
         //
     }
+
 
     public function destroy($id)
     {

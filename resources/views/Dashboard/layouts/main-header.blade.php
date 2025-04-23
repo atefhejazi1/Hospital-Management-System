@@ -309,6 +309,8 @@
                                 <form method="POST" action="{{ route('logout.admin') }}">
                                 @elseif (Auth::guard('doctor')->check())
                                     <form method="POST" action="{{ route('logout.doctor') }}">
+                                    @elseif (Auth::guard('ray_employee')->check())
+                                        <form method="POST" action="{{ route('logout.ray_employee') }}">
                         @endif
 
                         @csrf
