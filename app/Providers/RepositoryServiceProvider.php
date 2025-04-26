@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Interfaces\Ambulances\AmbulanceRepositoryInterface;
+use App\Interfaces\Dashboard_Ray_Employee\InvoicesRepositoryInterface as Dashboard_Ray_EmployeeInvoicesRepositoryInterface;
 use App\Interfaces\doctor_dashboard\DiagnosisRepositoryInterface;
 use App\Interfaces\doctor_dashboard\InvoicesRepositoryInterface;
 use App\Interfaces\doctor_dashboard\LaboratoriesRepositoryInterface;
@@ -16,6 +17,7 @@ use App\Interfaces\RayEmployee\RayEmployeeRepositoryInterface;
 use App\Interfaces\Sections\SectionRepositoryInterface;
 use App\Interfaces\Services\SingleServiceRepositoryInterface;
 use App\Repository\Ambulances\AmbulanceRepository;
+use App\Repository\Dashboard_Ray_Employee\InvoicesRepository as Dashboard_Ray_EmployeeInvoicesRepository;
 use App\Repository\doctor_dashboard\DiagnosisRepository;
 use App\Repository\doctor_dashboard\InvoicesRepository;
 use App\Repository\doctor_dashboard\LaboratoriesRepository;
@@ -54,6 +56,10 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(RaysRepositoryInterface::class, RaysRepository::class);
         $this->app->bind(LaboratoriesRepositoryInterface::class, LaboratoriesRepository::class);
 
+
+
+        //Dashboard_Ray_Employee
+        $this->app->bind(Dashboard_Ray_EmployeeInvoicesRepositoryInterface::class,  Dashboard_Ray_EmployeeInvoicesRepository::class);
     }
 
     /**
