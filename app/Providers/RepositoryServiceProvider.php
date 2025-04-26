@@ -12,11 +12,13 @@ use App\Interfaces\Doctors\DoctorRepositoryInterface;
 use App\Interfaces\Finance\PaymentRepositoryInterface;
 use App\Interfaces\Finance\ReceiptRepositoryInterface;
 use App\Interfaces\insurances\insuranceRepositoryInterface;
+use App\Interfaces\LaboratorieEmployee\LaboratorieEmployeeRepositoryInterface;
 use App\Interfaces\Patients\PatientRepositoryInterface;
 use App\Interfaces\RayEmployee\RayEmployeeRepositoryInterface;
 use App\Interfaces\Sections\SectionRepositoryInterface;
 use App\Interfaces\Services\SingleServiceRepositoryInterface;
 use App\Repository\Ambulances\AmbulanceRepository;
+use App\Repository\Dashboard_Laboratorie_Employee\InvoicesRepository as Dashboard_Laboratorie_EmployeeInvoicesRepository;
 use App\Repository\Dashboard_Ray_Employee\InvoicesRepository as Dashboard_Ray_EmployeeInvoicesRepository;
 use App\Repository\doctor_dashboard\DiagnosisRepository;
 use App\Repository\doctor_dashboard\InvoicesRepository;
@@ -26,6 +28,7 @@ use App\Repository\Doctors\DoctorRepository;
 use App\Repository\Finance\PaymentRepository;
 use App\Repository\Finance\ReceiptRepository;
 use App\Repository\insurances\insuranceRepository;
+use App\Repository\LaboratorieEmployee\LaboratorieEmployeeRepository;
 use App\Repository\Patients\PatientRepository;
 use App\Repository\RayEmployee\RayEmployeeRepository;
 use App\Repository\Sections\SectionRepository;
@@ -48,6 +51,7 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(ReceiptRepositoryInterface::class, ReceiptRepository::class);
         $this->app->bind(PaymentRepositoryInterface::class, PaymentRepository::class);
         $this->app->bind(RayEmployeeRepositoryInterface::class, RayEmployeeRepository::class);
+        $this->app->bind(LaboratorieEmployeeRepositoryInterface::class, LaboratorieEmployeeRepository::class);
 
 
         //  ############################# Doctor Dashboard route ##########################################
@@ -60,6 +64,13 @@ class RepositoryServiceProvider extends ServiceProvider
 
         //Dashboard_Ray_Employee
         $this->app->bind(Dashboard_Ray_EmployeeInvoicesRepositoryInterface::class,  Dashboard_Ray_EmployeeInvoicesRepository::class);
+
+
+        //Dashboard_Laboratorie_Employee
+        $this->app->bind(
+            'App\Interfaces\Dashboard_Laboratorie_Employee\InvoicesRepositoryInterface',
+            'App\Repository\Dashboard_Laboratorie_Employee\InvoicesRepository'
+        );
     }
 
     /**

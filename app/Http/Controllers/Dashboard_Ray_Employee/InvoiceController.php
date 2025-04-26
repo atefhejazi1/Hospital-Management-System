@@ -18,7 +18,7 @@ class InvoiceController extends Controller
 
     public function index()
     {
-       return $this->Ray_Employee->index();
+        return $this->Ray_Employee->index();
     }
 
     public function completed_invoices()
@@ -35,12 +35,17 @@ class InvoiceController extends Controller
 
     public function update(Request $request, $id)
     {
-        return $this->Ray_Employee->update($request,$id);
+        return $this->Ray_Employee->update($request, $id);
     }
 
 
     public function destroy($id)
     {
         //
+    }
+
+    public function viewRays($id)
+    {
+        return $this->Ray_Employee->viewRays($id);
     }
 }

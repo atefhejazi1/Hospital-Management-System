@@ -1,6 +1,6 @@
 @extends('Dashboard.layouts.master')
 @section('title')
-    الفواتير المكتملة
+    الكشوفات
 @stop
 @section('css')
 
@@ -12,7 +12,7 @@
     <div class="breadcrumb-header justify-content-between">
         <div class="my-auto">
             <div class="d-flex">
-                <h4 class="content-title mb-0 my-auto">الفواتير المكتملة</h4><span class="text-muted mt-1 tx-13 mr-2 mb-0">/ الفواتير</span>
+                <h4 class="content-title mb-0 my-auto">الكشوفات</h4><span class="text-muted mt-1 tx-13 mr-2 mb-0">/ الفواتير</span>
             </div>
         </div>
     </div>
@@ -44,7 +44,7 @@
                                 <tr>
                                     <td>{{ $loop->iteration}}</td>
                                     <td>{{ $invoice->created_at }}</td>
-                                    <td><a href="{{route('view_rays',$invoice->id)}}">{{ $invoice->Patient->name }}</a></td>
+                                    <td>{{ $invoice->Patient->name }}</td>
                                     <td>{{ $invoice->doctor->name }}</td>
                                     <td>{{ $invoice->description }}</td>
                                     <td>
@@ -59,7 +59,7 @@
                                         <div class="dropdown">
                                             <button aria-expanded="false" aria-haspopup="true" class="btn ripple btn-outline-primary btn-sm" data-toggle="dropdown" type="button">{{trans('doctors.Processes')}}<i class="fas fa-caret-down mr-1"></i></button>
                                             <div class="dropdown-menu tx-13">
-                                                <a class="dropdown-item" href="{{route('invoices_ray_employee.edit',$invoice->id)}}"><i class="text-primary fa fa-stethoscope"></i>&nbsp;&nbsp;اضافة تشخيص </a>
+                                                <a class="dropdown-item" href="{{route('invoices_laboratorie_employee.edit',$invoice->id)}}"><i class="text-primary fa fa-stethoscope"></i>&nbsp;&nbsp;اضافة تشخيص </a>
                                             </div>
                                         </div>
                                     </td>
