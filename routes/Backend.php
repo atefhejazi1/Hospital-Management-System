@@ -1,5 +1,6 @@
 <?php
 
+use App\Events\MyEvent;
 use App\Http\Controllers\Dashboard\AmbulanceController;
 use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Dashboard\DoctorController;
@@ -11,6 +12,8 @@ use App\Http\Controllers\Dashboard\RayEmployeeController;
 use App\Http\Controllers\Dashboard\ReceiptAccountController;
 use App\Http\Controllers\Dashboard\SectionController;
 use App\Http\Controllers\Dashboard\SingleServiceController;
+use Illuminate\Container\Attributes\Log;
+use Illuminate\Support\Facades\Broadcast;
 use Illuminate\Support\Facades\Route;
 use Livewire\Livewire;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
@@ -34,6 +37,8 @@ Route::group(
 
         // ############################# Admin Dashboard route ##########################################
         Route::get('/dashboard/admin', function () {
+            event(new MyEvent('hello world'));
+
             return view('Dashboard.Admin.dashboard');
         })->middleware(['auth:admin', 'verified'])->name('dashboard.admin');
 

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Dashboard;
 
+use App\Events\MyEvent;
 use App\Http\Controllers\Controller;
 use App\Interfaces\Doctors\DoctorRepositoryInterface;
 use Illuminate\Http\Request;
@@ -13,12 +14,14 @@ class DoctorController extends Controller
 
     public function __construct(DoctorRepositoryInterface $Doctors)
     {
+
         $this->Doctors = $Doctors;
     }
 
 
     public function index()
     {
+
         return $this->Doctors->index();
     }
 
