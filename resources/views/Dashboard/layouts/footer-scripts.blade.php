@@ -56,21 +56,4 @@
 
 
 
-<script src="https://js.pusher.com/8.4.0/pusher.min.js"></script>
-<script>
-    // Enable pusher logging - don't include this in production
-    Pusher.logToConsole = true;
-
-    var pusher = new Pusher('61a0a7f40696815835e8', {
-        cluster: 'mt1'
-    });
-
-    var channel = pusher.subscribe('my-channel');
-
-    channel.bind('my-event', function(data) {
-        console.log("bla bla bla");
-        // alert(JSON.stringify(data));
-        alert("New notification: " + data.message);
-    });
-</script>
 @livewireScripts

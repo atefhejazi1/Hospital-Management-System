@@ -11,19 +11,25 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class MyEvent implements ShouldBroadcast
+class CreateInvoice implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
-    public $patient_id;
+
+    public $patient;
     public $invoice_id;
-    /**
-     * Create a new event instance.
-     */
+    public $doctor_id;
+    public $message;
+    public $created_at;
+
+
     public function __construct($data)
     {
-        $patient = Patient::find($data['patient_id']);
-        $this->patient_id = $patient->name;
+        $patient = Patient::find($data['patient']);
+        $this->patient = $patient;
+        $this->doctor_id = $data['doctor_id'];
         $this->invoice_id = $data['invoice_id'];
+        $this->message = "كشف جديد : ";
+        $this->created_at = date('Y-m-d H:i:s');
     }
 
     /**
@@ -33,12 +39,13 @@ class MyEvent implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return new Channel('my-channel');
-    }
+        return new PrivateChannel('create-invoice.' . $this->doctor_id);
 
+        // return ['create-invoice'];
+    }
 
     public function broadcastAs()
     {
-        return 'my-event';
+        return 'create-invoice';
     }
 }

@@ -2,13 +2,17 @@
 
 namespace App\Livewire;
 
+use App\Events\CreateInvoice;
+use App\Events\MyEvent;
 use App\Models\Doctor;
 use App\Models\FundAccount;
 use App\Models\Invoice;
+use App\Models\Notification;
 use App\Models\Patient;
 use App\Models\PatientAccount;
 use App\Models\Service;
 use App\Models\single_invoice;
+use Illuminate\Container\Attributes\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
 use Livewire\Component;
@@ -20,6 +24,15 @@ class SingleInvoices extends Component
     public $tax_rate = 17;
     public $updateMode = false;
     public $price, $discount_value = 0, $patient_id, $doctor_id, $section_id, $type, $Service_id, $single_invoice_id, $catchError, $Total_after_discount;
+    public $username;
+
+    public function mount()
+    {
+
+        $this->username = auth()->user()->name;
+    }
+
+
 
     public function render()
     {
@@ -165,6 +178,22 @@ class SingleInvoices extends Component
                     $fund_accounts->save();
                     $this->InvoiceSaved = true;
                     $this->show_table = true;
+
+
+                    $notifications = new Notification();
+                    $notifications->user_id = $this->doctor_id;
+                    $patient = Patient::find($this->patient_id);
+                    $notifications->message = "كشف جديد : " . $patient->name;
+                    $notifications->save();
+
+
+                    $data = [
+                        'patient' => $this->patient_id,
+                        'invoice_id' => $single_invoices->id,
+                        'doctor_id' => $this->doctor_id,
+                    ];
+
+                    event(new CreateInvoice($data));
                 }
                 DB::commit();
             } catch (\Exception $e) {

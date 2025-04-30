@@ -37,7 +37,6 @@ Route::group(
 
         // ############################# Admin Dashboard route ##########################################
         Route::get('/dashboard/admin', function () {
-            event(new MyEvent('hello world'));
 
             return view('Dashboard.Admin.dashboard');
         })->middleware(['auth:admin', 'verified'])->name('dashboard.admin');
