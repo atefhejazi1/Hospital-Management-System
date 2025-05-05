@@ -25,7 +25,7 @@ class CreateInvoice implements ShouldBroadcast
     public function __construct($data)
     {
         $patient = Patient::find($data['patient']);
-        $this->patient = $patient;
+        $this->patient = $patient->name;
         $this->doctor_id = $data['doctor_id'];
         $this->invoice_id = $data['invoice_id'];
         $this->message = "كشف جديد : ";

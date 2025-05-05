@@ -12,7 +12,7 @@ use App\Models\Patient;
 use App\Models\PatientAccount;
 use App\Models\Service;
 use App\Models\single_invoice;
-use Illuminate\Container\Attributes\Auth;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
 use Livewire\Component;
@@ -29,7 +29,7 @@ class SingleInvoices extends Component
     public function mount()
     {
 
-        $this->username = auth()->user()->name;
+        $this->username = Auth::user()->name;
     }
 
 

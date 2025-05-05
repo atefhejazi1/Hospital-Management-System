@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('locale')->index();
             $table->string('name');
-            $table->unique(['appointment_id', 'locale']);
+            $table->unique(['appointment_id','locale']);
             $table->foreignId('appointment_id')->references('id')->on('appointments')->onDelete('cascade');
         });
     }

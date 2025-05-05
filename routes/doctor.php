@@ -5,6 +5,8 @@ use App\Http\Controllers\Dashboard_Doctor\InvoicesController;
 use App\Http\Controllers\Dashboard_Doctor\LaboratorieController;
 use App\Http\Controllers\Dashboard_Doctor\PatientDetailsController;
 use App\Http\Controllers\Dashboard_Doctor\RayController;
+use App\Livewire\Chat\CreateChat;
+use App\Livewire\Chat\Main;
 use Illuminate\Support\Facades\Route;
 use Livewire\Livewire;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
@@ -72,6 +74,16 @@ Route::group(
                 Route::get('patient_details/{id}', [PatientDetailsController::class, 'index'])->name('patient_details');
 
                 //############################# end rays route ######################################
+
+
+
+
+                //############################# Chat route ##########################################
+                Route::get('list/patients', CreateChat::class)->name('list.patients');
+                Route::get('chat/patients', Main::class)->name('chat.patients');
+                //############################# end Chat route ######################################
+
+
                 Route::get('/404', function () {
                     return view('Dashboard.404');
                 })->name('404');

@@ -63,9 +63,6 @@ Route::group(
 
 
             //############################# GroupServices route ##########################################
-            Livewire::setUpdateRoute(function ($handle) {
-                return Route::post('/livewire/update', $handle);
-            });
 
 
             Route::view('Add_GroupServices', 'livewire.GroupServices.include_create')->name('Add_GroupServices');
