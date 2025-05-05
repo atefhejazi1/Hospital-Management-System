@@ -1,11 +1,10 @@
 <div>
-    @if($message === true)
-        <script>
-            alert('تم ارسال تفاصيل الحجز الي المستشفي وسيتم ارسال معلومات الموعد عبر الهاتف والبريد الالكتروني')
-            location.reload()
-        </script>
+    @if ($message === true)
+        <div class="alert alert-secondary" role="alert">
+            تم ارسال تفاصيل الحجز الي المستشفي وسيتم ارسال معلومات الموعد عبر الهاتف والبريد الالكتروني
+        </div>
     @endif
-    <form wire:submit.prevent="store">
+    <form wire:submit="store">
         <div class="row clearfix">
             <div class="col-lg-6 col-md-6 col-sm-12 form-group">
                 <input type="text" name="username" wire:model="name" placeholder="اسمك" required="">
@@ -21,8 +20,8 @@
                 <label for="doctor">الدكتور</label>
                 <select name="doctor" wire:model="doctor" class="form-select" id="doctor">
                     <option value="">-- اختر القسم أولاً --</option>
-                    @foreach($doctors as $doctor)
-                        <option value="{{$doctor->id}}">{{$doctor->name}}</option>
+                    @foreach ($doctors as $doctor)
+                        <option value="{{ $doctor->id }}">{{ $doctor->name }}</option>
                     @endforeach
                 </select>
             </div>
@@ -32,8 +31,8 @@
                 <label for="section">القسم</label>
                 <select class="form-select" name="section" wire:model="section" id="section">
                     <option value="">-- اختار من القائمة --</option>
-                    @foreach($sections as $section)
-                        <option value="{{$section->id}}">{{$section->name}}</option>
+                    @foreach ($sections as $section)
+                        <option value="{{ $section->id }}">{{ $section->name }}</option>
                     @endforeach
 
                 </select>

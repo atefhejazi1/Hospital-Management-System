@@ -2,6 +2,7 @@
 
 use App\Events\MyEvent;
 use App\Http\Controllers\Dashboard\AmbulanceController;
+use App\Http\Controllers\Dashboard\appointments\AppointmentController;
 use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Dashboard\DoctorController;
 use App\Http\Controllers\Dashboard\InsuranceController;
@@ -133,6 +134,10 @@ Route::group(
 
             //############################# end laboratorie_employee route ######################################
 
+
+            Route::get('appointments', [AppointmentController::class, 'index'])->name('appointments.index');
+            Route::put('appointments/approval/{id}', [AppointmentController::class, 'approval'])->name('appointments.approval');
+            Route::get('appointments/approval', [AppointmentController::class, 'index2'])->name('appointments.index2');
         });
 
 

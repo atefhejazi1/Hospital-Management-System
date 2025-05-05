@@ -561,7 +561,9 @@
 
                             <!-- Appointment Form -->
                             <div class="appointment-form">
-                                @livewire('appointments.create')
+                                {{-- @livewire('appointments.create') --}}
+                                <livewire:appointments.create>
+
                             </div>
 
                         </div>

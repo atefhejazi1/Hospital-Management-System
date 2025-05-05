@@ -22,13 +22,16 @@ class Create extends Component
     public function mount()
     {
         $this->sections = Section::get();
-        $this->doctors = collect();
+        // $this->doctors = collect(); // فارغة بالبداية
+        $this->doctors = Doctor::get();
     }
-
 
     public function render()
     {
-        return view('livewire.appointments.create');
+        return view('livewire.appointments.create', [
+            "sections" => $this->sections,
+            "doctors" =>  $this->doctors,
+        ]);
     }
 
 
@@ -39,7 +42,6 @@ class Create extends Component
 
     public function store()
     {
-
         $appointments = new Appointment();
         $appointments->doctor_id = $this->doctor;
         $appointments->section_id = $this->section;
@@ -48,6 +50,6 @@ class Create extends Component
         $appointments->phone = $this->phone;
         $appointments->notes = $this->notes;
         $appointments->save();
-        $this->message = true;
+        $this->message =true;
     }
 }
