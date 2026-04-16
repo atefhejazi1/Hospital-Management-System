@@ -1,4 +1,4 @@
-@extends('Dashboard.layouts.master2')
+@extends('Dashboard.layouts.master')
 @section('css')
     <style>
         .panel {

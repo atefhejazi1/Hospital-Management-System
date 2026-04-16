@@ -28,24 +28,25 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-
-        if (Auth::guard('web')) {
-            return redirect()->intended('/dashboard/user');
-        } elseif (Auth::guard('admin')) {
-            return redirect()->intended('/dashboard/admin');
-        } elseif (Auth::guard('doctor')) {
-            return redirect()->intended('/dashboard/doctor');
-        } elseif (Auth::guard('laboratorie_employee')) {
-            return redirect()->intended('/dashboard/laboratorie_employee');
-        } elseif (Auth::guard('ray_employee')) {
-            return redirect()->intended('/dashboard/ray_employee');
-        } elseif (Auth::guard('patient')) {
-            return redirect()->intended('/dashboard/patient');
+        // Check which guard is authenticated and redirect accordingly
+        if (Auth::guard('admin')->check()) {
+            return redirect()->intended(route('dashboard.admin', absolute: false));
+        } elseif (Auth::guard('doctor')->check()) {
+            return redirect()->intended(route('dashboard.doctor', absolute: false));
+        } elseif (Auth::guard('patient')->check()) {
+            return redirect()->intended(route('dashboard.patient', absolute: false));
+        } elseif (Auth::guard('ray_employee')->check()) {
+            return redirect()->intended(route('dashboard.ray_employee', absolute: false));
+        } elseif (Auth::guard('laboratorie_employee')->check()) {
+            return redirect()->intended(route('dashboard.laboratorie_employee', absolute: false));
+        } elseif (Auth::guard('web')->check()) {
+            return redirect()->intended(route('dashboard.user', absolute: false));
         }
 
-
-        return redirect()->back()->withErrors(['name' => (trans('Dashboard/auth.failed'))]);
-        // return redirect()->intended(route('dashboard.user', absolute: false));
+        // Fallback if no guard is authenticated
+        return redirect()->back()->withErrors([
+            'email' => trans('auth.failed'),
+        ]);
     }
 
     /**
@@ -53,7 +54,13 @@ class AuthenticatedSessionController extends Controller
      */
     public function destroy(Request $request): RedirectResponse
     {
+        // Logout from all possible guards
         Auth::guard('web')->logout();
+        Auth::guard('admin')->logout();
+        Auth::guard('doctor')->logout();
+        Auth::guard('patient')->logout();
+        Auth::guard('ray_employee')->logout();
+        Auth::guard('laboratorie_employee')->logout();
 
         $request->session()->invalidate();
 

@@ -30,7 +30,7 @@ Route::group(
         //################################ dashboard patient ########################################
         Route::get('/dashboard/patient', function () {
             return view('Dashboard.dashboard_patient.dashboard');
-        })->middleware(['auth:patient'])->name('dashboard.patient');
+        })->middleware(['auth:patient', 'verified'])->name('dashboard.patient');
         //################################ end dashboard patient #####################################
 
         Route::middleware(['auth:patient'])->group(function () {

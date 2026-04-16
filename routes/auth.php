@@ -80,8 +80,9 @@ Route::middleware('auth')->group(function () {
 
     Route::put('password', [PasswordController::class, 'update'])->name('password.update');
 
-    Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])
-        ->name('logout');
+    // Logout routes for web/user guard
+    Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
+    Route::post('logout/user', [AuthenticatedSessionController::class, 'destroy'])->name('logout.user');
 });
 
 
@@ -99,13 +100,13 @@ Route::middleware('auth:doctor')->group(function () {
 
 
 Route::middleware('auth:ray_employee')->group(function () {
-    Route::post('logout/ray_employee', [DoctorController::class, 'destroy'])
+    Route::post('logout/ray_employee', [RayEmployeeController::class, 'destroy'])
         ->name('logout.ray_employee');
 });
 
 
 Route::middleware('auth:laboratorie_employee')->group(function () {
-    Route::post('logout/laboratorie_employee', [DoctorController::class, 'destroy'])
+    Route::post('logout/laboratorie_employee', [LaboratorieEmployeeController::class, 'destroy'])
         ->name('logout.laboratorie_employee');
 });
 Route::middleware('auth:patient')->group(function () {

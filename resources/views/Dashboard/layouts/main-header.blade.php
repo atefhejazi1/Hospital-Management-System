@@ -190,41 +190,46 @@
                                 <span class="badge badge-pill badge-warning mr-auto my-auto float-left">Mark All
                                     Read</span>
                             </div>
-                            <p data-count="{{ App\Models\Notification::CountNotification(auth()->user()->id)->count() }}"
-                                class="dropdown-title-text subtext mb-0 text-white op-6 pb-0 tx-12 notif-count">
-                                {{ App\Models\Notification::CountNotification(auth()->user()->id)->count() }}</p>
+                            @if(auth()->check())
+                                <p data-count="{{ App\Models\Notification::CountNotification(auth()->user()->id)->count() }}"
+                                    class="dropdown-title-text subtext mb-0 text-white op-6 pb-0 tx-12 notif-count">
+                                    {{ App\Models\Notification::CountNotification(auth()->user()->id)->count() }}</p>
+                            @else
+                                <p class="dropdown-title-text subtext mb-0 text-white op-6 pb-0 tx-12 notif-count">0</p>
+                            @endif
                         </div>
                         <div class="main-notification-list Notification-scroll">
+                            @if(auth()->check())
+                                <div class="new_message">
+                                    <a class="d-flex p-3 border-bottom" href="#">
+                                        <div class="notifyimg bg-pink">
+                                            <i class="la la-file-alt text-white"></i>
+                                        </div>
+                                        <div class="mr-3">
+                                            <h4 class="notification-label mb-1"></h4>
+                                            <div class="notification-subtext"></div>
+                                        </div>
+                                        <div class="mr-auto">
+                                            <i class="las la-angle-left text-left text-muted"></i>
+                                        </div>
+                                    </a>
+                                </div>
 
-                            <div class="new_message">
-                                <a class="d-flex p-3 border-bottom" href="#">
-                                    <div class="notifyimg bg-pink">
-                                        <i class="la la-file-alt text-white"></i>
-                                    </div>
-                                    <div class="mr-3">
-                                        <h4 class="notification-label mb-1"></h4>
-                                        <div class="notification-subtext"></div>
-                                    </div>
-                                    <div class="mr-auto">
-                                        <i class="las la-angle-left text-left text-muted"></i>
-                                    </div>
-                                </a>
-                            </div>
-
-                            @foreach (App\Models\Notification::where('user_id', auth()->user()->id)->where('reader_status', 0)->get() as $notification)
-                                <a class="d-flex p-3 border-bottom" href="#">
-                                    <div class="notifyimg bg-pink">
-                                        <i class="la la-file-alt text-white"></i>
-                                    </div>
-                                    <div class="mr-3">
-                                        <h5 class="notification-label mb-1">{{ $notification->message }}</h5>
-                                        <div class="notification-subtext">{{ $notification->created_at }}</div>
-                                    </div>
-                                    <div class="mr-auto">
-                                        <i class="las la-angle-left text-left text-muted"></i>
-                                    </div>
-                                </a>
-                            @endforeach
+                                @foreach (App\Models\Notification::where('user_id', auth()->user()->id)->where('reader_status', 0)->get() as $notification)
+                                    <a class="d-flex p-3 border-bottom" href="#">
+                                        <div class="notifyimg bg-pink">
+                                            <i class="la la-file-alt text-white"></i>
+                                        </div>
+                                        <div class="mr-3">
+                                            <h5 class="notification-label mb-1">{{ $notification->message }}</h5>
+                                            <div class="notification-subtext">{{ $notification->created_at }}</div>
+                                        </div>
+                                        <div class="mr-auto">
+                                            <i class="las la-angle-left text-left text-muted"></i>
+                                        </div>
+                                    </a>
+                                @endforeach
+                            @endif
                         </div>
                         <div class="dropdown-footer">
                             <a href="">VIEW ALL</a>
@@ -243,41 +248,42 @@
                     </a>
                 </div>
                 <div class="dropdown main-profile-menu nav nav-item nav-link">
-                    <a class="profile-user d-flex" href=""><img alt=""
-                            src="{{ URL::asset('Dashboard/img/faces/6.jpg') }}"></a>
-                    <div class="dropdown-menu">
-                        <div class="main-header-profile bg-primary p-3">
-                            <div class="d-flex wd-100p">
-                                <div class="main-img-user"><img alt=""
-                                        src="{{ URL::asset('Dashboard/img/faces/6.jpg') }}" class=""></div>
-                                <div class="mr-3 my-auto">
-                                    <h6>{{ auth()->user()->name }}</h6><span>{{ auth()->user()->email }}</span>
+                    @if(auth()->check())
+                        <a class="profile-user d-flex" href=""><img alt=""
+                                src="{{ URL::asset('Dashboard/img/faces/6.jpg') }}"></a>
+                        <div class="dropdown-menu">
+                            <div class="main-header-profile bg-primary p-3">
+                                <div class="d-flex wd-100p">
+                                    <div class="main-img-user"><img alt=""
+                                            src="{{ URL::asset('Dashboard/img/faces/6.jpg') }}" class=""></div>
+                                    <div class="mr-3 my-auto">
+                                        <h6>{{ auth()->user()->name }}</h6><span>{{ auth()->user()->email }}</span>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <a class="dropdown-item" href=""><i class="bx bx-user-circle"></i>الملف الشخصي</a>
-                        <a class="dropdown-item" href=""><i class="bx bx-cog"></i>تعديل الملف الشخصي</a>
-                        @if (auth('web')->check())
-                            <form method="POST" action="{{ route('logout.user') }}">
+                            <a class="dropdown-item" href=""><i class="bx bx-user-circle"></i>الملف الشخصي</a>
+                            <a class="dropdown-item" href=""><i class="bx bx-cog"></i>تعديل الملف الشخصي</a>
+                            @if (auth('web')->check())
+                                <form method="POST" action="{{ route('logout.user') }}" id="logout-form">
                             @elseif(auth('admin')->check())
-                                <form method="POST" action="{{ route('logout.admin') }}">
-                                @elseif(auth('doctor')->check())
-                                    <form method="POST" action="{{ route('logout.doctor') }}">
-                                    @elseif(auth('ray_employee')->check())
-                                        <form method="POST" action="{{ route('logout.ray_employee') }}">
-                                        @elseif(auth('laboratorie_employee')->check())
-                                            <form method="POST" action="{{ route('logout.laboratorie_employee') }}">
-                                            @else
-                                                <form method="POST" action="{{ route('logout.patient') }}">
-                        @endif
-                        @csrf
-                        <a class="dropdown-item" href="#"
-                            onclick="event.preventDefault();
-                                        this.closest('form').submit();"><i
-                                class="bx bx-log-out"></i>تسجيل الخروج</a>
-                        </form>
-
-                    </div>
+                                <form method="POST" action="{{ route('logout.admin') }}" id="logout-form">
+                            @elseif(auth('doctor')->check())
+                                <form method="POST" action="{{ route('logout.doctor') }}" id="logout-form">
+                            @elseif(auth('ray_employee')->check())
+                                <form method="POST" action="{{ route('logout.ray_employee') }}" id="logout-form">
+                            @elseif(auth('laboratorie_employee')->check())
+                                <form method="POST" action="{{ route('logout.laboratorie_employee') }}" id="logout-form">
+                            @else
+                                <form method="POST" action="{{ route('logout.patient') }}" id="logout-form">
+                            @endif
+                                @csrf
+                                <a class="dropdown-item" href="#"
+                                    onclick="event.preventDefault();
+                                            document.getElementById('logout-form').submit();"><i
+                                        class="bx bx-log-out"></i> Logout</a>
+                            </form>
+                        </div>
+                    @endif
                 </div>
                 <div class="dropdown main-header-message right-toggle">
                     <a class="nav-link pr-0" data-toggle="sidebar-left" data-target=".sidebar-left">
@@ -312,21 +318,22 @@
     new_message.hide();
 
     window.addEventListener('DOMContentLoaded', function() {
+        @if(auth()->check())
+            window.Echo.private('create-invoice.{{ auth()->user()->id }}').listen('.create-invoice', (data) => {
+                var newNotificationHtml = `
+           <h4 class="notification-label mb-1">` + data.message + data.patient + `</h4>
+           <div class="notification-subtext">` + data.created_at + `</div>`;
+                new_message.show();
+                notifications.html(newNotificationHtml);
+                notificationsCount += 1;
+                notificationsCountElem.attr('data-count', notificationsCount);
+                notificationsWrapper.find('.notif-count').text(notificationsCount);
+                notificationsWrapper.show();
 
-        window.Echo.private('create-invoice.{{ auth()->user()->id }}').listen('.create-invoice', (data) => {
-            var newNotificationHtml = `
-       <h4 class="notification-label mb-1">` + data.message + data.patient + `</h4>
-       <div class="notification-subtext">` + data.created_at + `</div>`;
-            new_message.show();
-            notifications.html(newNotificationHtml);
-            notificationsCount += 1;
-            notificationsCountElem.attr('data-count', notificationsCount);
-            notificationsWrapper.find('.notif-count').text(notificationsCount);
-            notificationsWrapper.show();
+                console.log();
 
-            console.log();
-
-        });
+            });
+        @endif
     });
 </script>
 

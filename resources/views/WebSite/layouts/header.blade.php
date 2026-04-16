@@ -134,7 +134,7 @@
             <li><a href="#"><span class="fab fa-facebook-f"></span></a></li>
             <li><a href="#"><span class="fab fa-twitter"></span></a></li>
             <li><a href="#"><span class="fab fa-linkedin-in"></span></a></li>
-            <li><a title="تسجيل دخول" href="{{route('dashboard.user')}}"><span class="fas fa-user"></span></a>
+<li><a title="تسجيل دخول" href="@if(auth()->check()){{ route('dashboard.user') }}@else{{ route('login') }}@endif"><span class="fas fa-user"></span></a>
             </li>
 
 

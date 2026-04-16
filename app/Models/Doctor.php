@@ -13,7 +13,20 @@ class Doctor extends Authenticatable
     use Translatable;
     use HasFactory;
     public $translatedAttributes = ['name', 'appointments'];
-    public $fillable = ['email', 'email_verified_at', 'password', 'phone', 'status', 'name',  'section_id'];
+    protected $fillable = ['email', 'email_verified_at', 'password', 'phone', 'status', 'name',  'section_id'];
+
+    protected $hidden = [
+        'password',
+        'remember_token',
+    ];
+
+    protected function casts(): array
+    {
+        return [
+            'email_verified_at' => 'datetime',
+            'password' => 'hashed',
+        ];
+    }
 
     /**
      * Get the Doctor's image.

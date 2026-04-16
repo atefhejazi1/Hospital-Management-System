@@ -28,7 +28,7 @@ Route::group(
 
         Route::get('/dashboard/ray_employee', function () {
             return view('Dashboard.dashboard_RayEmployee.dashboard');
-        })->middleware(['auth:ray_employee'])->name('dashboard.ray_employee');
+        })->middleware(['auth:ray_employee', 'verified'])->name('dashboard.ray_employee');
 
 
         //################################ end dashboard doctor #####################################
