@@ -19,3 +19,4 @@ class RayEmployee extends Authenticatable
             'password' => 'hashed',
         ];
     }
+}

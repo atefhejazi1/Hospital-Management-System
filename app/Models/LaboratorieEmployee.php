@@ -19,3 +19,4 @@ class LaboratorieEmployee extends Authenticatable
             'password' => 'hashed',
         ];
     }
+}
