@@ -1,933 +1,529 @@
-@extends('WebSite.layouts.master')
+@extends('layouts.landing')
 
 @section('content')
-    <!-- Main Slider Three -->
-    <section class="main-slider-three">
-        <div class="banner-carousel">
-            <!-- Swiper -->
-            <div class="swiper-wrapper">
 
-                <div class="swiper-slide slide">
-                    <div class="auto-container">
-                        <div class="row clearfix">
+{{-- ============================================================
+     SECTION 1 · HERO
+     ============================================================ --}}
+<section class="lp-hero" id="home">
+    <div class="hero-orb hero-orb-1"></div>
+    <div class="hero-orb hero-orb-2"></div>
+    <div class="hero-orb hero-orb-3"></div>
 
-                            <!-- Content Column -->
-                            <div class="content-column col-lg-6 col-md-12 col-sm-12">
-                                <div class="inner-column">
-                                    <h2>شريكك الصحي الأكثر ثقة مدى الحياة</h2>
-                                    <div class="text">
-                                        نحن نقدم استشارات مجانية وأفضل إدارة مشروع لك
-                                        الأفكار ، 100٪ التسليم مضمون
-                                    </div>
-                                    <div class="btn-box">
-                                        <a href="contact.html" class="theme-btn appointment-btn"><span class="txt">المواعيد</span></a>
-                                        <a href="services.html" class="theme-btn services-btn">الخدمات</a>
-                                    </div>
-                                </div>
-                            </div>
+    <div class="container hero-content">
+        <div class="row align-items-center">
 
-                            <!-- Image Column -->
-                            <div class="image-column col-lg-6 col-md-12 col-sm-12">
-                                <div class="inner-column">
-                                    <div class="image">
-                                        <img src="{{URL::asset('WebSite/images/main-slider/3.png')}}" alt=""/>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-
-                    </div>
+            {{-- Left: copy --}}
+            <div class="col-lg-6 col-md-12">
+                <div class="hero-badge">
+                    <span class="badge-dot"></span>
+                    Trusted by Healthcare Professionals
                 </div>
 
+                <h1 class="hero-title">
+                    Elevate Patient Care<br>
+                    <span class="highlight">From Every Angle.</span>
+                </h1>
 
-                <div class="swiper-slide slide">
-                    <div class="auto-container">
-                        <div class="row clearfix">
+                <p class="hero-sub">
+                    MediCore HMS unifies patient management, clinical workflows, diagnostics,
+                    billing, and real-time communication — so your team can focus on what
+                    matters most: delivering outstanding care.
+                </p>
 
-                            <!-- Content Column -->
-                            <div class="content-column col-lg-6 col-md-12 col-sm-12">
-                                <div class="inner-column">
-                                    <h2>Your Most Trusted Health Partner For Life.</h2>
-                                    <div class="text">We offer free consulting and the best project management for your
-                                        ideas, 100% delivery guaranteed.
-                                    </div>
-                                    <div class="btn-box">
-                                        <a href="contact.html" class="theme-btn appointment-btn"><span class="txt">Appointment</span></a>
-                                        <a href="services.html" class="theme-btn services-btn">Services</a>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Image Column -->
-                            <div class="image-column col-lg-6 col-md-12 col-sm-12">
-                                <div class="inner-column">
-                                    <div class="image">
-                                        <img src="{{URL::asset('WebSite/images/main-slider/3.jpg')}}" alt=""/>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-
-                    </div>
+                <div class="hero-actions">
+                    <a href="{{ route('login') }}" class="btn-hero-primary">
+                        <i class="fas fa-rocket"></i> Get Started
+                    </a>
+                    <a href="#features" class="btn-hero-secondary">
+                        <i class="fas fa-play-circle"></i> Explore Features
+                    </a>
                 </div>
 
-
-                <div class="swiper-slide slide">
-                    <div class="auto-container">
-                        <div class="row clearfix">
-
-                            <!-- Content Column -->
-                            <div class="content-column col-lg-6 col-md-12 col-sm-12">
-                                <div class="inner-column">
-                                    <h2>Your Most Trusted Health Partner For Life.</h2>
-                                    <div class="text">We offer free consulting and the best project management for your
-                                        ideas, 100% delivery guaranteed.
-                                    </div>
-                                    <div class="btn-box">
-                                        <a href="contact.html" class="theme-btn appointment-btn"><span class="txt">Appointment</span></a>
-                                        <a href="services.html" class="theme-btn services-btn">Services</a>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Image Column -->
-                            <div class="image-column col-lg-6 col-md-12 col-sm-12">
-                                <div class="inner-column">
-                                    <div class="image">
-                                        <img src="{{URL::asset('WebSite/images/main-slider/3.jpg')}}" alt=""/>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-
+                <div class="hero-trust">
+                    <div class="hero-trust-avatars">
+                        <span>DR</span><span>AH</span><span>MN</span><span>SL</span>
                     </div>
+                    <span>Join hundreds of doctors &amp; administrators already on board</span>
                 </div>
-
             </div>
-            <!-- Add Arrows -->
-            <div class="swiper-button-next"></div>
-            <div class="swiper-button-prev"></div>
-        </div>
-    </section>
-    <!-- End Main Slider -->
 
-    <!-- Health Section -->
-    <section class="health-section">
-        <div class="auto-container">
-            <div class="inner-container">
+            {{-- Right: dashboard illustration --}}
+            <div class="col-lg-6 col-md-12 hero-illustration">
+                <div class="position-relative" style="max-width:500px;margin:0 auto;">
 
-                <div class="row clearfix">
-
-                    <!-- Content Column -->
-                    <div class="content-column col-lg-7 col-md-12 col-sm-12">
-                        <div class="inner-column">
-                            <div class="border-line"></div>
-                            <!-- Sec Title -->
-                            <div class="sec-title">
-                                <h2>من نحن <br> الريادة في الصحة</h2>
-                                <div class="separator"></div>
-                            </div>
-                            <div class="text">أين أنت في قلب مهمتنا. نأمل أن تعتبرنا منزلك الطبي - المكان الذي تشعر فيه بالأمان والراحة والرعاية. كمجموعة طبية متعددة التخصصات
-                            </div>
-                            <a href="about.html" class="theme-btn btn-style-one"><span class="txt">المزيد عنا</span></a>
+                    {{-- Main dashboard card --}}
+                    <div class="dashboard-card main-card wow fadeInRight" data-wow-duration="0.7s">
+                        <div class="card-header-bar">
+                            <span class="card-title-text">Hospital Overview</span>
+                            <span class="card-badge-live">Live</span>
                         </div>
-                    </div>
 
-                    <!-- Image Column -->
-                    <div class="image-column col-lg-5 col-md-12 col-sm-12">
-                        <div class="inner-column wow fadeInRight" data-wow-delay="0ms" data-wow-duration="1500ms">
-                            <div class="image">
-                                <img src="{{URL::asset('WebSite/images/resource/image-3.jpg')}}" alt=""/>
+                        <div class="stat-row">
+                            <div class="stat-item">
+                                <span class="stat-num">247</span>
+                                <span class="stat-lbl">Patients</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-num">38</span>
+                                <span class="stat-lbl">Doctors</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-num">12</span>
+                                <span class="stat-lbl">Depts</span>
                             </div>
                         </div>
-                    </div>
 
-                </div>
-
-            </div>
-        </div>
-    </section>
-    <!-- End Health Section -->
-
-    <!-- Featured Section -->
-    <section class="featured-section">
-        <div class="auto-container">
-            <div class="row clearfix">
-
-                <!-- Feature Block -->
-                <div class="feature-block col-lg-3 col-md-6 col-sm-12">
-                    <div class="inner-box wow fadeInLeft" data-wow-delay="0ms" data-wow-duration="1500ms">
-                        <div class="upper-box">
-                            <div class="icon flaticon-doctor-stethoscope"></div>
-                            <h3><a href="#">العلاج الطبي</a></h3>
+                        <div style="margin-bottom:8px;">
+                            <div class="chart-bars">
+                                <div class="chart-bar" style="height:35%"></div>
+                                <div class="chart-bar" style="height:55%"></div>
+                                <div class="chart-bar active" style="height:80%"></div>
+                                <div class="chart-bar" style="height:65%"></div>
+                                <div class="chart-bar" style="height:90%"></div>
+                                <div class="chart-bar active" style="height:75%"></div>
+                                <div class="chart-bar" style="height:50%"></div>
+                            </div>
+                            <div class="chart-labels">
+                                <span>Mon</span><span>Tue</span><span>Wed</span>
+                                <span>Thu</span><span>Fri</span><span>Sat</span><span>Sun</span>
+                            </div>
                         </div>
-                        <div class="text">سواء أكنت تتخذ خطواتك الأولى ، أو مجرد إيجاد خطوتك</div>
-                    </div>
-                </div>
 
-                <!-- Feature Block -->
-                <div class="feature-block col-lg-3 col-md-6 col-sm-12">
-                    <div class="inner-box wow fadeInLeft" data-wow-delay="250ms" data-wow-duration="1500ms">
-                        <div class="upper-box">
-                            <div class="icon flaticon-ambulance-side-view"></div>
-                            <h3><a href="#">مساعدة الطوارئ</a></h3>
-                        </div>
-                        <div class="text">سواء أكنت تتخذ خطواتك الأولى ، أو مجرد إيجاد خطوتك</div>
-                    </div>
-                </div>
-
-                <!-- Feature Block -->
-                <div class="feature-block col-lg-3 col-md-6 col-sm-12">
-                    <div class="inner-box wow fadeInLeft" data-wow-delay="500ms" data-wow-duration="1500ms">
-                        <div class="upper-box">
-                            <div class="icon fas fa-user-md"></div>
-                            <h3><a href="#">أطباء مؤهلين</a></h3>
-                        </div>
-                        <div class="text">سواء أكنت تتخذ خطواتك الأولى ، أو مجرد إيجاد خطوتك</div>
-                    </div>
-                </div>
-
-                <!-- Feature Block -->
-                <div class="feature-block col-lg-3 col-md-6 col-sm-12">
-                    <div class="inner-box wow fadeInLeft" data-wow-delay="750ms" data-wow-duration="1500ms">
-                        <div class="upper-box">
-                            <div class="icon fas fa-briefcase-medical"></div>
-                            <h3><a href="#">محترفين طبيا</a></h3>
-                        </div>
-                        <div class="text">سواء أكنت تتخذ خطواتك الأولى ، أو مجرد إيجاد خطوتك</div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </section>
-    <!-- End Featured Section -->
-
-    <!-- Department Section Three -->
-    <section class="department-section-three">
-        <div class="image-layer" style="background-image:url(images/background/6.jpg)"></div>
-        <div class="auto-container">
-            <!-- Department Tabs-->
-            <div class="department-tabs tabs-box">
-                <div class="row clearfix">
-                    <!--Column-->
-                    <div class="col-lg-4 col-md-12 col-sm-12">
-                        <!-- Sec Title -->
-                        <div class="sec-title light">
-                            <h2>الاقسام</h2>
-                            <div class="separator"></div>
-                        </div>
-                        <!--Tab Btns-->
-                        <ul class="tab-btns tab-buttons clearfix">
-                            <li data-tab="#tab-urology" class="tab-btn active-btn">قسم المسالك البولية</li>
-                            <li data-tab="#tab-department" class="tab-btn">قسم المخ والأعصاب</li>
-                            <li data-tab="#tab-gastrology" class="tab-btn">قسم أمراض الجهاز الهضمي</li>
-                            <li data-tab="#tab-cardiology" class="tab-btn">قسم أمراض القلب</li>
-                            <li data-tab="#tab-eye" class="tab-btn">قسم العناية بالعيون</li>
+                        <ul class="mini-list" style="margin-top:12px;">
+                            <li>
+                                <span><i class="fas fa-user-md" style="margin-right:6px;opacity:.7;"></i> Dr. Nadia Al-Rashid</span>
+                                <span class="pill pill-green">Available</span>
+                            </li>
+                            <li>
+                                <span><i class="fas fa-calendar-check" style="margin-right:6px;opacity:.7;"></i> Next Appointment</span>
+                                <span class="pill pill-blue">10:30 AM</span>
+                            </li>
+                            <li>
+                                <span><i class="fas fa-flask" style="margin-right:6px;opacity:.7;"></i> Lab Results</span>
+                                <span class="pill pill-yellow">Pending</span>
+                            </li>
                         </ul>
                     </div>
-                    <!--Column-->
-                    <div class="col-lg-8 col-md-12 col-sm-12">
-                        <!--Tabs Container-->
-                        <div class="tabs-content">
 
-                            <!-- Tab -->
-                            <div class="tab" id="tab-urology">
-                                <div class="content">
-                                    <h2>قسم المسالك البولية</h2>
-                                    <div class="title">Department of Neurology</div>
-                                    <div class="text">
-                                        <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo
-                                            ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis
-                                            parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec,
-                                            pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec
-                                            pede justo, fringilla vel, aliquet nec, vulputate eget, arcu.</p>
-                                        <p>Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet
-                                            nec, vulputate eget, arcu.</p>
-                                    </div>
-                                    <div class="two-column row clearfix">
-                                        <div class="column col-lg-6 col-md-6 col-sm-12">
-                                            <h3>01 - Neurology Service</h3>
-                                            <div class="column-text">Lorem ipsum dolor sit amet, consectetuer adipiscing
-                                                elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque
-                                                penatibus
-                                            </div>
-                                        </div>
-                                        <div class="column col-lg-6 col-md-6 col-sm-12">
-                                            <h3>02 - Neurology Service</h3>
-                                            <div class="column-text">Lorem ipsum dolor sit amet, consectetuer adipiscing
-                                                elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque
-                                                penatibus
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <a href="doctors-detail.html" class="theme-btn btn-style-two"><span class="txt">View More</span></a>
-                                </div>
-                            </div>
+                    {{-- Floating micro-cards --}}
+                    <div class="floating-card float-1 wow fadeInLeft" data-wow-delay="0.4s" data-wow-duration="0.6s">
+                        <span class="fc-icon fc-green"><i class="fas fa-check"></i></span>
+                        Appointment Confirmed
+                    </div>
 
-                            <!-- Tab -->
-                            <div class="tab active-tab" id="tab-department">
-                                <div class="content">
-                                    <h2>Neurology Department</h2>
-                                    <div class="title">Department of Neurology</div>
-                                    <div class="text">
-                                        <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo
-                                            ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis
-                                            parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec,
-                                            pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec
-                                            pede justo, fringilla vel, aliquet nec, vulputate eget, arcu.</p>
-                                        <p>Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet
-                                            nec, vulputate eget, arcu.</p>
-                                    </div>
-                                    <div class="two-column row clearfix">
-                                        <div class="column col-lg-6 col-md-6 col-sm-12">
-                                            <h3>01 - Neurology Service</h3>
-                                            <div class="column-text">Lorem ipsum dolor sit amet, consectetuer adipiscing
-                                                elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque
-                                                penatibus
-                                            </div>
-                                        </div>
-                                        <div class="column col-lg-6 col-md-6 col-sm-12">
-                                            <h3>02 - Neurology Service</h3>
-                                            <div class="column-text">Lorem ipsum dolor sit amet, consectetuer adipiscing
-                                                elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque
-                                                penatibus
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <a href="doctors-detail.html" class="theme-btn btn-style-two"><span class="txt">View More</span></a>
-                                </div>
-                            </div>
+                    <div class="floating-card float-2 wow fadeInRight" data-wow-delay="0.6s" data-wow-duration="0.6s">
+                        <span class="fc-icon fc-blue"><i class="fas fa-file-medical"></i></span>
+                        Lab Report Ready
+                    </div>
 
-                            <!-- Tab -->
-                            <div class="tab" id="tab-gastrology">
-                                <div class="content">
-                                    <h2>Gastrology Department</h2>
-                                    <div class="title">Department of Neurology</div>
-                                    <div class="text">
-                                        <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo
-                                            ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis
-                                            parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec,
-                                            pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec
-                                            pede justo, fringilla vel, aliquet nec, vulputate eget, arcu.</p>
-                                        <p>Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet
-                                            nec, vulputate eget, arcu.</p>
-                                    </div>
-                                    <div class="two-column row clearfix">
-                                        <div class="column col-lg-6 col-md-6 col-sm-12">
-                                            <h3>01 - Neurology Service</h3>
-                                            <div class="column-text">Lorem ipsum dolor sit amet, consectetuer adipiscing
-                                                elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque
-                                                penatibus
-                                            </div>
-                                        </div>
-                                        <div class="column col-lg-6 col-md-6 col-sm-12">
-                                            <h3>02 - Neurology Service</h3>
-                                            <div class="column-text">Lorem ipsum dolor sit amet, consectetuer adipiscing
-                                                elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque
-                                                penatibus
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <a href="doctors-detail.html" class="theme-btn btn-style-two"><span class="txt">View More</span></a>
-                                </div>
-                            </div>
+                    <div class="floating-card float-3 wow fadeInRight" data-wow-delay="0.8s" data-wow-duration="0.6s">
+                        <span class="fc-icon fc-purple"><i class="fas fa-comment-dots"></i></span>
+                        New Message
+                    </div>
+                </div>
+            </div>
 
-                            <!-- Tab -->
-                            <div class="tab" id="tab-cardiology">
-                                <div class="content">
-                                    <h2>Cardiology Department</h2>
-                                    <div class="title">Department of Neurology</div>
-                                    <div class="text">
-                                        <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo
-                                            ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis
-                                            parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec,
-                                            pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec
-                                            pede justo, fringilla vel, aliquet nec, vulputate eget, arcu.</p>
-                                        <p>Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet
-                                            nec, vulputate eget, arcu.</p>
-                                    </div>
-                                    <div class="two-column row clearfix">
-                                        <div class="column col-lg-6 col-md-6 col-sm-12">
-                                            <h3>01 - Neurology Service</h3>
-                                            <div class="column-text">Lorem ipsum dolor sit amet, consectetuer adipiscing
-                                                elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque
-                                                penatibus
-                                            </div>
-                                        </div>
-                                        <div class="column col-lg-6 col-md-6 col-sm-12">
-                                            <h3>02 - Neurology Service</h3>
-                                            <div class="column-text">Lorem ipsum dolor sit amet, consectetuer adipiscing
-                                                elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque
-                                                penatibus
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <a href="doctors-detail.html" class="theme-btn btn-style-two"><span class="txt">View More</span></a>
-                                </div>
-                            </div>
+        </div>
+    </div>
+</section>
 
-                            <!-- Tab -->
-                            <div class="tab" id="tab-eye">
-                                <div class="content">
-                                    <h2>Eye Care Department</h2>
-                                    <div class="title">Department of Neurology</div>
-                                    <div class="text">
-                                        <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo
-                                            ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis
-                                            parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec,
-                                            pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec
-                                            pede justo, fringilla vel, aliquet nec, vulputate eget, arcu.</p>
-                                        <p>Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet
-                                            nec, vulputate eget, arcu.</p>
-                                    </div>
-                                    <div class="two-column row clearfix">
-                                        <div class="column col-lg-6 col-md-6 col-sm-12">
-                                            <h3>01 - Neurology Service</h3>
-                                            <div class="column-text">Lorem ipsum dolor sit amet, consectetuer adipiscing
-                                                elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque
-                                                penatibus
-                                            </div>
-                                        </div>
-                                        <div class="column col-lg-6 col-md-6 col-sm-12">
-                                            <h3>02 - Neurology Service</h3>
-                                            <div class="column-text">Lorem ipsum dolor sit amet, consectetuer adipiscing
-                                                elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque
-                                                penatibus
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <a href="doctors-detail.html" class="theme-btn btn-style-two"><span class="txt">View More</span></a>
-                                </div>
-                            </div>
+{{-- Wave divider --}}
+<div class="wave-divider" style="background:var(--gradient);margin-bottom:-2px;">
+    <svg viewBox="0 0 1440 60" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M0,60 C360,0 1080,60 1440,0 L1440,60 Z" fill="#f8faff"/>
+    </svg>
+</div>
 
+
+{{-- ============================================================
+     SECTION 2 · FEATURES
+     ============================================================ --}}
+<section class="lp-features section-pad" id="features">
+    <div class="container">
+
+        <div class="text-center mb-5">
+            <div class="sec-eyebrow"><i class="fas fa-th-large"></i> System Modules</div>
+            <h2 class="sec-title">Everything a Modern Hospital <span>Needs</span></h2>
+            <p class="sec-subtitle">
+                From patient intake to final billing — every module is purpose-built,
+                tightly integrated, and designed for real clinical environments.
+            </p>
+        </div>
+
+        <div class="row">
+
+            {{-- 1 --}}
+            <div class="col-lg-4 col-md-6 mb-4 wow fadeInUp" data-wow-delay="0.05s">
+                <div class="feature-card">
+                    <div class="feature-icon-wrap"><i class="fas fa-user-injured"></i></div>
+                    <h4>Patient Management</h4>
+                    <p>Maintain complete patient profiles — demographics, medical history, insurance, and linked financial accounts — all in one structured record.</p>
+                </div>
+            </div>
+
+            {{-- 2 --}}
+            <div class="col-lg-4 col-md-6 mb-4 wow fadeInUp" data-wow-delay="0.1s">
+                <div class="feature-card">
+                    <div class="feature-icon-wrap"><i class="fas fa-calendar-alt"></i></div>
+                    <h4>Appointment Scheduling</h4>
+                    <p>Patients book directly online; admins approve or redirect. SMS and email confirmations keep everyone in sync before the visit.</p>
+                </div>
+            </div>
+
+            {{-- 3 --}}
+            <div class="col-lg-4 col-md-6 mb-4 wow fadeInUp" data-wow-delay="0.15s">
+                <div class="feature-card">
+                    <div class="feature-icon-wrap"><i class="fas fa-user-md"></i></div>
+                    <h4>Doctor Portal</h4>
+                    <p>Dedicated doctor dashboard for viewing assigned patients, recording diagnoses, ordering diagnostics, and tracking personal schedules.</p>
+                </div>
+            </div>
+
+            {{-- 4 --}}
+            <div class="col-lg-4 col-md-6 mb-4 wow fadeInUp" data-wow-delay="0.05s">
+                <div class="feature-card">
+                    <div class="feature-icon-wrap"><i class="fas fa-flask"></i></div>
+                    <h4>Laboratory Management</h4>
+                    <p>Lab employees process test requests, record results, and attach reports to patient records — creating a seamless diagnostic chain.</p>
+                </div>
+            </div>
+
+            {{-- 5 --}}
+            <div class="col-lg-4 col-md-6 mb-4 wow fadeInUp" data-wow-delay="0.1s">
+                <div class="feature-card">
+                    <div class="feature-icon-wrap"><i class="fas fa-x-ray"></i></div>
+                    <h4>Radiology &amp; X-Ray</h4>
+                    <p>Radiology staff manage imaging requests and attach scan results directly to invoices and patient records for instant physician access.</p>
+                </div>
+            </div>
+
+            {{-- 6 --}}
+            <div class="col-lg-4 col-md-6 mb-4 wow fadeInUp" data-wow-delay="0.15s">
+                <div class="feature-card">
+                    <div class="feature-icon-wrap"><i class="fas fa-file-invoice-dollar"></i></div>
+                    <h4>Billing &amp; Invoicing</h4>
+                    <p>Generate single-service and grouped invoices, track payment and receipt accounts, and produce printable financial summaries on demand.</p>
+                </div>
+            </div>
+
+            {{-- 7 --}}
+            <div class="col-lg-4 col-md-6 mb-4 wow fadeInUp" data-wow-delay="0.05s">
+                <div class="feature-card">
+                    <div class="feature-icon-wrap"><i class="fas fa-shield-alt"></i></div>
+                    <h4>Insurance Management</h4>
+                    <p>Register insurance providers, link them to patient profiles, and automatically apply coverage rules during invoice generation.</p>
+                </div>
+            </div>
+
+            {{-- 8 --}}
+            <div class="col-lg-4 col-md-6 mb-4 wow fadeInUp" data-wow-delay="0.1s">
+                <div class="feature-card">
+                    <div class="feature-icon-wrap"><i class="fas fa-comments"></i></div>
+                    <h4>Real-Time Messaging</h4>
+                    <p>Secure, instant chat between doctors and patients via Laravel Echo &amp; Pusher — no third-party apps, no lost context, full history preserved.</p>
+                </div>
+            </div>
+
+            {{-- 9 --}}
+            <div class="col-lg-4 col-md-6 mb-4 wow fadeInUp" data-wow-delay="0.15s">
+                <div class="feature-card">
+                    <div class="feature-icon-wrap"><i class="fas fa-ambulance"></i></div>
+                    <h4>Ambulance Services</h4>
+                    <p>Track and manage the hospital's ambulance fleet — dispatch records, availability status, and maintenance logs all in one place.</p>
+                </div>
+            </div>
+
+            {{-- 10 --}}
+            <div class="col-lg-4 col-md-6 mb-4 wow fadeInUp" data-wow-delay="0.05s">
+                <div class="feature-card">
+                    <div class="feature-icon-wrap"><i class="fas fa-hospital-alt"></i></div>
+                    <h4>Department Management</h4>
+                    <p>Configure hospital sections, assign specialist doctors, and control which services are offered per department — fully multi-lingual.</p>
+                </div>
+            </div>
+
+            {{-- 11 --}}
+            <div class="col-lg-4 col-md-6 mb-4 wow fadeInUp" data-wow-delay="0.1s">
+                <div class="feature-card">
+                    <div class="feature-icon-wrap"><i class="fas fa-chart-line"></i></div>
+                    <h4>Financial Accounts</h4>
+                    <p>Dual-entry fund tracking across payment and receipt accounts gives administrators a real-time view of the hospital's financial health.</p>
+                </div>
+            </div>
+
+            {{-- 12 --}}
+            <div class="col-lg-4 col-md-6 mb-4 wow fadeInUp" data-wow-delay="0.15s">
+                <div class="feature-card">
+                    <div class="feature-icon-wrap"><i class="fas fa-users-cog"></i></div>
+                    <h4>Multi-Role Access</h4>
+                    <p>Five distinct dashboards — Admin, Doctor, Patient, Lab Staff, and Radiology Staff — each with role-scoped permissions and workflows.</p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+
+{{-- Wave divider --}}
+<div class="wave-divider" style="background:var(--light-bg);">
+    <svg viewBox="0 0 1440 60" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M0,0 C480,60 960,0 1440,60 L1440,0 Z" fill="white"/>
+    </svg>
+</div>
+
+
+{{-- ============================================================
+     SECTION 3 · STATS
+     ============================================================ --}}
+<section class="lp-stats section-pad-sm" id="stats">
+    <div class="container">
+        <div class="row text-center">
+
+            <div class="col-lg-3 col-md-6">
+                <div class="stat-counter-card wow fadeInUp" data-wow-delay="0s">
+                    <div class="stat-icon"><i class="fas fa-user-injured"></i></div>
+                    <span class="stat-number" data-count="5000" data-suffix="+">0+</span>
+                    <span class="stat-label">Patients Managed</span>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-6">
+                <div class="stat-counter-card wow fadeInUp" data-wow-delay="0.1s">
+                    <div class="stat-icon"><i class="fas fa-user-md"></i></div>
+                    <span class="stat-number" data-count="120" data-suffix="+">0+</span>
+                    <span class="stat-label">Specialist Doctors</span>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-6">
+                <div class="stat-counter-card wow fadeInUp" data-wow-delay="0.2s">
+                    <div class="stat-icon"><i class="fas fa-hospital-alt"></i></div>
+                    <span class="stat-number" data-count="24" data-suffix="">0</span>
+                    <span class="stat-label">Active Departments</span>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-6">
+                <div class="stat-counter-card wow fadeInUp" data-wow-delay="0.3s">
+                    <div class="stat-icon"><i class="fas fa-calendar-check"></i></div>
+                    <span class="stat-number" data-count="15000" data-suffix="+">0+</span>
+                    <span class="stat-label">Appointments Booked</span>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+
+{{-- Wave divider --}}
+<div class="wave-divider" style="background:var(--gradient);">
+    <svg viewBox="0 0 1440 60" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M0,60 C480,0 960,60 1440,0 L1440,60 Z" fill="white"/>
+    </svg>
+</div>
+
+
+{{-- ============================================================
+     SECTION 4 · HOW IT WORKS
+     ============================================================ --}}
+<section class="lp-how section-pad" id="how-it-works">
+    <div class="container">
+
+        <div class="text-center mb-5">
+            <div class="sec-eyebrow"><i class="fas fa-route"></i> The Workflow</div>
+            <h2 class="sec-title">How <span>MediCore HMS</span> Works</h2>
+            <p class="sec-subtitle">
+                Three clearly defined roles — each with their own streamlined workflow —
+                working together seamlessly on a single platform.
+            </p>
+        </div>
+
+        <div class="row justify-content-center">
+
+            {{-- Step 1: Admin --}}
+            <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
+                <div class="step-card wow fadeInUp" data-wow-delay="0.05s">
+                    <div class="step-connector"></div>
+                    <div class="step-number">1</div>
+                    <div class="step-role-tag">Administrator</div>
+                    <div class="step-icon"><i class="fas fa-cogs"></i></div>
+                    <h4>Configure &amp; Onboard</h4>
+                    <p>The admin sets up hospital departments, registers doctors and support staff, configures medical services, insurance providers, and ambulance resources. The entire system operates from this control center.</p>
+                </div>
+            </div>
+
+            {{-- Step 2: Patient --}}
+            <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
+                <div class="step-card wow fadeInUp" data-wow-delay="0.15s">
+                    <div class="step-connector"></div>
+                    <div class="step-number">2</div>
+                    <div class="step-role-tag">Patient</div>
+                    <div class="step-icon"><i class="fas fa-calendar-plus"></i></div>
+                    <h4>Register &amp; Book</h4>
+                    <p>Patients create an account, browse available doctors and departments, and request appointments online. They receive SMS and email confirmations and can chat directly with their assigned physician.</p>
+                </div>
+            </div>
+
+            {{-- Step 3: Doctor / Clinical Staff --}}
+            <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
+                <div class="step-card wow fadeInUp" data-wow-delay="0.25s">
+                    <div class="step-number">3</div>
+                    <div class="step-role-tag">Doctor &amp; Clinical Staff</div>
+                    <div class="step-icon"><i class="fas fa-stethoscope"></i></div>
+                    <h4>Diagnose &amp; Document</h4>
+                    <p>Doctors review appointments, record diagnoses, and order lab or imaging tests. Lab and radiology staff process results and attach them to the patient record, while billing is generated automatically.</p>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</section>
+
+
+{{-- Subtle divider --}}
+<div style="background:var(--light-bg);height:1px;"></div>
+
+
+{{-- ============================================================
+     SECTION 5 · TESTIMONIALS
+     ============================================================ --}}
+<section class="lp-testimonials section-pad">
+    <div class="container">
+
+        <div class="text-center mb-5">
+            <div class="sec-eyebrow"><i class="fas fa-quote-left"></i> Testimonials</div>
+            <h2 class="sec-title">Trusted by the <span>People Inside the Hospital</span></h2>
+            <p class="sec-subtitle">
+                From surgeons to administrators — here is what the people using
+                MediCore HMS every day have to say.
+            </p>
+        </div>
+
+        <div class="row">
+
+            {{-- Testimonial 1 --}}
+            <div class="col-lg-4 col-md-6 mb-4 wow fadeInUp" data-wow-delay="0.05s">
+                <div class="testimonial-card">
+                    <span class="testimonial-quote-mark">&ldquo;</span>
+                    <div class="testimonial-stars">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i>
+                    </div>
+                    <p class="testimonial-text">
+                        "Before MediCore, tracking lab orders and diagnostic results meant endless
+                        phone calls and paper printouts. Now everything lands in the patient record
+                        automatically. I spend more time with patients and less time chasing paperwork."
+                    </p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar av-1">NR</div>
+                        <div>
+                            <p class="author-name">Dr. Nadia Al-Rashid</p>
+                            <p class="author-role">Senior Cardiologist</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {{-- Testimonial 2 --}}
+            <div class="col-lg-4 col-md-6 mb-4 wow fadeInUp" data-wow-delay="0.15s">
+                <div class="testimonial-card">
+                    <span class="testimonial-quote-mark">&ldquo;</span>
+                    <div class="testimonial-stars">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i>
+                    </div>
+                    <p class="testimonial-text">
+                        "Managing five departments, dozens of doctors, and real-time billing used to
+                        require a team of five. With the admin dashboard, one administrator can oversee
+                        the entire operation — from insurance claims to ambulance dispatch — in a
+                        single view."
+                    </p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar av-2">KM</div>
+                        <div>
+                            <p class="author-name">Khalid Al-Mansoori</p>
+                            <p class="author-role">Hospital Administrator</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {{-- Testimonial 3 --}}
+            <div class="col-lg-4 col-md-6 mb-4 wow fadeInUp" data-wow-delay="0.25s">
+                <div class="testimonial-card">
+                    <span class="testimonial-quote-mark">&ldquo;</span>
+                    <div class="testimonial-stars">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+                    </div>
+                    <p class="testimonial-text">
+                        "I booked my first appointment in under two minutes and received an SMS
+                        confirmation straight away. When I needed follow-up, I just messaged my
+                        doctor directly through the app. This is exactly how healthcare should feel."
+                    </p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar av-3">SC</div>
+                        <div>
+                            <p class="author-name">Sara Chaudhary</p>
+                            <p class="author-role">Patient — General Medicine</p>
                         </div>
                     </div>
                 </div>
             </div>
 
         </div>
-    </section>
-    <!-- End Department Section -->
+    </div>
+</section>
 
-    <!-- Team Section -->
-    <section class="team-section">
-        <div class="auto-container">
 
-            <!-- Sec Title -->
-            <div class="sec-title centered">
-                <h2>الأخصائيون الطبيون</h2>
-                <div class="separator"></div>
+{{-- ============================================================
+     SECTION 6 · CALL TO ACTION
+     ============================================================ --}}
+<section class="lp-cta section-pad">
+    <div class="container">
+        <div class="cta-inner">
+
+            {{-- Decorative medical SVG --}}
+            <div style="margin-bottom:24px;">
+                <svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect width="64" height="64" rx="16" fill="rgba(255,255,255,0.15)"/>
+                    <path d="M32 18v28M18 32h28" stroke="white" stroke-width="4" stroke-linecap="round"/>
+                    <circle cx="32" cy="32" r="14" stroke="rgba(255,255,255,0.4)" stroke-width="2"/>
+                </svg>
             </div>
 
-            <div class="row clearfix">
+            <h2 class="cta-title">
+                Ready to Transform<br>Your Hospital Operations?
+            </h2>
+            <p class="cta-sub">
+                Get your entire clinical team — doctors, lab staff, radiology, admin,
+                and patients — working on one integrated platform today.
+            </p>
 
-                <!-- Team Block -->
-                <div class="team-block col-lg-3 col-md-6 col-sm-6 col-xs-12">
-                    <div class="inner-box wow fadeInLeft" data-wow-delay="0ms" data-wow-duration="1500ms">
-                        <div class="image">
-                            <img src="images/resource/team-1.jpg" alt=""/>
-                            <div class="overlay-box">
-                                <ul class="social-icons">
-                                    <li><a href="#"><span class="fab fa-facebook-f"></span></a></li>
-                                    <li><a href="#"><span class="fab fa-google"></span></a></li>
-                                    <li><a href="#"><span class="fab fa-twitter"></span></a></li>
-                                    <li><a href="#"><span class="fab fa-skype"></span></a></li>
-                                    <li><a href="#"><span class="fab fa-linkedin-in"></span></a></li>
-                                </ul>
-                                <a href="#" class="appointment">Make Appointment</a>
-                            </div>
-                        </div>
-                        <div class="lower-content">
-                            <h3><a href="#">الدكتورة أندريا جونيا</a></h3>
-                            <div class="designation">أخصائي السرطان</div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Team Block -->
-                <div class="team-block col-lg-3 col-md-6 col-sm-6 col-xs-12">
-                    <div class="inner-box wow fadeInLeft" data-wow-delay="250ms" data-wow-duration="1500ms">
-                        <div class="image">
-                            <img src="images/resource/team-2.jpg" alt=""/>
-                            <div class="overlay-box">
-                                <ul class="social-icons">
-                                    <li><a href="#"><span class="fab fa-facebook-f"></span></a></li>
-                                    <li><a href="#"><span class="fab fa-google"></span></a></li>
-                                    <li><a href="#"><span class="fab fa-twitter"></span></a></li>
-                                    <li><a href="#"><span class="fab fa-skype"></span></a></li>
-                                    <li><a href="#"><span class="fab fa-linkedin-in"></span></a></li>
-                                </ul>
-                                <a href="#" class="appointment">Make Appointment</a>
-                            </div>
-                        </div>
-                        <div class="lower-content">
-                            <h3><a href="#">د. روبت سميث</a></h3>
-                            <div class="designation">جراح قلب</div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Team Block -->
-                <div class="team-block col-lg-3 col-md-6 col-sm-6 col-xs-12">
-                    <div class="inner-box wow fadeInLeft" data-wow-delay="500ms" data-wow-duration="1500ms">
-                        <div class="image">
-                            <img src="images/resource/team-3.jpg" alt=""/>
-                            <div class="overlay-box">
-                                <ul class="social-icons">
-                                    <li><a href="#"><span class="fab fa-facebook-f"></span></a></li>
-                                    <li><a href="#"><span class="fab fa-google"></span></a></li>
-                                    <li><a href="#"><span class="fab fa-twitter"></span></a></li>
-                                    <li><a href="#"><span class="fab fa-skype"></span></a></li>
-                                    <li><a href="#"><span class="fab fa-linkedin-in"></span></a></li>
-                                </ul>
-                                <a href="#" class="appointment">Make Appointment</a>
-                            </div>
-                        </div>
-                        <div class="lower-content">
-                            <h3><a href="#">دكتور ويل لورا</a></h3>
-                            <div class="designation">طبيب الأسرة</div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Team Block -->
-                <div class="team-block col-lg-3 col-md-6 col-sm-6 col-xs-12">
-                    <div class="inner-box wow fadeInLeft" data-wow-delay="750ms" data-wow-duration="1500ms">
-                        <div class="image">
-                            <img src="images/resource/team-4.jpg" alt=""/>
-                            <div class="overlay-box">
-                                <ul class="social-icons">
-                                    <li><a href="#"><span class="fab fa-facebook-f"></span></a></li>
-                                    <li><a href="#"><span class="fab fa-google"></span></a></li>
-                                    <li><a href="#"><span class="fab fa-twitter"></span></a></li>
-                                    <li><a href="#"><span class="fab fa-skype"></span></a></li>
-                                    <li><a href="#"><span class="fab fa-linkedin-in"></span></a></li>
-                                </ul>
-                                <a href="#" class="appointment">Make Appointment</a>
-                            </div>
-                        </div>
-                        <div class="lower-content">
-                            <h3><a href="#">الدكتور أليكس فورغسين</a></h3>
-                            <div class="designation">أخصائي تقويم العظام</div>
-                        </div>
-                    </div>
-                </div>
-
+            <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap;">
+                <a href="{{ route('login') }}" class="btn-cta">
+                    <i class="fas fa-sign-in-alt"></i> Login Now
+                </a>
+                <a href="{{ route('register') }}" class="btn-cta" style="background:transparent;color:white;border:2px solid rgba(255,255,255,0.45);">
+                    <i class="fas fa-user-plus"></i> Create Account
+                </a>
             </div>
+
+            <p style="color:rgba(255,255,255,0.5);font-size:.82rem;margin-top:20px;">
+                <i class="fas fa-lock" style="margin-right:4px;"></i>
+                Secure multi-role authentication &nbsp;&middot;&nbsp;
+                <i class="fas fa-bolt" style="margin-right:4px;"></i>
+                Real-time updates &nbsp;&middot;&nbsp;
+                <i class="fas fa-language" style="margin-right:4px;"></i>
+                Arabic &amp; English support
+            </p>
 
         </div>
-    </section>
-    <!-- End Team Section -->
+    </div>
+</section>
 
-    <!-- Video Section -->
-    <section class="video-section" style="background-image:url(images/background/5.jpg)">
-        <div class="auto-container">
-            <div class="content">
-                <a href="https://www.youtube.com/watch?v=kxPCFljwJws" class="lightbox-image play-box"><span
-                        class="flaticon-play-button"><i class="ripple"></i></span></a>
-                <div class="text">نحن نهتم بصحتك<h2>نحن نهتم بك</h2>
-                </div>
-            </div>
-    </section>
-    <!-- End Video Section -->
-
-    <!-- Appointment Section Two -->
-    <section class="appointment-section-two">
-        <div class="auto-container">
-            <div class="inner-container">
-                <div class="row clearfix">
-
-                    <!-- Image Column -->
-                    <div class="image-column col-lg-6 col-md-12 col-sm-12">
-                        <div class="inner-column wow slideInLeft" data-wow-delay="0ms" data-wow-duration="1500ms">
-                            <div class="image">
-                                <img src="images/resource/doctor-2.png" alt=""/>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Form Column -->
-                    <div class="form-column col-lg-6 col-md-12 col-sm-12">
-                        <div class="inner-column">
-                            <!-- Sec Title -->
-                            <div class="sec-title">
-                                <h2>حجز موعد</h2>
-                                <div class="separator"></div>
-                            </div>
-
-                            <!-- Appointment Form -->
-                            <div class="appointment-form">
-                                {{-- @livewire('appointments.create') --}}
-                                <livewire:appointments.create>
-
-                            </div>
-
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Testimonial Section Two -->
-    <section class="testimonial-section-two">
-        <div class="auto-container">
-            <!-- Sec Title -->
-            <div class="sec-title centered">
-                <h2>ماذا يقول المرضى</h2>
-                <div class="separator"></div>
-            </div>
-            <div class="testimonial-carousel owl-carousel owl-theme">
-
-                <!-- Tesimonial Block Two -->
-                <div class="testimonial-block-two">
-                    <div class="inner-box">
-                        <div class="image">
-                            <img src="images/resource/author-4.jpg" alt=""/>
-                        </div>
-                        <div class="text">
-                            يعد المركز الطبي مكانًا رائعًا للحصول على جميع احتياجاتك الطبية. دخلت
-                            لإجراء فحص ولم تنتظر أكثر من 5 دقائق قبل رؤيتي. يمكنني أن أتصور
-                            نوع الخدمة التي تحصل عليها في حالة المشكلات الأكثر خطورة. شكرًا!
-                        </div>
-                        <div class="lower-box">
-                            <div class="clearfix">
-
-                                <div class="pull-left">
-                                    <div class="quote-icon flaticon-quote"></div>
-                                </div>
-                                <div class="pull-right">
-                                    <div class="author-info">
-                                        <h3>ماكس وينشستر</h3>
-                                        <div class="author">مريض الكلى</div>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Tesimonial Block Two -->
-                <div class="testimonial-block-two">
-                    <div class="inner-box">
-                        <div class="image">
-                            <img src="images/resource/author-5.jpg" alt=""/>
-                        </div>
-                        <div class="text">
-                            يعد المركز الطبي مكانًا رائعًا للحصول على جميع احتياجاتك الطبية. دخلت
-                            لإجراء فحص ولم تنتظر أكثر من 5 دقائق قبل رؤيتي. يمكنني أن أتصور
-                            نوع الخدمة التي تحصل عليها في حالة المشكلات الأكثر خطورة. شكرًا!
-                        </div>
-                        <div class="lower-box">
-                            <div class="clearfix">
-
-                                <div class="pull-left">
-                                    <div class="quote-icon flaticon-quote"></div>
-                                </div>
-                                <div class="pull-right">
-                                    <div class="author-info">
-                                        <h3>جاك مونيتا</h3>
-                                        <div class="author">مريض الكلى</div>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Tesimonial Block Two -->
-                <div class="testimonial-block-two">
-                    <div class="inner-box">
-                        <div class="image">
-                            <img src="images/resource/author-4.jpg" alt=""/>
-                        </div>
-                        <div class="text">Medical Centre is a great place to get all of your medical needs. I came in
-                            for a check up and did not wait more than 5 minutes before I was seen. I can only imagine
-                            the type of service you get for more serious issues. Thanks!
-                        </div>
-                        <div class="lower-box">
-                            <div class="clearfix">
-
-                                <div class="pull-left">
-                                    <div class="quote-icon flaticon-quote"></div>
-                                </div>
-                                <div class="pull-right">
-                                    <div class="author-info">
-                                        <h3>Max Winchester</h3>
-                                        <div class="author">Kidny Patient</div>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Tesimonial Block Two -->
-                <div class="testimonial-block-two">
-                    <div class="inner-box">
-                        <div class="image">
-                            <img src="images/resource/author-5.jpg" alt=""/>
-                        </div>
-                        <div class="text">Medical Centre is a great place to get all of your medical needs. I came in
-                            for a check up and did not wait more than 5 minutes before I was seen. I can only imagine
-                            the type of service you get for more serious issues. Thanks!
-                        </div>
-                        <div class="lower-box">
-                            <div class="clearfix">
-
-                                <div class="pull-left">
-                                    <div class="quote-icon flaticon-quote"></div>
-                                </div>
-                                <div class="pull-right">
-                                    <div class="author-info">
-                                        <h3>Jack Monita</h3>
-                                        <div class="author">Kidny Patient</div>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </section>
-    <!-- End Testimonial Section Two -->
-
-    <!-- Counter Section -->
-    <section class="counter-section style-two" style="background-image: url(images/background/pattern-3.png)">
-        <div class="auto-container">
-
-            <!-- Fact Counter -->
-            <div class="fact-counter style-two">
-                <div class="row clearfix">
-
-                    <!--Column-->
-                    <div class="column counter-column col-lg-3 col-md-6 col-sm-12">
-                        <div class="inner wow fadeInLeft" data-wow-delay="0ms" data-wow-duration="1500ms">
-                            <div class="content">
-                                <div class="icon flaticon-logout"></div>
-                                <div class="count-outer count-box">
-                                    <span class="count-text" data-speed="2500" data-stop="2350">0</span>
-                                </div>
-                                <h4 class="counter-title">مرضى راضون</h4>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!--Column-->
-                    <div class="column counter-column col-lg-3 col-md-6 col-sm-12">
-                        <div class="inner wow fadeInLeft" data-wow-delay="300ms" data-wow-duration="1500ms">
-                            <div class="content">
-                                <div class="icon flaticon-logout"></div>
-                                <div class="count-outer count-box alternate">
-                                    +<span class="count-text" data-speed="3000" data-stop="350">0</span>
-                                </div>
-                                <h4 class="counter-title">فريق الطبيب</h4>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!--Column-->
-                    <div class="column counter-column col-lg-3 col-md-6 col-sm-12">
-                        <div class="inner wow fadeInLeft" data-wow-delay="600ms" data-wow-duration="1500ms">
-                            <div class="content">
-                                <div class="icon flaticon-logout"></div>
-                                <div class="count-outer count-box">
-                                    <span class="count-text" data-speed="3000" data-stop="2150">0</span>
-                                </div>
-                                <h4 class="counter-title">مهمة النجاح</h4>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!--Column-->
-                    <div class="column counter-column col-lg-3 col-md-6 col-sm-12">
-                        <div class="inner wow fadeInLeft" data-wow-delay="900ms" data-wow-duration="1500ms">
-                            <div class="content">
-                                <div class="icon flaticon-logout"></div>
-                                <div class="count-outer count-box">
-                                    +<span class="count-text" data-speed="2500" data-stop="225">0</span>
-                                </div>
-                                <h4 class="counter-title">جراحات ناجحة</h4>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-
-        </div>
-    </section>
-    <!-- End Counter Section -->
-
-    <!-- Doctor Info Section -->
-    <section class="doctor-info-section">
-        <div class="auto-container">
-            <div class="inner-container">
-                <div class="row clearfix">
-
-                    <!-- Doctor Block -->
-                    <div class="doctor-block col-lg-4 col-md-6 col-sm-12">
-                        <div class="inner-box wow fadeInLeft" data-wow-delay="0ms" data-wow-duration="1500ms">
-                            <h3>ساعات العمل</h3>
-                            <ul class="doctor-time-list">
-                                <li>من الإثنين إلى الجمعة<span>8:00am–7:00pm</span></li>
-                                <li>السبت <span>9:00am–5:00pm</span></li>
-                                <li>الأحد<span>9:00am–3:00pm</span></li>
-                            </ul>
-                            <h4>حالات الطوارئ</h4>
-                            <div class="phone">اتصل بنا ! <strong>+898 68679 575 09</strong></div>
-                        </div>
-                    </div>
-
-                    <!-- Doctor Block -->
-                    <div class="doctor-block col-lg-4 col-md-6 col-sm-12">
-                        <div class="inner-box wow fadeInUp" data-wow-delay="0ms" data-wow-duration="1500ms">
-                            <h3>جدول الأطباء</h3>
-                            <div class="text">
-                                ما يلي هو للإرشاد فقط لمساعدتك في التخطيط لموعدك
-                                طبيب أو ممرضة مفضلة. لا تضمن توافر الأطباء أو الممرضات
-                                قد يكون في بعض الأحيان يحضر إلى واجبات أخرى
-                            </div>
-                            <a href="#" class="detail">تفاصيل اكثر</a>
-                        </div>
-                    </div>
-
-                    <!-- Doctor Block -->
-                    <div class="doctor-block col-lg-4 col-md-6 col-sm-12">
-                        <div class="inner-box wow fadeInRight" data-wow-delay="0ms" data-wow-duration="1500ms">
-                            <h3>العناية الصحية الاولية</h3>
-                            <div class="text">عندما تعلم أنك تستخدم أفضل مواهبك من أجل شيء تحبه ، فأنت
-                                لا تستطيع ذلك. التواصل الفعال هو الأساس لبناء علامات تجارية صلبة مثل
-                                علاقة السفن بالبناء مع عملائنا
-                            </div>
-                            <a href="#" class="detail">اتصل الآن</a>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- End Doctor Info Section -->
-
-    <!-- News Section Two -->
-    <section class="news-section-two">
-        <div class="auto-container">
-            <!-- Sec Title -->
-            <div class="sec-title centered">
-                <h2>آخر الأخبار والمقالات</h2>
-                <div class="separator style-three"></div>
-            </div>
-            <div class="row clearfix">
-
-                <!-- News Block Two -->
-                <div class="news-block-two col-lg-6 col-md-12 col-sm-12">
-                    <div class="inner-box">
-                        <div class="image">
-                            <a href="blog-detail.html"><img src="images/resource/news-4.jpg" alt=""/></a>
-                        </div>
-                        <div class="lower-content">
-                            <div class="content">
-                                <ul class="post-info">
-                                    <li><span
-                                            class="icon flaticon-chat-comment-oval-speech-bubble-with-text-lines"></span>
-                                        02
-                                    </li>
-                                    <li><span class="icon flaticon-heart"></span> 126</li>
-                                </ul>
-                                <ul class="post-meta">
-                                    <li>21 يونيو 2018 الساعة 8:12 مساءً</li>
-                                    <li>Post بواسطة: Admin</li>
-                                </ul>
-                                <h3><a href="blog-detail.html">خدمات التشخيص لانتقاء نتائج فعالة بشكل صحيح</a></h3>
-                                <div class="text">
-                                    هناك الكثير من النساء اللواتي يجهلن المخاطر العديدة
-                                    المرتبطة بصحتهم وتجاهل في النهاية
-                                </div>
-                                <a href="blog-detail.html" class="theme-btn btn-style-five"><span
-                                        class="txt">اقرا المزيد</span></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- News Block Two -->
-                <div class="news-block-two col-lg-6 col-md-12 col-sm-12">
-                    <div class="inner-box">
-                        <div class="image">
-                            <a href="blog-detail.html"><img src="images/resource/news-5.jpg" alt=""/></a>
-                        </div>
-                        <div class="lower-content">
-                            <div class="content">
-                                <ul class="post-info">
-                                    <li><span
-                                            class="icon flaticon-chat-comment-oval-speech-bubble-with-text-lines"></span>
-                                        02
-                                    </li>
-                                    <li><span class="icon flaticon-heart"></span> 126</li>
-                                </ul>
-                                <ul class="post-meta">
-                                    <li>21 يونيو 2018 الساعة 8:12 مساءً</li>
-                                    <li>Post بواسطة: Admin</li>
-                                </ul>
-                                <h3><a href="blog-detail.html">خدمات التشخيص لانتقاء نتائج فعالة بشكل صحيح</a></h3>
-                                <div class="text">
-                                    هناك الكثير من النساء اللواتي يجهلن المخاطر العديدة
-                                    المرتبطة بصحتهم وتجاهل في النهاية
-                                </div>
-                                <a href="blog-detail.html" class="theme-btn btn-style-five"><span
-                                        class="txt">اقرا المزيد</span></a>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-    </section>
-
-    <!--Clients Section-->
-    <section class="clients-section">
-        <div class="outer-container">
-
-            <div class="sponsors-outer">
-                <!--Sponsors Carousel-->
-                <ul class="sponsors-carousel owl-carousel owl-theme">
-                    <li class="slide-item">
-                        <figure class="image-box"><a href="#"><img src="images/clients/1.png" alt=""></a></figure>
-                    </li>
-                    <li class="slide-item">
-                        <figure class="image-box"><a href="#"><img src="images/clients/2.png" alt=""></a></figure>
-                    </li>
-                    <li class="slide-item">
-                        <figure class="image-box"><a href="#"><img src="images/clients/3.png" alt=""></a></figure>
-                    </li>
-                    <li class="slide-item">
-                        <figure class="image-box"><a href="#"><img src="images/clients/4.png" alt=""></a></figure>
-                    </li>
-                    <li class="slide-item">
-                        <figure class="image-box"><a href="#"><img src="images/clients/5.png" alt=""></a></figure>
-                    </li>
-                    <li class="slide-item">
-                        <figure class="image-box"><a href="#"><img src="images/clients/1.png" alt=""></a></figure>
-                    </li>
-                    <li class="slide-item">
-                        <figure class="image-box"><a href="#"><img src="images/clients/2.png" alt=""></a></figure>
-                    </li>
-                </ul>
-            </div>
-
-        </div>
-    </section>
-    <!--End Clients Section-->
 @endsection
