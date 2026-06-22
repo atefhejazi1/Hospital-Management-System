@@ -3,15 +3,19 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 
 class StorePatientRequest extends FormRequest
 {
     /**
-     * Determine if the user is authorized to make this request.
+     * Patient records may be created/updated by hospital staff who manage
+     * registration (admin) or by the treating doctor (doctor). No other
+     * guard — including the patient's own account — should self-service this
+     * via the admin-facing form.
      */
     public function authorize(): bool
     {
-        return true;
+        return Auth::guard('admin')->check() || Auth::guard('doctor')->check();
     }
 
     /**

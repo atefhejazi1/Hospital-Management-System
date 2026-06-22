@@ -65,9 +65,17 @@ class Chatbox extends Component
     #[On('pushMessage')]
     public function pushMessage($messageId)
     {
+        // Echo can redeliver the same event after a socket reconnect or when
+        // multiple tabs are open; guard against appending the same message twice.
+        if ($this->messages->contains('id', $messageId)) {
+            return;
+        }
 
         $newMessage = Message::find($messageId);
-        $this->messages->push($newMessage);
+
+        if ($newMessage) {
+            $this->messages->push($newMessage);
+        }
     }
 
 

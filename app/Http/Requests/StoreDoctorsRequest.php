@@ -3,15 +3,18 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 
 class StoreDoctorsRequest extends FormRequest
 {
     /**
-     * Determine if the user is authorized to make this request.
+     * Only admins may create or update doctor records. Doctor management
+     * (including assigning sections/appointments) is an administrative
+     * action, not something a doctor or any other guard should self-serve.
      */
     public function authorize(): bool
     {
-        return true;
+        return Auth::guard('admin')->check();
     }
 
     /**
@@ -28,6 +31,7 @@ class StoreDoctorsRequest extends FormRequest
             "name" => 'required|regex:/^[A-Za-z0-9-أ-ي-pL\s\-]+$/u',
             "appointments" => 'required',
             "section_id" => 'required',
+            "photo" => 'sometimes|image|mimes:jpeg,png,jpg|max:2048',
         ];
     }
 

@@ -5,24 +5,27 @@ namespace App\Repository\doctor_dashboard;
 use App\Interfaces\doctor_dashboard\DiagnosisRepositoryInterface;
 use App\Models\Diagnostic;
 use App\Models\Invoice;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Gate;
 
 class DiagnosisRepository implements DiagnosisRepositoryInterface
 {
     public function store($request)
     {
+        $invoice = $this->authorizedInvoiceFor($request);
+
         DB::beginTransaction();
 
         try {
-
-            $this->invoice_status($request->invoice_id, 3);
+            $this->invoice_status($invoice->id, 3);
             $diagnosis = new Diagnostic();
             $diagnosis->date = date('Y-m-d');
             $diagnosis->diagnosis = $request->diagnosis;
             $diagnosis->medicine = $request->medicine;
-            $diagnosis->invoice_id = $request->invoice_id;
-            $diagnosis->patient_id = $request->patient_id;
-            $diagnosis->doctor_id = $request->doctor_id;
+            $diagnosis->invoice_id = $invoice->id;
+            $diagnosis->patient_id = $invoice->patient_id;
+            $diagnosis->doctor_id = $invoice->doctor_id;
             $diagnosis->save();
 
             DB::commit();
@@ -42,18 +45,19 @@ class DiagnosisRepository implements DiagnosisRepositoryInterface
 
     public function addReview($request)
     {
+        $invoice = $this->authorizedInvoiceFor($request);
+
         DB::beginTransaction();
         try {
-
-            $this->invoice_status($request->invoice_id, 2);
+            $this->invoice_status($invoice->id, 2);
             $diagnosis = new Diagnostic();
             $diagnosis->date = date('Y-m-d');
             $diagnosis->review_date = date('Y-m-d H:i:s');
             $diagnosis->diagnosis = $request->diagnosis;
             $diagnosis->medicine = $request->medicine;
-            $diagnosis->invoice_id = $request->invoice_id;
-            $diagnosis->patient_id = $request->patient_id;
-            $diagnosis->doctor_id = $request->doctor_id;
+            $diagnosis->invoice_id = $invoice->id;
+            $diagnosis->patient_id = $invoice->patient_id;
+            $diagnosis->doctor_id = $invoice->doctor_id;
             $diagnosis->save();
 
             DB::commit();
@@ -65,6 +69,24 @@ class DiagnosisRepository implements DiagnosisRepositoryInterface
         }
     }
 
+    /**
+     * Previously doctor_id/patient_id were taken straight from request input
+     * and saved verbatim onto the Diagnostic — any authenticated doctor could
+     * submit someone else's invoice/patient/doctor IDs and attribute a
+     * diagnosis to a different doctor or patient (broken object-level
+     * authorization). This re-derives both from the authenticated doctor
+     * guard and an invoice that is verified to actually belong to them.
+     */
+    private function authorizedInvoiceFor($request): Invoice
+    {
+        Gate::authorize('create', Diagnostic::class);
+
+        $doctorId = Auth::guard('doctor')->id();
+
+        return Invoice::where('id', $request->invoice_id)
+            ->where('doctor_id', $doctorId)
+            ->firstOrFail();
+    }
 
     public function invoice_status($invoice_id, $id_status)
     {
