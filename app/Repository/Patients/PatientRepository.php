@@ -4,28 +4,30 @@
 namespace App\Repository\Patients;
 
 use App\Interfaces\Patients\PatientRepositoryInterface;
-use App\Models\Invoice;
 use App\Models\Patient;
-use App\Models\PatientAccount;
-use App\Models\ReceiptAccount;
-use App\Models\single_invoice;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Hash;
 
 class PatientRepository implements PatientRepositoryInterface
 {
     public function index()
     {
-        $Patients = Patient::all();
+        // paginate() instead of all(): avoids loading the entire patients
+        // table into memory on every request; with('translations') avoids an
+        // N+1 query per row when the view renders each patient's name/address.
+        $Patients = Patient::with('translations')->latest()->paginate(20);
         return view('Dashboard.Patients.index', compact('Patients'));
     }
 
     public function Show($id)
     {
-        $Patient = Patient::findorfail($id);
-        $invoices = Invoice::where('patient_id', $id)->get();
-        $receipt_accounts = ReceiptAccount::where('patient_id', $id)->get();
-        $Patient_accounts = PatientAccount::where('patient_id', $id)->get();
+        // Single eager-loaded query batch instead of four separate
+        // round trips (findOrFail + 3x where()->get()).
+        $Patient = Patient::with(['translations', 'invoices', 'receiptAccounts', 'patientAccounts'])
+            ->findOrFail($id);
+
+        $invoices = $Patient->invoices;
+        $receipt_accounts = $Patient->receiptAccounts;
+        $Patient_accounts = $Patient->patientAccounts;
 
         return view('Dashboard.Patients.show', compact('Patient', 'invoices', 'receipt_accounts', 'Patient_accounts'));
     }
