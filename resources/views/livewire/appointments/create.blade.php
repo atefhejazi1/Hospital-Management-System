@@ -1,56 +1,56 @@
 <div>
     @if ($message === true)
-        <div class="alert alert-secondary" role="alert">
-            تم ارسال تفاصيل الحجز الي المستشفي وسيتم ارسال معلومات الموعد عبر الهاتف والبريد الالكتروني
+        <div class="alert alert-success d-flex align-items-center gap-2 mb-4" role="alert" style="border-radius:8px;">
+            <i class="bi bi-check-circle-fill"></i>
+            <span>Your appointment request has been received — we'll confirm the date and time by phone and email.</span>
         </div>
     @endif
     <form wire:submit="store">
-        <div class="row clearfix">
-            <div class="col-lg-6 col-md-6 col-sm-12 form-group">
-                <input type="text" name="username" wire:model="name" placeholder="اسمك" required="">
-                <span class="icon fa fa-user"></span>
+        <div class="row g-3">
+            <div class="col-md-6">
+                <label class="form-label">Full name</label>
+                <input type="text" class="form-control" wire:model="name" placeholder="Your full name" required>
             </div>
 
-            <div class="col-lg-6 col-md-6 col-sm-12 form-group">
-                <input type="email" name="email" wire:model="email" placeholder="البريد الالكتروني" required="">
-                <span class="icon fa fa-envelope"></span>
+            <div class="col-md-6">
+                <label class="form-label">Email address</label>
+                <input type="email" class="form-control" wire:model="email" placeholder="you@example.com" required>
             </div>
 
-            <div class="col-lg-6 col-md-6 col-sm-12 form-group">
-                <label for="doctor">الدكتور</label>
-                <select name="doctor" wire:model="doctor" class="form-select" id="doctor">
-                    <option value="">-- اختر القسم أولاً --</option>
+            <div class="col-md-6">
+                <label class="form-label">Department</label>
+                <select class="form-select" wire:model.live="section">
+                    <option value="">Select a department first</option>
+                    @foreach ($sections as $section)
+                        <option value="{{ $section->id }}">{{ $section->name }}</option>
+                    @endforeach
+                </select>
+            </div>
+
+            <div class="col-md-6">
+                <label class="form-label">Doctor</label>
+                <select class="form-select" wire:model="doctor">
+                    <option value="">Select a doctor</option>
                     @foreach ($doctors as $doctor)
                         <option value="{{ $doctor->id }}">{{ $doctor->name }}</option>
                     @endforeach
                 </select>
             </div>
 
-
-            <div class="col-lg-6 col-md-6 col-sm-12 form-group">
-                <label for="section">القسم</label>
-                <select class="form-select" name="section" wire:model="section" id="section">
-                    <option value="">-- اختار من القائمة --</option>
-                    @foreach ($sections as $section)
-                        <option value="{{ $section->id }}">{{ $section->name }}</option>
-                    @endforeach
-
-                </select>
+            <div class="col-md-6">
+                <label class="form-label">Phone number</label>
+                <input type="tel" class="form-control" wire:model="phone" placeholder="Your phone number" required>
             </div>
 
-            <div class="col-lg-12 col-md-6 col-sm-12 form-group">
-                <input type="tel" name="phone" wire:model="phone" placeholder="رقم الهاتف" required="">
-                <span class="icon fas fa-phone"></span>
+            <div class="col-md-6">
+                <label class="form-label">Notes (optional)</label>
+                <input type="text" class="form-control" wire:model="notes" placeholder="Anything we should know?">
             </div>
 
-
-            <div class="col-lg-12 col-md-12 col-sm-12 form-group">
-                <textarea name="notes" wire:model="notes" placeholder="ملاحظات"></textarea>
-            </div>
-
-            <div class="col-lg-12 col-md-12 col-sm-12 form-group">
-                <button class="theme-btn btn-style-two" type="submit" name="submit-form">
-                    <span class="txt">تاكيد</span></button>
+            <div class="col-12 mt-4">
+                <button type="submit" class="btn-brand w-100 border-0" style="padding:13px 0; font-size:.95rem;" wire:loading.attr="disabled">
+                    <i class="bi bi-calendar2-check-fill me-1"></i> Confirm Appointment Request
+                </button>
             </div>
         </div>
     </form>
