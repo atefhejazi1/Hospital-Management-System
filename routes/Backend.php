@@ -1,6 +1,7 @@
 <?php
 
 use App\Events\MyEvent;
+use App\Http\Controllers\Dashboard\AdminDashboardController;
 use App\Http\Controllers\Dashboard\AmbulanceController;
 use App\Http\Controllers\Dashboard\appointments\AppointmentController;
 use App\Http\Controllers\Dashboard\DashboardController;
@@ -37,10 +38,9 @@ Route::group(
 
 
         // ############################# Admin Dashboard route ##########################################
-        Route::get('/dashboard/admin', function () {
-
-            return view('Dashboard.Admin.dashboard');
-        })->middleware(['auth:admin', 'verified'])->name('dashboard.admin');
+        Route::get('/dashboard/admin', [AdminDashboardController::class, 'index'])
+            ->middleware(['auth:admin', 'verified'])
+            ->name('dashboard.admin');
 
 
         Route::middleware(['auth:admin'])->group(function () {
