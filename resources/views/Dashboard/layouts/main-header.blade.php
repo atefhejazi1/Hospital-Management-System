@@ -1,18 +1,26 @@
 <!-- main-header opened -->
+@php
+    $headerAuthedUser = null;
+    foreach (['web', 'admin', 'doctor', 'ray_employee', 'laboratorie_employee', 'patient'] as $headerGuard) {
+        if (Auth::guard($headerGuard)->check()) {
+            $headerAuthedUser = Auth::guard($headerGuard)->user();
+            break;
+        }
+    }
+    $headerInitials = $headerAuthedUser
+        ? \Illuminate\Support\Str::of($headerAuthedUser->name)->explode(' ')->map(fn ($w) => mb_substr($w, 0, 1))->take(2)->implode('')
+        : '?';
+@endphp
 <div class="main-header sticky side-header nav nav-item">
     <div class="container-fluid">
         <div class="main-header-left ">
             <div class="responsive-logo">
-                <a href="{{ url('/' . ($page = 'index')) }}"><img src="{{ URL::asset('Dashboard/img/brand/logo.png') }}"
-                        class="logo-1" alt="logo"></a>
-                <a href="{{ url('/' . ($page = 'index')) }}"><img
-                        src="{{ URL::asset('Dashboard/img/brand/logo-white.png') }}" class="dark-logo-1"
-                        alt="logo"></a>
-                <a href="{{ url('/' . ($page = 'index')) }}"><img
-                        src="{{ URL::asset('Dashboard/img/brand/favicon.png') }}" class="logo-2" alt="logo"></a>
-                <a href="{{ url('/' . ($page = 'index')) }}"><img
-                        src="{{ URL::asset('Dashboard/img/brand/favicon.png') }}" class="dark-logo-2"
-                        alt="logo"></a>
+                <a href="{{ url('/') }}" class="mc-brand-mark" style="color: var(--mc-dark);">
+                    <span class="mark">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M19 8h-3V5a1 1 0 0 0-1-1h-6a1 1 0 0 0-1 1v3H5a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h3v3a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-3h3a1 1 0 0 0 1-1V9a1 1 0 0 0-1-1z"/></svg>
+                    </span>
+                    MediCore
+                </a>
             </div>
             <div class="app-sidebar__toggle" data-toggle="sidebar">
                 <a class="open-toggle" href="#"><i class="header-icon fe fe-align-left"></i></a>
@@ -30,15 +38,11 @@
                         <a href="#" class="d-flex  nav-item nav-link pl-0 country-flag1" data-toggle="dropdown"
                             aria-expanded="false">
                             @if (App::getLocale() == 'ar')
-                                <span class="avatar country-Flag mr-0 align-self-center bg-transparent"><img
-                                        src="{{ URL::asset('Dashboard/img/flags/egypt_flag.jpg') }}"
-                                        alt="img"></span>
+                                <span class="avatar country-Flag mr-0 align-self-center bg-transparent"><i class="flag-icon flag-icon-eg"></i></span>
                                 <strong
                                     class="mr-2 ml-2 my-auto">{{ LaravelLocalization::getCurrentLocaleName() }}</strong>
                             @else
-                                <span class="avatar country-Flag mr-0 align-self-center bg-transparent"><img
-                                        src="{{ URL::asset('Dashboard/img/flags/us_flag.jpg') }}"
-                                        alt="img"></span>
+                                <span class="avatar country-Flag mr-0 align-self-center bg-transparent"><i class="flag-icon flag-icon-us"></i></span>
                                 <strong
                                     class="mr-2 ml-2 my-auto">{{ LaravelLocalization::getCurrentLocaleName() }}</strong>
                             @endif
@@ -95,82 +99,13 @@
                     <div class="dropdown-menu">
                         <div class="menu-header-content bg-primary text-right">
                             <div class="d-flex">
-                                <h6 class="dropdown-title mb-1 tx-15 text-white font-weight-semibold">Messages</h6>
-                                <span class="badge badge-pill badge-warning mr-auto my-auto float-left">Mark All
-                                    Read</span>
+                                <h6 class="dropdown-title mb-1 tx-15 text-white font-weight-semibold">{{ App::getLocale() == 'ar' ? 'الرسائل' : 'Messages' }}</h6>
                             </div>
-                            <p class="dropdown-title-text subtext mb-0 text-white op-6 pb-0 tx-12 ">You have 4 unread
-                                messages</p>
                         </div>
                         <div class="main-message-list chat-scroll">
-                            <a href="#" class="p-3 d-flex border-bottom">
-                                <div class="  drop-img  cover-image  "
-                                    data-image-src="{{ URL::asset('Dashboard/img/faces/3.jpg') }}">
-                                    <span class="avatar-status bg-teal"></span>
-                                </div>
-                                <div class="wd-90p">
-                                    <div class="d-flex">
-                                        <h5 class="mb-1 name">Petey Cruiser</h5>
-                                    </div>
-                                    <p class="mb-0 desc">I'm sorry but i'm not sure how to help you with that......</p>
-                                    <p class="time mb-0 text-left float-right mr-2 mt-2">Mar 15 3:55 PM</p>
-                                </div>
-                            </a>
-                            <a href="#" class="p-3 d-flex border-bottom">
-                                <div class="drop-img cover-image"
-                                    data-image-src="{{ URL::asset('Dashboard/img/faces/2.jpg') }}">
-                                    <span class="avatar-status bg-teal"></span>
-                                </div>
-                                <div class="wd-90p">
-                                    <div class="d-flex">
-                                        <h5 class="mb-1 name">Jimmy Changa</h5>
-                                    </div>
-                                    <p class="mb-0 desc">All set ! Now, time to get to you now......</p>
-                                    <p class="time mb-0 text-left float-right mr-2 mt-2">Mar 06 01:12 AM</p>
-                                </div>
-                            </a>
-                            <a href="#" class="p-3 d-flex border-bottom">
-                                <div class="drop-img cover-image"
-                                    data-image-src="{{ URL::asset('Dashboard/img/faces/9.jpg') }}">
-                                    <span class="avatar-status bg-teal"></span>
-                                </div>
-                                <div class="wd-90p">
-                                    <div class="d-flex">
-                                        <h5 class="mb-1 name">Graham Cracker</h5>
-                                    </div>
-                                    <p class="mb-0 desc">Are you ready to pickup your Delivery...</p>
-                                    <p class="time mb-0 text-left float-right mr-2 mt-2">Feb 25 10:35 AM</p>
-                                </div>
-                            </a>
-                            <a href="#" class="p-3 d-flex border-bottom">
-                                <div class="drop-img cover-image"
-                                    data-image-src="{{ URL::asset('Dashboard/img/faces/12.jpg') }}">
-                                    <span class="avatar-status bg-teal"></span>
-                                </div>
-                                <div class="wd-90p">
-                                    <div class="d-flex">
-                                        <h5 class="mb-1 name">Donatella Nobatti</h5>
-                                    </div>
-                                    <p class="mb-0 desc">Here are some products ...</p>
-                                    <p class="time mb-0 text-left float-right mr-2 mt-2">Feb 12 05:12 PM</p>
-                                </div>
-                            </a>
-                            <a href="#" class="p-3 d-flex border-bottom">
-                                <div class="drop-img cover-image"
-                                    data-image-src="{{ URL::asset('Dashboard/img/faces/5.jpg') }}">
-                                    <span class="avatar-status bg-teal"></span>
-                                </div>
-                                <div class="wd-90p">
-                                    <div class="d-flex">
-                                        <h5 class="mb-1 name">Anne Fibbiyon</h5>
-                                    </div>
-                                    <p class="mb-0 desc">I'm sorry but i'm not sure how...</p>
-                                    <p class="time mb-0 text-left float-right mr-2 mt-2">Jan 29 03:16 PM</p>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="text-center dropdown-footer">
-                            <a href="text-center">VIEW ALL</a>
+                            <div class="text-center text-muted p-4" style="font-size: .85rem;">
+                                {{ App::getLocale() == 'ar' ? 'لا توجد رسائل جديدة' : 'No new messages yet' }}
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -248,16 +183,18 @@
                     </a>
                 </div>
                 <div class="dropdown main-profile-menu nav nav-item nav-link">
-                    @if(auth()->check())
-                        <a class="profile-user d-flex" href=""><img alt=""
-                                src="{{ URL::asset('Dashboard/img/faces/6.jpg') }}"></a>
+                    @if($headerAuthedUser)
+                        <a class="profile-user d-flex" href="">
+                            <span class="mc-avatar-initials" style="width: 34px; height: 34px; font-size: .85rem;">{{ $headerInitials }}</span>
+                        </a>
                         <div class="dropdown-menu">
                             <div class="main-header-profile bg-primary p-3">
                                 <div class="d-flex wd-100p">
-                                    <div class="main-img-user"><img alt=""
-                                            src="{{ URL::asset('Dashboard/img/faces/6.jpg') }}" class=""></div>
+                                    <div class="main-img-user">
+                                        <span class="mc-avatar-initials" style="width: 44px; height: 44px; font-size: 1rem;">{{ $headerInitials }}</span>
+                                    </div>
                                     <div class="mr-3 my-auto">
-                                        <h6>{{ auth()->user()->name }}</h6><span>{{ auth()->user()->email }}</span>
+                                        <h6>{{ $headerAuthedUser->name }}</h6><span>{{ $headerAuthedUser->email }}</span>
                                     </div>
                                 </div>
                             </div>

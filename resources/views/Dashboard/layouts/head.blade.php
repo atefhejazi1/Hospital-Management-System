@@ -47,3 +47,28 @@
     <!---Skinmodes css-->
     <link href="{{ URL::asset('Dashboard/css/skin-modes.css') }}" rel="stylesheet" />
 @endif
+
+<style>
+    :root {
+        --mc-primary: #0284c7;
+        --mc-accent: #0369a1;
+        --mc-dark: #0f172a;
+        --mc-bg-soft: #f0f9ff;
+        --mc-border: #e2e8f0;
+        --mc-muted: #64748b;
+    }
+
+    .mc-brand-mark { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 1.05rem; }
+    .mc-brand-mark .mark {
+        width: 34px; height: 34px; border-radius: 8px; background: var(--mc-primary);
+        display: flex; align-items: center; justify-content: center; color: #fff; flex-shrink: 0;
+    }
+    .mc-brand-mark .mark svg { width: 18px; height: 18px; }
+
+    .mc-avatar-initials {
+        display: inline-flex; align-items: center; justify-content: center;
+        border-radius: 50%; background: var(--mc-primary); color: #fff; font-weight: 700;
+        flex-shrink: 0; line-height: 1;
+    }
+</style>
+
