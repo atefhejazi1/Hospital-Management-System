@@ -26,7 +26,7 @@ Route::group(
 
         //################################ dashboard doctor ########################################
 
-        Route::get('/dashboard/laboratorie_employee', function () {
+        Route::get('/portal/laboratorie_employee', function () {
             return view('Dashboard.dashboard_LaboratorieEmployee.dashboard');
         })->middleware(['auth:laboratorie_employee', 'verified'])->name('dashboard.laboratorie_employee');
         //################################ end dashboard doctor #####################################

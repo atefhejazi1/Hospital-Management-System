@@ -10,7 +10,7 @@
                             <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>اسم الدكتور</th>
+                                    <th>{{ trans('chat_trans.doctor_name') }}</th>
                                 </tr>
                             </thead>
                             <tbody>

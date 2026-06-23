@@ -4,18 +4,18 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">حذف بيانات الفاتورة</h5>
+                <h5 class="modal-title" id="exampleModalLabel">{{ trans('invoices_trans.delete_invoice_title') }}</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
 
             <div class="modal-body">
-               هل انت متاكد من عملية الحذف
+               {{ trans('invoices_trans.delete_confirm_message') }}
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">اغلاق</button>
-                <button type="button" wire:click.prevent="destroy()" class="btn btn-danger">حذف</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ trans('invoices_trans.close') }}</button>
+                <button type="button" wire:click.prevent="destroy()" class="btn btn-danger">{{ trans('invoices_trans.delete') }}</button>
             </div>
 
         </div>

@@ -7,7 +7,7 @@
 				<div class="breadcrumb-header justify-content-between">
 					<div class="my-auto">
 						<div class="d-flex">
-							<h4 class="content-title mb-0 my-auto">المرضي</h4><span class="text-muted mt-1 tx-13 mr-2 mb-0">/ قائمة المرضي</span>
+							<h4 class="content-title mb-0 my-auto">{{ trans('patients-crud_trans.patients') }}</h4><span class="text-muted mt-1 tx-13 mr-2 mb-0">/ {{ trans('patients-crud_trans.view_all') }}</span>
 						</div>
 					</div>
 				</div>
@@ -22,7 +22,7 @@
 						<div class="card">
 							<div class="card-header pb-0">
 								<div class="d-flex justify-content-between">
-                                    <a href="{{route('Patients.create')}}" class="btn btn-primary">اضافة مريض جديد</a>
+                                    <a href="{{route('Patients.create')}}" class="btn btn-primary">{{ trans('patients-crud_trans.add_patient') }}</a>
 								</div>
 							</div>
 							<div class="card-body">
@@ -31,14 +31,14 @@
 										<thead>
 											<tr>
 												<th>#</th>
-												<th>اسم المريض</th>
-												<th >البريد الالكتروني</th>
-												<th>تاريخ الميلاد</th>
-												<th>رقم الهاتف</th>
-												<th>الجنس</th>
-                                                <th >فصلية الدم</th>
-                                                <th >العنوان</th>
-                                                <th>العمليات</th>
+												<th>{{ trans('patients-crud_trans.name') }}</th>
+												<th >{{ trans('patients-crud_trans.email') }}</th>
+												<th>{{ trans('patients-crud_trans.date_birth') }}</th>
+												<th>{{ trans('patients-crud_trans.phone') }}</th>
+												<th>{{ trans('patients-crud_trans.gender') }}</th>
+                                                <th >{{ trans('patients-crud_trans.blood_group') }}</th>
+                                                <th >{{ trans('patients-crud_trans.address') }}</th>
+                                                <th>{{ trans('patients-crud_trans.processes') }}</th>
 											</tr>
 										</thead>
 										<tbody>
@@ -49,7 +49,7 @@
                                                 <td>{{$Patient->email}}</td>
                                                 <td>{{$Patient->Date_Birth}}</td>
                                                 <td>{{$Patient->Phone}}</td>
-                                                <td>{{$Patient->Gender == 1 ? 'ذكر' :'انثي'}}</td>
+                                                <td>{{$Patient->Gender == 1 ? trans('patients-crud_trans.male') : trans('patients-crud_trans.female')}}</td>
                                                 <td>{{$Patient->Blood_Group}}</td>
                                                 <td>{{$Patient->Address}}</td>
                                                 <td>

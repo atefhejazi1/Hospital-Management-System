@@ -1,6 +1,6 @@
 @extends('Dashboard.layouts.master')
 @section('title')
-    سندات القبض
+    {{ trans('billing-ops_trans.receipt_index_title') }}
 @stop
 @section('css')
     <!-- Internal Data table css -->
@@ -21,7 +21,7 @@
 				<div class="breadcrumb-header justify-content-between">
 					<div class="my-auto">
 						<div class="d-flex">
-							<h4 class="content-title mb-0 my-auto">الحسابات</h4><span class="text-muted mt-1 tx-13 mr-2 mb-0">/ سندات القبض</span>
+							<h4 class="content-title mb-0 my-auto">{{ trans('billing-ops_trans.payment_breadcrumb_section') }}</h4><span class="text-muted mt-1 tx-13 mr-2 mb-0">{{ trans('billing-ops_trans.receipt_breadcrumb_index') }}</span>
 						</div>
 					</div>
 				</div>
@@ -37,7 +37,7 @@
                                 <div class="card-header pb-0">
                                     <div class="d-flex justify-content-between">
                                         <a href="{{route('Receipt.create')}}" class="btn btn-primary" role="button"
-                                           aria-pressed="true">اضافة سند جديد</a>
+                                           aria-pressed="true">{{ trans('billing-ops_trans.payment_add_new') }}</a>
                                     </div>
                                 </div>
                                 <div class="card-body">
@@ -46,11 +46,11 @@
                                             <thead>
                                             <tr>
                                                 <th>#</th>
-                                                <th>اسم المريض</th>
-                                                <th>المبلغ</th>
-                                                <th>البيان</th>
-                                                <th>تاريخ الاضافة</th>
-                                                <th>العمليات</th>
+                                                <th>{{ trans('billing-ops_trans.payment_col_patient_name') }}</th>
+                                                <th>{{ trans('billing-ops_trans.payment_col_amount') }}</th>
+                                                <th>{{ trans('billing-ops_trans.payment_col_description') }}</th>
+                                                <th>{{ trans('billing-ops_trans.payment_col_created_at') }}</th>
+                                                <th>{{ trans('billing-ops_trans.payment_col_actions') }}</th>
                                             </tr>
                                             </thead>
                                             <tbody>
@@ -64,7 +64,7 @@
                                                    <td>
                                                        <a href="{{route('Receipt.edit',$receipt->id)}}" class="btn btn-sm btn-primary"><i class="fas fa-edit"></i></a>
                                                        <a class="modal-effect btn btn-sm btn-danger" data-effect="effect-scale"  data-toggle="modal" href="#delete{{$receipt->id}}"><i class="las la-trash"></i></a>
-                                                       <a href="{{route('Receipt.show',$receipt->id)}}" class="btn btn-primary btn-sm" target="_blank" title="طباعه سند قبض"><i class="fas fa-print"></i></a>
+                                                       <a href="{{route('Receipt.show',$receipt->id)}}" class="btn btn-primary btn-sm" target="_blank" title="{{ trans('billing-ops_trans.receipt_print_tooltip') }}"><i class="fas fa-print"></i></a>
 
                                                    </td>
                                                </tr>

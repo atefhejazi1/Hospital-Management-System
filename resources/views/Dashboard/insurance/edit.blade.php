@@ -92,7 +92,7 @@
 
                         <div class="row">
                             <div class="col">
-                                <label>حالة التفعيل</label>
+                                <label>{{trans('insurance.activation_status')}}</label>
                                  &nbsp;
                                 <input name="status" {{$insurances->status == 1 ? 'checked' : ''}} value="1" type="checkbox" class="form-check-input" id="exampleCheck1">
                             </div>

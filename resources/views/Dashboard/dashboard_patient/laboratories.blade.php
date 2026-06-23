@@ -13,8 +13,8 @@
     <div class="breadcrumb-header justify-content-between">
         <div class="my-auto">
             <div class="d-flex">
-                <h4 class="content-title mb-0 my-auto">عمليات المريض</h4><span class="text-muted mt-1 tx-13 mr-2 mb-0">/
-                    المختبر</span>
+                <h4 class="content-title mb-0 my-auto">{{ trans('patient-dashboard_trans.patient_operations') }}</h4><span class="text-muted mt-1 tx-13 mr-2 mb-0">/
+                    {{ trans('patient-dashboard_trans.breadcrumb_laboratory') }}</span>
             </div>
         </div>
     </div>
@@ -35,11 +35,11 @@
                             <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>المطلوب</th>
-                                    <th>اسم الدكتور</th>
-                                    <th>اسم دكتور المختبر</th>
-                                    <th>ملاحظة المختبر</th>
-                                    <th>العمليات</th>
+                                    <th>{{ trans('patient-dashboard_trans.col_required') }}</th>
+                                    <th>{{ trans('patient-dashboard_trans.col_doctor_name') }}</th>
+                                    <th>{{ trans('patient-dashboard_trans.col_lab_doctor_name') }}</th>
+                                    <th>{{ trans('patient-dashboard_trans.col_lab_note') }}</th>
+                                    <th>{{ trans('patient-dashboard_trans.col_actions') }}</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -54,7 +54,7 @@
                                             @if ($laboratorie->employee_id !== null)
                                                 <a class="btn btn-primary btn-sm"
                                                     href="{{ url('view_laboratories', $laboratorie->id) }}"
-                                                    role="button">عرض التحليل</a>
+                                                    role="button">{{ trans('patient-dashboard_trans.view_analysis') }}</a>
                                             @endif
                                         </td>
                                     </tr>

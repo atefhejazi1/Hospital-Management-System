@@ -13,7 +13,7 @@
 				<div class="breadcrumb-header justify-content-between">
 					<div class="my-auto">
 						<div class="d-flex">
-							<h4 class="content-title mb-0 my-auto">عمليات المريض</h4><span class="text-muted mt-1 tx-13 mr-2 mb-0">/ المدفوعات</span>
+							<h4 class="content-title mb-0 my-auto">{{ trans('patient-dashboard_trans.patient_operations') }}</h4><span class="text-muted mt-1 tx-13 mr-2 mb-0">/ {{ trans('patient-dashboard_trans.breadcrumb_payments') }}</span>
 						</div>
 					</div>
 				</div>
@@ -34,9 +34,9 @@
                                             <thead>
                                             <tr>
                                                 <th>#</th>
-                                                <th>تاريخ الدفع</th>
-                                                <th >المبلغ</th>
-                                                <th>البيان</th>
+                                                <th>{{ trans('patient-dashboard_trans.col_payment_date') }}</th>
+                                                <th >{{ trans('patient-dashboard_trans.col_amount') }}</th>
+                                                <th>{{ trans('patient-dashboard_trans.col_statement') }}</th>
                                             </tr>
                                             </thead>
                                             <tbody>

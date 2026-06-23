@@ -1,6 +1,6 @@
 @extends('Dashboard.layouts.master')
 @section('title')
-   قائمة الموظفين
+   {{ trans('staff-crud_trans.index_title') }}
 @stop
 @section('css')
     <!-- Internal Data table css -->
@@ -13,7 +13,7 @@
 				<div class="breadcrumb-header justify-content-between">
 					<div class="my-auto">
 						<div class="d-flex">
-							<h4 class="content-title mb-0 my-auto">الاشعة</h4><span class="text-muted mt-1 tx-13 mr-2 mb-0">/ قائمة الموظفين</span>
+							<h4 class="content-title mb-0 my-auto">{{ trans('staff-crud_trans.radiology_section') }}</h4><span class="text-muted mt-1 tx-13 mr-2 mb-0">{{ trans('staff-crud_trans.breadcrumb_index') }}</span>
 						</div>
 					</div>
 				</div>
@@ -29,7 +29,7 @@
                                 <div class="card-header pb-0">
                                     <div class="d-flex justify-content-between">
                                         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#add">
-                                           اضافة موظف جديد
+                                           {{ trans('staff-crud_trans.add_employee_button') }}
                                         </button>
                                     </div>
                                 </div>
@@ -39,10 +39,10 @@
                                             <thead>
                                             <tr>
                                                 <th>#</th>
-                                                <th>الاسم</th>
-                                                <th >البريد الالكتروني</th>
-                                                <th>تاريخ الاضافة</th>
-                                                <th >العمليات</th>
+                                                <th>{{ trans('staff-crud_trans.col_name') }}</th>
+                                                <th >{{ trans('staff-crud_trans.col_email') }}</th>
+                                                <th>{{ trans('staff-crud_trans.col_created_at') }}</th>
+                                                <th >{{ trans('staff-crud_trans.col_actions') }}</th>
                                             </tr>
                                             </thead>
                                             <tbody>

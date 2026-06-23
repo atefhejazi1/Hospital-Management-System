@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" dir="ltr">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" dir="{{ App::getLocale() == 'ar' ? 'rtl' : 'ltr' }}">
 
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <title>MediCore — Hospital Management System</title>
-    <meta name="description" content="MediCore HMS — clinical scheduling, records and billing, run from one trusted platform.">
+    <title>{{ trans('landing_trans.meta_title') }}</title>
+    <meta name="description" content="{{ trans('landing_trans.meta_description') }}">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -216,13 +216,13 @@
                 MediCore
             </a>
             <div class="d-none d-lg-flex align-items-center">
-                <a href="#departments" class="nav-link-mc">Departments</a>
-                <a href="#features" class="nav-link-mc">Why MediCore</a>
-                <a href="#book-appointment" class="nav-link-mc">Book Appointment</a>
+                <a href="#departments" class="nav-link-mc">{{ trans('landing_trans.nav_departments') }}</a>
+                <a href="#features" class="nav-link-mc">{{ trans('landing_trans.nav_why') }}</a>
+                <a href="#book-appointment" class="nav-link-mc">{{ trans('landing_trans.nav_book_appointment') }}</a>
             </div>
             <div class="d-flex align-items-center gap-2">
-                <a href="{{ route('login') }}" class="btn-brand">Patient Portal</a>
-                <a href="{{ route('login') }}" class="btn-brand-dark">Staff Login</a>
+                <a href="{{ route('login') }}" class="btn-brand">{{ trans('landing_trans.cta_patient_portal') }}</a>
+                <a href="{{ route('login') }}" class="btn-brand-dark">{{ trans('landing_trans.cta_staff_login') }}</a>
             </div>
         </div>
     </nav>
@@ -231,46 +231,44 @@
         <div class="container">
             <div class="row align-items-center g-5">
                 <div class="col-lg-6">
-                    <span class="hero-tag"><i class="bi bi-patch-check-fill"></i> Trusted Hospital Management Platform</span>
-                    <h1>Healthcare operations, run from <span>one connected system.</span></h1>
+                    <span class="hero-tag"><i class="bi bi-patch-check-fill"></i> {{ trans('landing_trans.hero_tag') }}</span>
+                    <h1>{{ trans('landing_trans.hero_title_pre') }} <span>{{ trans('landing_trans.hero_title_highlight') }}</span></h1>
                     <p class="lede">
-                        MediCore brings scheduling, clinical records, diagnostics, billing and
-                        real-time communication into a single platform — built for doctors,
-                        patients and clinical staff alike.
+                        {{ trans('landing_trans.hero_lede') }}
                     </p>
                     <div class="d-flex flex-wrap gap-3">
                         <a href="#book-appointment" class="btn-brand">
-                            <i class="bi bi-calendar2-check-fill me-1"></i> Book Appointment
+                            <i class="bi bi-calendar2-check-fill me-1"></i> {{ trans('landing_trans.hero_btn_book') }}
                         </a>
-                        <a href="#departments" class="btn-outline-brand">Explore Departments</a>
+                        <a href="#departments" class="btn-outline-brand">{{ trans('landing_trans.hero_btn_explore') }}</a>
                     </div>
                     <div class="trust-row">
                         <div class="t-item">
                             <span class="t-ic"><i class="bi bi-person-badge-fill"></i></span>
                             <div>
                                 <div class="t-num">{{ $stats['active_staff'] }}+</div>
-                                <div class="t-lbl">Specialist Doctors</div>
+                                <div class="t-lbl">{{ trans('landing_trans.trust_doctors_label') }}</div>
                             </div>
                         </div>
                         <div class="t-item">
                             <span class="t-ic"><i class="bi bi-grid-fill"></i></span>
                             <div>
                                 <div class="t-num">{{ $stats['sections'] }}</div>
-                                <div class="t-lbl">Clinical Departments</div>
+                                <div class="t-lbl">{{ trans('landing_trans.trust_departments_label') }}</div>
                             </div>
                         </div>
                         <div class="t-item">
                             <span class="t-ic"><i class="bi bi-heart-pulse-fill"></i></span>
                             <div>
                                 <div class="t-num">{{ $stats['patients_served'] }}+</div>
-                                <div class="t-lbl">Patients Served</div>
+                                <div class="t-lbl">{{ trans('landing_trans.trust_patients_label') }}</div>
                             </div>
                         </div>
                         <div class="t-item">
                             <span class="t-ic"><i class="bi bi-graph-up"></i></span>
                             <div>
                                 <div class="t-num">99.9%</div>
-                                <div class="t-lbl">System Uptime</div>
+                                <div class="t-lbl">{{ trans('landing_trans.trust_uptime_label') }}</div>
                             </div>
                         </div>
                     </div>
@@ -285,7 +283,7 @@
                             <span class="av more">+{{ $stats['active_staff'] - 3 }}</span>
                             @endif
                         </div>
-                        <span class="txt"><strong>{{ $stats['active_staff'] }} specialists</strong> currently on staff</span>
+                        <span class="txt"><strong>{{ $stats['active_staff'] }}</strong> {{ trans('landing_trans.avatar_specialists_suffix') }}</span>
                     </div>
                     @endif
                 </div>
@@ -296,29 +294,29 @@
                             <div class="col-6">
                                 <div class="feature-card featured">
                                     <div class="ic"><i class="bi bi-clock-history"></i></div>
-                                    <h3>24/7 Emergency</h3>
-                                    <p>Round-the-clock emergency response, every day of the year.</p>
+                                    <h3>{{ trans('landing_trans.feature_emergency_title') }}</h3>
+                                    <p>{{ trans('landing_trans.feature_emergency_desc') }}</p>
                                 </div>
                             </div>
                             <div class="col-6">
                                 <div class="feature-card">
                                     <div class="ic"><i class="bi bi-person-badge-fill"></i></div>
-                                    <h3>Expert Consultants</h3>
-                                    <p>{{ $stats['active_staff'] }}+ specialists across {{ $stats['sections'] }} departments.</p>
+                                    <h3>{{ trans('landing_trans.feature_consultants_title') }}</h3>
+                                    <p>{{ trans('landing_trans.feature_consultants_desc', ['staff' => $stats['active_staff'], 'sections' => $stats['sections']]) }}</p>
                                 </div>
                             </div>
                             <div class="col-6">
                                 <div class="feature-card">
                                     <div class="ic"><i class="bi bi-shield-check"></i></div>
-                                    <h3>Secure Records</h3>
-                                    <p>Clinical data encrypted in transit and at rest.</p>
+                                    <h3>{{ trans('landing_trans.feature_records_title') }}</h3>
+                                    <p>{{ trans('landing_trans.feature_records_desc') }}</p>
                                 </div>
                             </div>
                             <div class="col-6">
                                 <div class="feature-card">
                                     <div class="ic"><i class="bi bi-chat-dots-fill"></i></div>
-                                    <h3>Direct Messaging</h3>
-                                    <p>Real-time, secure chat between doctors and patients.</p>
+                                    <h3>{{ trans('landing_trans.feature_messaging_title') }}</h3>
+                                    <p>{{ trans('landing_trans.feature_messaging_desc') }}</p>
                                 </div>
                             </div>
                         </div>
@@ -331,33 +329,33 @@
     <section class="section-pad" style="padding-top:64px; padding-bottom:64px;" id="how-it-works">
         <div class="container">
             <div class="section-head">
-                <span class="eyebrow">How It Works</span>
-                <h2>Get seen in three simple steps</h2>
-                <p>No account needed to request an appointment — sign in only when you're ready to manage your records.</p>
+                <span class="eyebrow">{{ trans('landing_trans.how_eyebrow') }}</span>
+                <h2>{{ trans('landing_trans.how_title') }}</h2>
+                <p>{{ trans('landing_trans.how_sub') }}</p>
             </div>
 
             <div class="row g-4">
                 <div class="col-md-4">
                     <div class="step-card">
                         <div class="step-num">1</div>
-                        <h3>Choose a department</h3>
-                        <p>Pick the department and doctor that matches what you need — browse {{ $stats['sections'] }} active departments below.</p>
+                        <h3>{{ trans('landing_trans.step1_title') }}</h3>
+                        <p>{{ trans('landing_trans.step1_desc', ['count' => $stats['sections']]) }}</p>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="step-card">
                         <span class="step-connector"></span>
                         <div class="step-num">2</div>
-                        <h3>Submit your request</h3>
-                        <p>Fill in your details once in the booking form — no login, no waiting on hold.</p>
+                        <h3>{{ trans('landing_trans.step2_title') }}</h3>
+                        <p>{{ trans('landing_trans.step2_desc') }}</p>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="step-card">
                         <span class="step-connector"></span>
                         <div class="step-num">3</div>
-                        <h3>We confirm by phone &amp; email</h3>
-                        <p>Our team confirms the date and time directly with you, then your visit is on the calendar.</p>
+                        <h3>{{ trans('landing_trans.step3_title') }}</h3>
+                        <p>{{ trans('landing_trans.step3_desc') }}</p>
                     </div>
                 </div>
             </div>
@@ -369,19 +367,19 @@
             <div class="row gy-3">
                 <div class="col-6 col-md-3 stat-block">
                     <div class="num">{{ $stats['active_staff'] }}</div>
-                    <div class="lbl">Active Staff</div>
+                    <div class="lbl">{{ trans('landing_trans.stats_active_staff') }}</div>
                 </div>
                 <div class="col-6 col-md-3 stat-block">
                     <div class="num">{{ $stats['sections'] }}</div>
-                    <div class="lbl">Clinical Sections</div>
+                    <div class="lbl">{{ trans('landing_trans.stats_clinical_sections') }}</div>
                 </div>
                 <div class="col-6 col-md-3 stat-block">
                     <div class="num">{{ $stats['patients_served'] }}+</div>
-                    <div class="lbl">Patients Served</div>
+                    <div class="lbl">{{ trans('landing_trans.stats_patients_served') }}</div>
                 </div>
                 <div class="col-6 col-md-3 stat-block">
                     <div class="num">99.9%</div>
-                    <div class="lbl">Uptime (30d)</div>
+                    <div class="lbl">{{ trans('landing_trans.stats_uptime') }}</div>
                 </div>
             </div>
         </div>
@@ -390,9 +388,9 @@
     <section class="section-pad" id="departments">
         <div class="container">
             <div class="section-head">
-                <span class="eyebrow">Clinical Departments</span>
-                <h2>Departments currently in operation</h2>
-                <p>Every department below is staffed and operating under MediCore HMS today.</p>
+                <span class="eyebrow">{{ trans('landing_trans.dept_eyebrow') }}</span>
+                <h2>{{ trans('landing_trans.dept_title') }}</h2>
+                <p>{{ trans('landing_trans.dept_sub') }}</p>
             </div>
 
             @php
@@ -411,11 +409,11 @@
                         <p>&nbsp;</p>
                         @endif
                         <div class="meta">
-                            <span class="count">{{ $section->doctors_count }} staff</span>
+                            <span class="count">{{ $section->doctors_count }} {{ trans('landing_trans.dept_staff_suffix') }}</span>
                             @if($section->doctors_count > 0)
-                            <span class="badge-status active">Active</span>
+                            <span class="badge-status active">{{ trans('landing_trans.dept_active_badge') }}</span>
                             @else
-                            <span class="badge-status standby">Standby</span>
+                            <span class="badge-status standby">{{ trans('landing_trans.dept_standby_badge') }}</span>
                             @endif
                         </div>
                     </div>
@@ -424,8 +422,8 @@
             </div>
 
             <div class="text-center mt-5">
-                <p class="text-muted mb-3" style="font-size:.92rem;">Not sure which department you need?</p>
-                <a href="#book-appointment" class="btn-brand">Book an Appointment <i class="bi bi-arrow-right ms-1"></i></a>
+                <p class="text-muted mb-3" style="font-size:.92rem;">{{ trans('landing_trans.dept_cta_question') }}</p>
+                <a href="#book-appointment" class="btn-brand">{{ trans('landing_trans.dept_cta_button') }} <i class="bi bi-arrow-right ms-1"></i></a>
             </div>
         </div>
     </section>
@@ -434,9 +432,9 @@
     <section class="section-pad bg-soft" id="specialists">
         <div class="container">
             <div class="section-head">
-                <span class="eyebrow">Our Team</span>
-                <h2>Meet our specialists</h2>
-                <p>A sample of the {{ $stats['active_staff'] }} active doctors currently on staff at MediCore.</p>
+                <span class="eyebrow">{{ trans('landing_trans.team_eyebrow') }}</span>
+                <h2>{{ trans('landing_trans.team_title') }}</h2>
+                <p>{{ trans('landing_trans.team_sub', ['count' => $stats['active_staff']]) }}</p>
             </div>
 
             <div class="row g-4">
@@ -445,8 +443,8 @@
                     <div class="doc-card">
                         <div class="doc-avatar">{{ str($doc->name)->substr(0, 1) }}{{ str($doc->name)->after(' ')->substr(0, 1) }}</div>
                         <h3>{{ $doc->name }}</h3>
-                        <p class="spec">{{ optional($doc->section)->name ?? 'General Practice' }}</p>
-                        <span class="doc-badge"><i class="bi bi-heart-pulse-fill"></i> DR</span>
+                        <p class="spec">{{ optional($doc->section)->name ?? trans('landing_trans.team_general_practice') }}</p>
+                        <span class="doc-badge"><i class="bi bi-heart-pulse-fill"></i> {{ trans('landing_trans.team_dr_badge') }}</span>
                     </div>
                 </div>
                 @endforeach
@@ -458,9 +456,9 @@
     <section class="section-pad" id="book-appointment">
         <div class="container">
             <div class="section-head">
-                <span class="eyebrow">Get Started</span>
-                <h2>Book your appointment</h2>
-                <p>Tell us which department and doctor you'd like to see — our team will confirm by phone and email.</p>
+                <span class="eyebrow">{{ trans('landing_trans.book_eyebrow') }}</span>
+                <h2>{{ trans('landing_trans.book_title') }}</h2>
+                <p>{{ trans('landing_trans.book_sub') }}</p>
             </div>
 
             <div class="row g-4 justify-content-center align-items-stretch">
@@ -469,22 +467,22 @@
                         <div class="side-item">
                             <span class="side-ic"><i class="bi bi-1-circle-fill"></i></span>
                             <div>
-                                <h4>Tell us about you</h4>
-                                <p>Name, email and phone so we can reach you.</p>
+                                <h4>{{ trans('landing_trans.book_step1_title') }}</h4>
+                                <p>{{ trans('landing_trans.book_step1_desc') }}</p>
                             </div>
                         </div>
                         <div class="side-item">
                             <span class="side-ic"><i class="bi bi-2-circle-fill"></i></span>
                             <div>
-                                <h4>Pick department &amp; doctor</h4>
-                                <p>Choosing a department filters the doctor list automatically.</p>
+                                <h4>{{ trans('landing_trans.book_step2_title') }}</h4>
+                                <p>{{ trans('landing_trans.book_step2_desc') }}</p>
                             </div>
                         </div>
                         <div class="side-item">
                             <span class="side-ic"><i class="bi bi-3-circle-fill"></i></span>
                             <div>
-                                <h4>We'll be in touch</h4>
-                                <p>Confirmation follows by phone and email — usually the same day.</p>
+                                <h4>{{ trans('landing_trans.book_step3_title') }}</h4>
+                                <p>{{ trans('landing_trans.book_step3_desc') }}</p>
                             </div>
                         </div>
                     </div>
@@ -502,12 +500,12 @@
         <div class="container">
             <div class="cta-band d-flex flex-wrap align-items-center justify-content-between gap-4">
                 <div>
-                    <h2>Ready to get started?</h2>
-                    <p>Patients, doctors and clinical staff each sign in through one guarded login screen.</p>
+                    <h2>{{ trans('landing_trans.cta_ready_title') }}</h2>
+                    <p>{{ trans('landing_trans.cta_ready_sub') }}</p>
                 </div>
                 <div class="d-flex flex-wrap gap-3">
-                    <a href="{{ route('login') }}" class="btn-light-mc">Patient Portal</a>
-                    <a href="{{ route('login') }}" class="btn-outline-light-mc">Staff Login</a>
+                    <a href="{{ route('login') }}" class="btn-light-mc">{{ trans('landing_trans.cta_patient_portal') }}</a>
+                    <a href="{{ route('login') }}" class="btn-outline-light-mc">{{ trans('landing_trans.cta_staff_login') }}</a>
                 </div>
             </div>
         </div>
@@ -522,30 +520,28 @@
                         MediCore
                     </div>
                     <p class="mt-3" style="font-size:.85rem; max-width: 320px;">
-                        Hospital management system — scheduling, clinical records, diagnostics
-                        and billing, run from one secure platform.
+                        {{ trans('landing_trans.footer_tagline') }}
                     </p>
                 </div>
                 <div class="col-lg-4">
-                    <h5>Quick Links</h5>
+                    <h5>{{ trans('landing_trans.footer_quick_links') }}</h5>
                     <ul class="list-unstyled d-flex flex-column gap-2">
-                        <li><a href="#departments">Departments</a></li>
-                        <li><a href="#book-appointment">Book Appointment</a></li>
-                        <li><a href="{{ route('login') }}">Patient / Staff Login</a></li>
+                        <li><a href="#departments">{{ trans('landing_trans.nav_departments') }}</a></li>
+                        <li><a href="#book-appointment">{{ trans('landing_trans.nav_book_appointment') }}</a></li>
+                        <li><a href="{{ route('login') }}">{{ trans('landing_trans.footer_link_login') }}</a></li>
                     </ul>
                 </div>
                 <div class="col-lg-4">
-                    <h5>Access</h5>
+                    <h5>{{ trans('landing_trans.footer_access_title') }}</h5>
                     <p style="font-size:.85rem;">
-                        Patients, doctors and clinical staff each sign in through one guarded
-                        login screen.
+                        {{ trans('landing_trans.footer_access_desc') }}
                     </p>
-                    <a href="{{ route('login') }}" class="btn-outline-brand" style="border-color:rgba(255,255,255,.3); color:#fff;">Sign In</a>
+                    <a href="{{ route('login') }}" class="btn-outline-brand" style="border-color:rgba(255,255,255,.3); color:#fff;">{{ trans('landing_trans.footer_signin') }}</a>
                 </div>
             </div>
             <div class="foot-bottom">
-                <span>© {{ date('Y') }} MediCore HMS — All records encrypted in transit &amp; at rest.</span>
-                <span>Build {{ date('Y.m.d') }}</span>
+                <span>{{ trans('landing_trans.footer_copyright', ['year' => date('Y')]) }}</span>
+                <span>{{ trans('landing_trans.footer_build', ['date' => date('Y.m.d')]) }}</span>
             </div>
         </div>
     </footer>

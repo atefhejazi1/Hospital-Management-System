@@ -20,7 +20,7 @@ Route::group(
     function () {
 
         // ############################# Doctor Dashboard route ##########################################
-        Route::get('/dashboard/doctor', function () {
+        Route::get('/portal/doctor', function () {
             return view('Dashboard.Doctor.dashboard');
         })->middleware(['auth:doctor', 'verified'])->name('dashboard.doctor');
 

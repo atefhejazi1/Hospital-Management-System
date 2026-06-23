@@ -4,7 +4,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">حذف بيانات مريض</h5>
+                <h5 class="modal-title" id="exampleModalLabel">{{ trans('patients-crud_trans.delete_patient') }}</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -16,15 +16,15 @@
                     <input type="hidden" name="id" value="{{ $Patient->id }}">
                     <div class="row">
                         <div class="col">
-                            <p class="h5 text-danger"> هل انت متاكد من حذف بيانات المريض ؟ </p>
+                            <p class="h5 text-danger"> {{ trans('patients-crud_trans.delete_warning') }} </p>
                             <input type="text" class="form-control" readonly value="{{ $Patient->name }}">
                         </div>
                     </div>
 
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary"
-                            data-dismiss="modal">{{ trans('insurance.close') }}</button>
-                        <button class="btn btn-success">{{ trans('insurance.save') }}</button>
+                            data-dismiss="modal">{{ trans('patients-crud_trans.close') }}</button>
+                        <button class="btn btn-success">{{ trans('patients-crud_trans.confirm') }}</button>
                     </div>
                 </form>
             </div>

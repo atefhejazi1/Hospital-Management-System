@@ -7,8 +7,8 @@
         <div class="breadcrumb-header justify-content-between">
             <div class="my-auto">
                 <div class="d-flex">
-                    <h4 class="content-title mb-0 my-auto">المحادثات</h4><span class="text-muted mt-1 tx-13 mr-2 mb-0">/
-                        المحادثات الاخيرة</span>
+                    <h4 class="content-title mb-0 my-auto">{{ trans('chat_trans.conversations') }}</h4><span class="text-muted mt-1 tx-13 mr-2 mb-0">/
+                        {{ trans('chat_trans.breadcrumb_recent_conversations') }}</span>
                 </div>
             </div>
         </div>
@@ -21,7 +21,7 @@
                 <div class="card">
                     <div class="main-content-left main-content-left-chat">
                         <nav class="nav main-nav-line main-nav-line-chat">
-                            <a class="nav-link active" data-toggle="tab" href="">المحادثات الاخيرة</a>
+                            <a class="nav-link active" data-toggle="tab" href="">{{ trans('chat_trans.recent_conversations') }}</a>
                         </nav>
                         @livewire('chat.chatlist')
                     </div>

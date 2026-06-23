@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" dir="ltr">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" dir="{{ App::getLocale() == 'ar' ? 'rtl' : 'ltr' }}">
 
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <title>Sign In — MediCore HMS</title>
+    <title>{{ trans('login_trans.meta_title') }}</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -92,12 +92,12 @@
 
     <div class="auth-shell">
 
-        <a href="{{ route('home') }}" class="auth-back"><i class="bi bi-arrow-left"></i> Back to home</a>
+        <a href="{{ route('home') }}" class="auth-back"><i class="bi bi-arrow-left"></i> {{ trans('login_trans.back_to_home') }}</a>
 
         <div class="auth-card">
             <div class="brand-mark"><i class="bi bi-hospital-fill"></i></div>
-            <h1>Welcome back</h1>
-            <p class="sub">Select your role, then sign in to continue.</p>
+            <h1>{{ trans('login_trans.welcome_title') }}</h1>
+            <p class="sub">{{ trans('login_trans.welcome_sub') }}</p>
 
             @if ($errors->any())
             <div class="err-box">
@@ -109,11 +109,11 @@
 
             @php
                 $guards = [
-                    ['key' => 'admin',                'icon' => 'bi-shield-lock-fill', 'label' => 'Admin',      'title' => 'System Administration',    'action' => route('login.admin')],
-                    ['key' => 'doctor',               'icon' => 'bi-heart-pulse-fill', 'label' => 'Doctor',     'title' => 'Clinical / Doctor Access',  'action' => route('login.doctor')],
-                    ['key' => 'patient',              'icon' => 'bi-person-fill',      'label' => 'Patient',    'title' => 'Patient Access',            'action' => route('login.patient')],
-                    ['key' => 'ray_employee',         'icon' => 'bi-camera-fill',      'label' => 'Radiology',  'title' => 'Radiology Staff',           'action' => route('login.ray_employee')],
-                    ['key' => 'laboratorie_employee', 'icon' => 'bi-droplet-fill',     'label' => 'Laboratory', 'title' => 'Laboratory Staff',          'action' => route('login.laboratorie_employee')],
+                    ['key' => 'admin',                'icon' => 'bi-shield-lock-fill', 'label' => trans('login_trans.role_admin'),      'title' => trans('login_trans.title_admin'),      'action' => route('login.admin')],
+                    ['key' => 'doctor',               'icon' => 'bi-heart-pulse-fill', 'label' => trans('login_trans.role_doctor'),     'title' => trans('login_trans.title_doctor'),     'action' => route('login.doctor')],
+                    ['key' => 'patient',              'icon' => 'bi-person-fill',      'label' => trans('login_trans.role_patient'),    'title' => trans('login_trans.title_patient'),    'action' => route('login.patient')],
+                    ['key' => 'ray_employee',         'icon' => 'bi-camera-fill',      'label' => trans('login_trans.role_radiology'),  'title' => trans('login_trans.title_radiology'),  'action' => route('login.ray_employee')],
+                    ['key' => 'laboratorie_employee', 'icon' => 'bi-droplet-fill',     'label' => trans('login_trans.role_laboratory'), 'title' => trans('login_trans.title_laboratory'), 'action' => route('login.laboratorie_employee')],
                 ];
             @endphp
 
@@ -129,13 +129,13 @@
 
             @foreach($guards as $g)
             <div class="role-panel @if($loop->first) is-active @endif" id="panel-{{ $g['key'] }}">
-                <div class="portal-line"><i class="bi {{ $g['icon'] }}"></i> Signing in — {{ $g['title'] }}</div>
+                <div class="portal-line"><i class="bi {{ $g['icon'] }}"></i> {{ trans('login_trans.signing_in_as', ['title' => $g['title']]) }}</div>
 
                 <form method="POST" action="{{ $g['action'] }}" autocomplete="on">
                     @csrf
 
                     <div class="field">
-                        <label for="email-{{ $g['key'] }}">Email address</label>
+                        <label for="email-{{ $g['key'] }}">{{ trans('login_trans.email_label') }}</label>
                         <div class="input-group-mc">
                             <span class="ig-icon"><i class="bi bi-envelope-fill"></i></span>
                             <input
@@ -153,8 +153,8 @@
 
                     <div class="field">
                         <div class="field-row">
-                            <label for="password-{{ $g['key'] }}" style="margin:0;">Password</label>
-                            <a href="{{ route('password.request') }}">Forgot password?</a>
+                            <label for="password-{{ $g['key'] }}" style="margin:0;">{{ trans('login_trans.password_label') }}</label>
+                            <a href="{{ route('password.request') }}">{{ trans('login_trans.forgot_password') }}</a>
                         </div>
                         <div class="input-group-mc">
                             <span class="ig-icon"><i class="bi bi-lock-fill"></i></span>
@@ -174,19 +174,21 @@
                     </div>
 
                     <button type="submit" class="submit-mc" wire:loading.attr="disabled">
-                        Sign in as {{ $g['label'] }}
+                        {{ trans('login_trans.sign_in_as', ['label' => $g['label']]) }}
                     </button>
                 </form>
             </div>
             @endforeach
         </div>
 
-        <p class="auth-foot">© {{ date('Y') }} MediCore HMS — Secure, encrypted connection.</p>
+        <p class="auth-foot">{{ trans('login_trans.footer_copyright', ['year' => date('Y')]) }}</p>
     </div>
 
     <script>
     (function () {
         'use strict';
+
+        var signingInText = @json(trans('login_trans.signing_in_progress'));
 
         function selectRole(key) {
             document.querySelectorAll('.role-pill').forEach(function (btn) {
@@ -224,7 +226,7 @@
                 var btn = form.querySelector('.submit-mc');
                 if (!btn) return;
                 btn.disabled = true;
-                btn.textContent = 'Signing in…';
+                btn.textContent = signingInText;
             });
         });
 

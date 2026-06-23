@@ -10,8 +10,8 @@
     <div class="breadcrumb-header justify-content-between">
         <div class="left-content">
             <div>
-                <h2 class="main-content-title tx-24 mg-b-1 mg-b-lg-1">لوحة تحكم موظفي المختبر</h2><br>
-                <p class="mg-b-0">مرحبا بعودتك مرة اخري {{ auth()->user()->name }}</p>
+                <h2 class="main-content-title tx-24 mg-b-1 mg-b-lg-1">{{ trans('staff-dashboard_trans.lab_dashboard_title') }}</h2><br>
+                <p class="mg-b-0">{{ trans('staff-dashboard_trans.welcome_back', ['name' => auth()->user()->name]) }}</p>
             </div>
         </div>
     </div>
@@ -24,7 +24,7 @@
             <div class="card overflow-hidden sales-card bg-primary-gradient">
                 <div class="pl-3 pt-3 pr-3 pb-2 pt-0">
                     <div class="">
-                        <h6 class="mb-3 tx-12 text-white">اجمالي عدد الفواتير</h6>
+                        <h6 class="mb-3 tx-12 text-white">{{ trans('staff-dashboard_trans.total_invoices') }}</h6>
                     </div>
                     <div class="pb-0 mt-0">
                         <div class="d-flex">
@@ -42,7 +42,7 @@
             <div class="card overflow-hidden sales-card bg-danger-gradient">
                 <div class="pl-3 pt-3 pr-3 pb-2 pt-0">
                     <div class="">
-                        <h6 class="mb-3 tx-12 text-white">اجمالي عدد الفواتير تحت الاجراء</h6>
+                        <h6 class="mb-3 tx-12 text-white">{{ trans('staff-dashboard_trans.invoices_in_progress') }}</h6>
                     </div>
                     <div class="pb-0 mt-0">
                         <div class="d-flex">
@@ -60,7 +60,7 @@
             <div class="card overflow-hidden sales-card bg-success-gradient">
                 <div class="pl-3 pt-3 pr-3 pb-2 pt-0">
                     <div class="">
-                        <h6 class="mb-3 tx-12 text-white">اجمالي عدد الفواتير المكتملة</h6>
+                        <h6 class="mb-3 tx-12 text-white">{{ trans('staff-dashboard_trans.completed_invoices') }}</h6>
                     </div>
                     <div class="pb-0 mt-0">
                         <div class="d-flex">
@@ -82,18 +82,18 @@
         <div class="col-md-12 col-lg-12 col-xl-12">
             <div class="card card-table-two">
                 <div class="d-flex justify-content-between">
-                    <h2 class="card-title mb-1">اخر 5 فواتير علي النظام</h2>
+                    <h2 class="card-title mb-1">{{ trans('staff-dashboard_trans.latest_invoices_title') }}</h2>
                 </div><br>
                 <div class="table-responsive country-table">
                     <table class="table table-striped table-bordered mb-0 text-sm-nowrap text-lg-nowrap text-xl-nowrap">
                         <thead>
                             <tr>
-                                <th>#</th>
-                                <th>تاريخ الفاتورة</th>
-                                <th>اسم المريض</th>
-                                <th>اسم الطبيب</th>
-                                <th>المطلوب</th>
-                                <th>حالة الفاتورة</th>
+                                <th>{{ trans('staff-dashboard_trans.col_hash') }}</th>
+                                <th>{{ trans('staff-dashboard_trans.col_invoice_date') }}</th>
+                                <th>{{ trans('staff-dashboard_trans.col_patient_name') }}</th>
+                                <th>{{ trans('staff-dashboard_trans.col_doctor_name') }}</th>
+                                <th>{{ trans('staff-dashboard_trans.col_required') }}</th>
+                                <th>{{ trans('staff-dashboard_trans.col_invoice_status') }}</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -106,14 +106,14 @@
                                     <td class="tx-right tx-medium tx-danger">{{ $invoice->description }}</td>
                                     <td class="tx-right tx-medium tx-inverse">
                                         @if ($invoice->case == 0)
-                                            <span class="badge badge-danger">تحت الاجراء</span>
+                                            <span class="badge badge-danger">{{ trans('staff-dashboard_trans.status_in_progress') }}</span>
                                         @else
-                                            <span class="badge badge-success">مكتملة</span>
+                                            <span class="badge badge-success">{{ trans('staff-dashboard_trans.status_completed') }}</span>
                                         @endif
                                     </td>
                                 </tr>
                             @empty
-                                لاتوجد بيانات
+                                {{ trans('staff-dashboard_trans.no_data') }}
                             @endforelse
                         </tbody>
                     </table>

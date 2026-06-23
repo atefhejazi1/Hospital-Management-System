@@ -4,14 +4,14 @@
     <link href="{{URL::asset('dashboard/plugins/notify/css/notifIt.css')}}" rel="stylesheet"/>
 @endsection
 @section('title')
-   اضافة سيارة جديدة
+   {{ trans('billing-ops_trans.ambulance_add_title') }}
 @endsection
 @section('page-header')
 <!-- breadcrumb -->
 <div class="breadcrumb-header justify-content-between">
     <div class="my-auto">
         <div class="d-flex">
-            <h4 class="content-title mb-0 my-auto">الاسعاف</h4><span class="text-muted mt-1 tx-13 mr-2 mb-0">/ اضافة سيارة جديدة</span>
+            <h4 class="content-title mb-0 my-auto">{{ trans('billing-ops_trans.ambulance_section') }}</h4><span class="text-muted mt-1 tx-13 mr-2 mb-0">{{ trans('billing-ops_trans.ambulance_breadcrumb_add') }}</span>
         </div>
     </div>
 </div>
@@ -29,26 +29,26 @@
                     @csrf
                     <div class="row">
                         <div class="col">
-                            <label>رقم السيارة</label>
+                            <label>{{ trans('billing-ops_trans.ambulance_car_number') }}</label>
                             <input type="text" name="car_number"  value="{{$ambulance->car_number}}" class="form-control @error('car_number') is-invalid @enderror">
                             <input type="hidden" name="id" value="{{$ambulance->id}}">
                         </div>
 
                         <div class="col">
-                            <label>موديل السيارة</label>
+                            <label>{{ trans('billing-ops_trans.ambulance_car_model') }}</label>
                             <input type="text" name="car_model"  value="{{$ambulance->car_model}}" class="form-control @error('car_model') is-invalid @enderror">
                         </div>
 
                         <div class="col">
-                            <label>سنة الصنع</label>
+                            <label>{{ trans('billing-ops_trans.ambulance_car_year') }}</label>
                             <input type="number" name="car_year_made"  value="{{$ambulance->car_year_made}}" class="form-control @error('car_year_made') is-invalid @enderror">
                         </div>
 
                         <div class="col">
-                            <label>نوع السيارة</label>
+                            <label>{{ trans('billing-ops_trans.ambulance_car_type') }}</label>
                             <select class="form-control" name="car_type">
-                                <option value="1" {{$ambulance->car_type == 1 ? 'selected':''}}>مملوكة</option>
-                                <option value="2" {{$ambulance->car_type == 2 ? 'selected':''}}>ايجار</option>
+                                <option value="1" {{$ambulance->car_type == 1 ? 'selected':''}}>{{ trans('billing-ops_trans.ambulance_car_type_owned') }}</option>
+                                <option value="2" {{$ambulance->car_type == 2 ? 'selected':''}}>{{ trans('billing-ops_trans.ambulance_car_type_rented') }}</option>
                             </select>
                         </div>
 
@@ -57,17 +57,17 @@
 
                     <div class="row">
                         <div class="col-3">
-                            <label>اسم السائق</label>
+                            <label>{{ trans('billing-ops_trans.ambulance_driver_name') }}</label>
                             <input type="text" name="driver_name"  value="{{$ambulance->driver_name}}" class="form-control @error('driver_name') is-invalid @enderror">
                         </div>
 
                         <div class="col-3">
-                            <label>رقم رخصة القيادة</label>
+                            <label>{{ trans('billing-ops_trans.ambulance_driver_license') }}</label>
                             <input type="number" name="driver_license_number"  value="{{$ambulance->driver_license_number}}" class="form-control @error('driver_license_number') is-invalid @enderror">
                         </div>
 
                         <div class="col-6">
-                            <label>رقم الهاتف</label>
+                            <label>{{ trans('billing-ops_trans.ambulance_driver_phone') }}</label>
                             <input type="number" name="driver_phone"  value="{{$ambulance->driver_phone}}" class="form-control @error('driver_phone') is-invalid @enderror">
                         </div>
 
@@ -77,7 +77,7 @@
 
                     <div class="row">
                         <div class="col">
-                            <label>ملاحظات</label>
+                            <label>{{ trans('billing-ops_trans.ambulance_notes') }}</label>
                             <textarea rows="5" cols="10" class="form-control" name="notes">{{$ambulance->notes}}</textarea>
                         </div>
                     </div>
@@ -85,7 +85,7 @@
                     <br>
                     <div class="row">
                         <div class="col">
-                            <label>حالة التفعيل</label>
+                            <label>{{ trans('billing-ops_trans.ambulance_activation_status') }}</label>
                             &nbsp;
                             <input name="is_available" {{$ambulance->is_available == 1 ? 'checked' : ''}} value="1" type="checkbox" class="form-check-input" id="exampleCheck1">
                         </div>
@@ -95,7 +95,7 @@
 
                     <div class="row">
                         <div class="col">
-                            <button class="btn btn-success">حفظ البيانات</button>
+                            <button class="btn btn-success">{{ trans('billing-ops_trans.ambulance_save') }}</button>
                         </div>
                     </div>
 

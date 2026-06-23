@@ -10,5 +10,6 @@ return array (
   'description' => 'description',
   'edit_sections' => 'Edit Sections',
   'name_sections' => 'Name Sections',
+  'section_doctors' => 'Section Doctors',
   'submit' => 'Submit',
 );

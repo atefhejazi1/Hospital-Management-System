@@ -4,7 +4,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">حذف تفاصيل مختبر</h5>
+                <h5 class="modal-title" id="exampleModalLabel">{{ trans('doctor-dashboard_trans.delete_lab_modal_title') }}</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -15,7 +15,7 @@
                     @csrf
                     <div class="row">
                         <div class="col">
-                            <p class="h5 text-danger"> هل انت متاكد من حذف بيانات الاشعة ؟ </p>
+                            <p class="h5 text-danger"> {{ trans('doctor-dashboard_trans.confirm_delete_lab') }} </p>
                             <input type="text" class="form-control" readonly value="{{ $patient_Laboratorie->description }}">
                         </div>
                     </div>

@@ -1,6 +1,6 @@
 @extends('Dashboard.layouts.master')
 @section('title')
-    الفواتير المكتملة
+    {{ trans('staff-dashboard_trans.completed_invoices_title') }}
 @stop
 @section('css')
 
@@ -12,7 +12,7 @@
     <div class="breadcrumb-header justify-content-between">
         <div class="my-auto">
             <div class="d-flex">
-                <h4 class="content-title mb-0 my-auto">الفواتير المكتملة</h4><span class="text-muted mt-1 tx-13 mr-2 mb-0">/ الفواتير</span>
+                <h4 class="content-title mb-0 my-auto">{{ trans('staff-dashboard_trans.completed_invoices_title') }}</h4><span class="text-muted mt-1 tx-13 mr-2 mb-0">/ {{ trans('staff-dashboard_trans.ray_checkups_breadcrumb') }}</span>
             </div>
         </div>
     </div>
@@ -30,13 +30,13 @@
                         <table class="table text-md-nowrap" id="example1">
                             <thead>
                             <tr>
-                                <th>#</th>
-                                <th>تاريخ الفاتورة</th>
-                                <th>اسم المريض</th>
-                                <th>اسم الدكتور</th>
-                                <th>المطلوب</th>
-                                <th>حالة الفاتورة</th>
-                                <th>العمليات</th>
+                                <th>{{ trans('staff-dashboard_trans.col_hash') }}</th>
+                                <th>{{ trans('staff-dashboard_trans.col_invoice_date') }}</th>
+                                <th>{{ trans('staff-dashboard_trans.col_patient_name') }}</th>
+                                <th>{{ trans('staff-dashboard_trans.col_doctor_name') }}</th>
+                                <th>{{ trans('staff-dashboard_trans.col_required') }}</th>
+                                <th>{{ trans('staff-dashboard_trans.col_invoice_status') }}</th>
+                                <th>{{ trans('staff-dashboard_trans.col_actions') }}</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -49,9 +49,9 @@
                                     <td>{{ $invoice->description }}</td>
                                     <td>
                                         @if($invoice->case == 0)
-                                            <span class="badge badge-danger">تحت الاجراء</span>
+                                            <span class="badge badge-danger">{{ trans('staff-dashboard_trans.status_in_progress') }}</span>
                                         @else
-                                            <span class="badge badge-success">مكتملة</span>
+                                            <span class="badge badge-success">{{ trans('staff-dashboard_trans.status_completed') }}</span>
                                         @endif
                                     </td>
 
@@ -59,7 +59,7 @@
                                         <div class="dropdown">
                                             <button aria-expanded="false" aria-haspopup="true" class="btn ripple btn-outline-primary btn-sm" data-toggle="dropdown" type="button">{{trans('doctors.Processes')}}<i class="fas fa-caret-down mr-1"></i></button>
                                             <div class="dropdown-menu tx-13">
-                                                <a class="dropdown-item" href="{{route('invoices_ray_employee.edit',$invoice->id)}}"><i class="text-primary fa fa-stethoscope"></i>&nbsp;&nbsp;اضافة تشخيص </a>
+                                                <a class="dropdown-item" href="{{route('invoices_ray_employee.edit',$invoice->id)}}"><i class="text-primary fa fa-stethoscope"></i>&nbsp;&nbsp;{{ trans('staff-dashboard_trans.add_diagnosis_action') }}</a>
                                             </div>
                                         </div>
                                     </td>
