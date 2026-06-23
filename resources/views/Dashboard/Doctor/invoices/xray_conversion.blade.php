@@ -4,7 +4,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">تحويل الي قسم الاشعة</h5>
+                <h5 class="modal-title" id="exampleModalLabel">{{ trans('doctor-dashboard_trans.convert_to_radiology_modal_title') }}</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -18,14 +18,14 @@
                     <input type="hidden" name="doctor_id" value="{{ $invoice->doctor_id }}">
 
                     <div class="form-group">
-                        <label for="exampleFormControlTextarea1">المطلوب</label>
+                        <label for="exampleFormControlTextarea1">{{ trans('doctor-dashboard_trans.label_request') }}</label>
                         <textarea class="form-control" name="description" rows="6"></textarea>
                     </div>
 
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">اغلاق</button>
-                    <button type="submit" class="btn btn-primary">حفظ البيانات</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ trans('doctor-dashboard_trans.close') }}</button>
+                    <button type="submit" class="btn btn-primary">{{ trans('doctor-dashboard_trans.save_data') }}</button>
                 </div>
             </form>
         </div>

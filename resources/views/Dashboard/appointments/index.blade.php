@@ -13,8 +13,8 @@
     <div class="breadcrumb-header justify-content-between">
         <div class="my-auto">
             <div class="d-flex">
-                <h4 class="content-title mb-0 my-auto">المواعيد</h4><span
-                    class="text-muted mt-1 tx-13 mr-2 mb-0">/ قائمة المواعيد</span>
+                <h4 class="content-title mb-0 my-auto">{{ trans('billing-ops_trans.appointment_section') }}</h4><span
+                    class="text-muted mt-1 tx-13 mr-2 mb-0">/ {{ trans('billing-ops_trans.appointment_list_title') }}</span>
             </div>
         </div>
     </div>
@@ -33,13 +33,13 @@
                             <thead>
                             <tr>
                                 <th>#</th>
-                                <th>اسم المريض</th>
-                                <th>البريد الالكتروني</th>
-                                <th>القسم</th>
-                                <th>الدكتور</th>
-                                <th>الهاتف</th>
-                                <th>ملاحظات</th>
-                                <th>العمليات</th>
+                                <th>{{ trans('billing-ops_trans.appointment_col_patient_name') }}</th>
+                                <th>{{ trans('billing-ops_trans.appointment_col_email') }}</th>
+                                <th>{{ trans('billing-ops_trans.appointment_col_department') }}</th>
+                                <th>{{ trans('billing-ops_trans.appointment_col_doctor') }}</th>
+                                <th>{{ trans('billing-ops_trans.appointment_col_phone') }}</th>
+                                <th>{{ trans('billing-ops_trans.appointment_col_notes') }}</th>
+                                <th>{{ trans('billing-ops_trans.appointment_col_actions') }}</th>
                             </tr>
                             </thead>
                             <tbody>

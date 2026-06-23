@@ -109,7 +109,7 @@
 
                                 <div class="col-md-11 mg-t-5 mg-md-t-0">
                                     <select multiple="multiple" class="testselect2" name="appointments[]">
-                                        <option selected name="appointments[]" value="" selected disabled>-- حدد المواعيد --</option>
+                                        <option selected name="appointments[]" value="" selected disabled>-- {{trans('doctors.choose_appointments')}} --</option>
                                         @foreach($appointments as $appointment)
                                             <option value="{{$appointment->id}}">{{$appointment->name}}</option>
                                         @endforeach

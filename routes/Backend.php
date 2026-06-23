@@ -32,13 +32,13 @@ Route::group(
     function () {
 
         // ############################# Patient Dashboard route ##########################################
-        Route::get('/dashboard/user', function () {
+        Route::get('/portal/user', function () {
             return view('Dashboard.User.dashboard');
         })->middleware(['auth', 'verified'])->name('dashboard.user');
 
 
         // ############################# Admin Dashboard route ##########################################
-        Route::get('/dashboard/admin', [AdminDashboardController::class, 'index'])
+        Route::get('/portal/admin', [AdminDashboardController::class, 'index'])
             ->middleware(['auth:admin', 'verified'])
             ->name('dashboard.admin');
 

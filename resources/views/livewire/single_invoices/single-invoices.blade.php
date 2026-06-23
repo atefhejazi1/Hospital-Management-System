@@ -8,11 +8,11 @@
     @endif
 
     @if ($InvoiceSaved)
-        <div class="alert alert-info">تم حفظ البيانات بنجاح.</div>
+        <div class="alert alert-info">{{ trans('invoices_trans.data_saved_success') }}</div>
     @endif
 
     @if ($InvoiceUpdated)
-        <div class="alert alert-info">تم تعديل البيانات بنجاح.</div>
+        <div class="alert alert-info">{{ trans('invoices_trans.data_updated_success') }}</div>
     @endif
 
 
@@ -24,9 +24,9 @@
             @csrf
             <div class="row">
                 <div class="col">
-                    <label>اسم المريض</label>
+                    <label>{{ trans('invoices_trans.patient_name') }}</label>
                     <select wire:model="patient_id" class="form-control" required>
-                        <option value="">-- اختار من القائمة --</option>
+                        <option value="">{{ trans('invoices_trans.choose_from_list_placeholder') }}</option>
                         @foreach ($Patients as $Patient)
                             <option value="{{ $Patient->id }}">{{ $Patient->name }}</option>
                         @endforeach
@@ -35,10 +35,10 @@
 
 
                 <div class="col">
-                    <label>اسم الدكتور</label>
+                    <label>{{ trans('invoices_trans.doctor_name') }}</label>
                     <select wire:model="doctor_id" wire:change="get_section" class="form-control"
                         id="exampleFormControlSelect1" required>
-                        <option value="">-- اختار من القائمة --</option>
+                        <option value="">{{ trans('invoices_trans.choose_from_list_placeholder') }}</option>
                         @foreach ($Doctors as $Doctor)
                             <option value="{{ $Doctor->id }}">{{ $Doctor->name }}</option>
                         @endforeach
@@ -47,16 +47,16 @@
 
 
                 <div class="col">
-                    <label>القسم</label>
+                    <label>{{ trans('invoices_trans.department') }}</label>
                     <input wire:model="section_id" type="text" class="form-control" readonly>
                 </div>
 
                 <div class="col">
-                    <label>نوع الفاتورة</label>
+                    <label>{{ trans('invoices_trans.invoice_type') }}</label>
                     <select wire:model="type" class="form-control" {{ $updateMode ? 'disabled' : '' }}>
-                        <option value="">-- اختار من القائمة --</option>
-                        <option value="1">نقدي</option>
-                        <option value="2">اجل</option>
+                        <option value="">{{ trans('invoices_trans.choose_from_list_placeholder') }}</option>
+                        <option value="1">{{ trans('invoices_trans.type_cash') }}</option>
+                        <option value="2">{{ trans('invoices_trans.type_deferred') }}</option>
                     </select>
                 </div>
 
@@ -77,12 +77,12 @@
                                     <thead>
                                         <tr>
                                             <th>#</th>
-                                            <th>اسم الخدمة</th>
-                                            <th>سعر الخدمة</th>
-                                            <th>قيمة الخصم</th>
-                                            <th>نسبة الضريبة</th>
-                                            <th>قيمة الضريبة</th>
-                                            <th>الاجمالي مع الضريبة</th>
+                                            <th>{{ trans('invoices_trans.service_name') }}</th>
+                                            <th>{{ trans('invoices_trans.service_price') }}</th>
+                                            <th>{{ trans('invoices_trans.discount_value') }}</th>
+                                            <th>{{ trans('invoices_trans.tax_rate') }}</th>
+                                            <th>{{ trans('invoices_trans.tax_value') }}</th>
+                                            <th>{{ trans('invoices_trans.total_with_tax') }}</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -91,7 +91,7 @@
                                             <td>
                                                 <select wire:model="Service_id" class="form-control"
                                                     wire:change="get_price" id="exampleFormControlSelect1">
-                                                    <option value="">-- اختار الخدمة --</option>
+                                                    <option value="">{{ trans('invoices_trans.choose_service_placeholder') }}</option>
                                                     @foreach ($Services as $Service)
                                                         <option value="{{ $Service->id }}">{{ $Service->name }}
                                                         </option>
@@ -119,7 +119,7 @@
                 </div>
             </div>
 
-            <input class="btn btn-outline-success" type="submit" value="تاكيد البيانات">
+            <input class="btn btn-outline-success" type="submit" value="{{ trans('invoices_trans.confirm_data') }}">
         </form>
 
     @endif

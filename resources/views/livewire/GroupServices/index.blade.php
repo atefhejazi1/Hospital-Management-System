@@ -1,14 +1,14 @@
 
-<button class="btn btn-primary pull-right" wire:click="show_form_add" type="button">اضافة مجموعة خدمات </button><br><br>
+<button class="btn btn-primary pull-right" wire:click="show_form_add" type="button">{{ trans('group-services_trans.add_new_group') }} </button><br><br>
 <div class="table-responsive">
         <table class="table text-md-nowrap" id="example1" data-page-length="50"style="text-align: center">
         <thead>
             <tr>
                 <th>#</th>
-                <th>الاسم</th>
-                <th>اجمالي العرض شامل الضريبة</th>
-                <th>الملاحظات</th>
-                <th>العمليات</th>
+                <th>{{ trans('group-services_trans.col_name') }}</th>
+                <th>{{ trans('group-services_trans.col_total_with_tax') }}</th>
+                <th>{{ trans('group-services_trans.col_notes') }}</th>
+                <th>{{ trans('group-services_trans.col_processes') }}</th>
             </tr>
         </thead>
         <tbody>

@@ -2,14 +2,14 @@
 @section('css')
 @endsection
 @section('title')
-    معلومات المريض
+    {{ trans('patients-crud_trans.patient_info') }}
 @endsection
 @section('page-header')
     <!-- breadcrumb -->
     <div class="breadcrumb-header justify-content-between">
         <div class="my-auto">
             <div class="d-flex">
-                <h4 class="content-title mb-0 my-auto">Pages</h4><span class="text-muted mt-1 tx-13 mr-2 mb-0">/ Empty</span>
+                <h4 class="content-title mb-0 my-auto">{{ trans('patients-crud_trans.patients') }}</h4><span class="text-muted mt-1 tx-13 mr-2 mb-0">/ {{ trans('patients-crud_trans.patient_info') }}</span>
             </div>
         </div>
     </div>
@@ -29,20 +29,19 @@
                                         <!-- Tabs -->
                                         <ul class="nav panel-tabs main-nav-line">
                                             <li class="nav-item"><a href="#tab1" class="nav-link active"
-                                                    data-toggle="tab">معلومات المريض</a></li>
+                                                    data-toggle="tab">{{ trans('patients-crud_trans.patient_info') }}</a></li>
                                             <li class="nav-item"><a href="#tab2" class="nav-link"
-                                                    data-toggle="tab">الفواتير</a>
+                                                    data-toggle="tab">{{ trans('patients-crud_trans.invoices') }}</a>
                                             </li>
                                             <li class="nav-item"><a href="#tab3" class="nav-link"
-                                                    data-toggle="tab">المدفوعات</a>
+                                                    data-toggle="tab">{{ trans('patients-crud_trans.receipts') }}</a>
                                             </li>
-                                            <li class="nav-item"><a href="#tab4" class="nav-link" data-toggle="tab">كشف
-                                                    حساب</a></li>
+                                            <li class="nav-item"><a href="#tab4" class="nav-link" data-toggle="tab">{{ trans('patients-crud_trans.statement_of_account') }}</a></li>
                                             <li class="nav-item"><a href="#tab5" class="nav-link"
-                                                    data-toggle="tab">الاشعه</a>
+                                                    data-toggle="tab">{{ trans('patients-crud_trans.radiology') }}</a>
                                             </li>
                                             <li class="nav-item"><a href="#tab6" class="nav-link"
-                                                    data-toggle="tab">المختبر</a>
+                                                    data-toggle="tab">{{ trans('patients-crud_trans.laboratory') }}</a>
                                             </li>
                                         </ul>
                                     </div>
@@ -60,12 +59,12 @@
                                                     <thead>
                                                         <tr>
                                                             <th>#</th>
-                                                            <th>اسم المريض</th>
-                                                            <th>رقم الهاتف</th>
-                                                            <th>البريد الالكتورني</th>
-                                                            <th>تاريخ الميلاد</th>
-                                                            <th>النوع</th>
-                                                            <th>فصيلة الدم</th>
+                                                            <th>{{ trans('patients-crud_trans.name') }}</th>
+                                                            <th>{{ trans('patients-crud_trans.phone') }}</th>
+                                                            <th>{{ trans('patients-crud_trans.email') }}</th>
+                                                            <th>{{ trans('patients-crud_trans.date_birth') }}</th>
+                                                            <th>{{ trans('patients-crud_trans.gender') }}</th>
+                                                            <th>{{ trans('patients-crud_trans.blood_group') }}</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -75,7 +74,7 @@
                                                             <td>{{ $Patient->Phone }}</td>
                                                             <td>{{ $Patient->email }}</td>
                                                             <td>{{ $Patient->Date_Birth }}</td>
-                                                            <td>{{ $Patient->Gender == 1 ? '`ذكر' : 'انثي' }}</td>
+                                                            <td>{{ $Patient->Gender == 1 ? trans('patients-crud_trans.male') : trans('patients-crud_trans.female') }}</td>
                                                             <td>{{ $Patient->Blood_Group }}</td>
                                                         </tr>
                                                     </tbody>
@@ -96,10 +95,10 @@
                                                     <thead>
                                                         <tr>
                                                             <th>#</th>
-                                                            <th>اسم الخدمه</th>
-                                                            <th>تاريخ الفاتوره</th>
-                                                            <th>الاجمالي مع الضريبه</th>
-                                                            <th>نوع الفاتوره</th>
+                                                            <th>{{ trans('patients-crud_trans.service_name') }}</th>
+                                                            <th>{{ trans('patients-crud_trans.invoice_date') }}</th>
+                                                            <th>{{ trans('patients-crud_trans.total_with_tax') }}</th>
+                                                            <th>{{ trans('patients-crud_trans.invoice_type') }}</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -110,13 +109,13 @@
                                                                 </td>
                                                                 <td>{{ $invoice->invoice_date }}</td>
                                                                 <td>{{ $invoice->total_with_tax }}</td>
-                                                                <td>{{ $invoice->type == 1 ? 'نقدي' : 'اجل' }}</td>
+                                                                <td>{{ $invoice->type == 1 ? trans('patients-crud_trans.cash') : trans('patients-crud_trans.credit') }}</td>
                                                             </tr>
                                                             <br>
                                                         @endforeach
                                                         <tr>
                                                             <th colspan="4" scope="row" class="alert alert-success">
-                                                                الاجمالي
+                                                                {{ trans('patients-crud_trans.total') }}
                                                             </th>
                                                             <td class="alert alert-primary">
                                                                 {{ number_format($invoices->sum('total_with_tax'), 2) }}
@@ -139,9 +138,9 @@
                                                     <thead>
                                                         <tr>
                                                             <th>#</th>
-                                                            <th>تاريخ الاضافه</th>
-                                                            <th>المبلغ</th>
-                                                            <th>البيان</th>
+                                                            <th>{{ trans('patients-crud_trans.created_at') }}</th>
+                                                            <th>{{ trans('patients-crud_trans.amount') }}</th>
+                                                            <th>{{ trans('patients-crud_trans.description') }}</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -155,7 +154,7 @@
                                                             <br>
                                                         @endforeach
                                                         <tr>
-                                                            <th scope="row" class="alert alert-success">الاجمالي
+                                                            <th scope="row" class="alert alert-success">{{ trans('patients-crud_trans.total') }}
                                                             </th>
                                                             <td colspan="4" class="alert alert-primary">
                                                                 {{ number_format($receipt_accounts->sum('amount'), 2) }}
@@ -176,11 +175,11 @@
                                                     <thead>
                                                         <tr>
                                                             <th>#</th>
-                                                            <th>تاريخ الاضافه</th>
-                                                            <th>الوصف</th>
-                                                            <th>مدبن</th>
-                                                            <th>دائن</th>
-                                                            <th>الرصيد النهائي</th>
+                                                            <th>{{ trans('patients-crud_trans.created_at') }}</th>
+                                                            <th>{{ trans('patients-crud_trans.description') }}</th>
+                                                            <th>{{ trans('patients-crud_trans.debit') }}</th>
+                                                            <th>{{ trans('patients-crud_trans.credit_account') }}</th>
+                                                            <th>{{ trans('patients-crud_trans.final_balance') }}</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -206,7 +205,7 @@
                                                         @endforeach
                                                         <tr>
                                                             <th colspan="3" scope="row" class="alert alert-success">
-                                                                الاجمالي
+                                                                {{ trans('patients-crud_trans.total') }}
                                                             </th>
                                                             <td class="alert alert-primary">
                                                                 {{ number_format($Debit = $Patient_accounts->sum('Debit'), 2) }}
@@ -216,7 +215,7 @@
                                                             </td>
                                                             <td class="alert alert-danger">
                                                                 <span class="text-danger"> {{ $Debit - $credit }}
-                                                                    {{ $Debit - $credit > 0 ? 'مدين' : 'دائن' }}</span>
+                                                                    {{ $Debit - $credit > 0 ? trans('patients-crud_trans.debit') : trans('patients-crud_trans.credit_account') }}</span>
                                                             </td>
                                                         </tr>
                                                     </tbody>

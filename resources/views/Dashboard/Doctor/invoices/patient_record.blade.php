@@ -6,7 +6,7 @@
     <div class="breadcrumb-header justify-content-between">
         <div class="my-auto">
             <div class="d-flex">
-                <h4 class="content-title mb-0 my-auto">المريض</h4><span class="text-muted mt-1 tx-13 mr-2 mb-0">/ سجل المريض</span>
+                <h4 class="content-title mb-0 my-auto">{{ trans('doctor-dashboard_trans.patient_breadcrumb') }}</h4><span class="text-muted mt-1 tx-13 mr-2 mb-0">/ {{ trans('doctor-dashboard_trans.patient_record_breadcrumb') }}</span>
             </div>
         </div>
     </div>
@@ -26,7 +26,7 @@
                                 <div class="timeline-badge"><i class="las la-check-circle"></i></div>
                                 <div class="timeline-panel">
                                     <div class="timeline-heading">
-                                        <h6 class="timeline-title">Art Ramadani posted a status update</h6>
+                                        <h6 class="timeline-title">{{ trans('doctor-dashboard_trans.status_update_posted') }}</h6>
                                     </div>
                                     <div class="timeline-body">
                                         <p>{{$patient_record->diagnosis}}</p>

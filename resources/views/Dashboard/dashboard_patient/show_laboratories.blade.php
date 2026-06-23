@@ -1,6 +1,6 @@
 @extends('Dashboard.layouts.master')
 @section('title')
-    الكشوفات
+    {{ trans('patient-dashboard_trans.page_title_results') }}
 @stop
 @section('css')
 
@@ -10,7 +10,7 @@
     <div class="breadcrumb-header justify-content-between">
         <div class="my-auto">
             <div class="d-flex">
-                <h4 class="content-title mb-0 my-auto">صور التحاليل</h4><span class="text-muted mt-1 tx-13 mr-2 mb-0">/
+                <h4 class="content-title mb-0 my-auto">{{ trans('patient-dashboard_trans.lab_images_title') }}</h4><span class="text-muted mt-1 tx-13 mr-2 mb-0">/
                     {{ $laboratorie->Patient->name }}</span>
             </div>
         </div>
@@ -20,7 +20,7 @@
 @section('content')
 
     <div class="form-group">
-        <label for="exampleFormControlTextarea1">ملاحظات دكتور المحتبر</label>
+        <label for="exampleFormControlTextarea1">{{ trans('patient-dashboard_trans.lab_doctor_note_label') }}</label>
         <textarea readonly class="form-control" id="exampleFormControlTextarea1" rows="3">{{ $laboratorie->description_employee }}</textarea>
     </div>
 

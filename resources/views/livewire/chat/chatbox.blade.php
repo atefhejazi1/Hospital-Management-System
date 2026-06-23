@@ -8,11 +8,11 @@
                 </div>
                 <nav class="nav">
                     <a class="nav-link" href=""><i class="icon ion-md-more"></i></a> <a class="nav-link"
-                        data-toggle="tooltip" href="" title="Call"><i class="icon ion-ios-call"></i></a> <a
-                        class="nav-link" data-toggle="tooltip" href="" title="Archive"><i
+                        data-toggle="tooltip" href="" title="{{ trans('chat_trans.call') }}"><i class="icon ion-ios-call"></i></a> <a
+                        class="nav-link" data-toggle="tooltip" href="" title="{{ trans('chat_trans.archive') }}"><i
                             class="icon ion-ios-filing"></i></a> <a class="nav-link" data-toggle="tooltip"
-                        href="" title="Trash"><i class="icon ion-md-trash"></i></a> <a class="nav-link"
-                        data-toggle="tooltip" href="" title="View Info"><i
+                        href="" title="{{ trans('chat_trans.trash') }}"><i class="icon ion-md-trash"></i></a> <a class="nav-link"
+                        data-toggle="tooltip" href="" title="{{ trans('chat_trans.view_info') }}"><i
                             class="icon ion-md-information-circle"></i></a>
                 </nav>
             </div><!-- main-chat-header -->

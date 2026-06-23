@@ -1,6 +1,6 @@
 @extends('Dashboard.layouts.master')
 @section('title')
-   المراجعات
+   {{ trans('doctor-dashboard_trans.reviews_page_title') }}
 @stop
 @section('css')
     <!-- Internal Data table css -->
@@ -21,7 +21,7 @@
 				<div class="breadcrumb-header justify-content-between">
 					<div class="my-auto">
 						<div class="d-flex">
-							<h4 class="content-title mb-0 my-auto">المراجعات</h4><span class="text-muted mt-1 tx-13 mr-2 mb-0">/ الفواتير</span>
+							<h4 class="content-title mb-0 my-auto">{{ trans('doctor-dashboard_trans.reviews_page_title') }}</h4><span class="text-muted mt-1 tx-13 mr-2 mb-0">/ {{ trans('doctor-dashboard_trans.breadcrumb_invoices') }}</span>
 						</div>
 					</div>
 				</div>
@@ -39,18 +39,18 @@
                                         <table class="table text-md-nowrap" id="example1">
                                             <thead>
                                             <tr>
-                                                <th>#</th>
-                                                <th>تاريخ الفاتورة</th>
-                                                <th>اسم الخدمة</th>
-                                                <th>اسم المريض</th>
-                                                <th>سعر الخدمة</th>
-                                                <th>قيمة الخصم</th>
-                                                <th>نسبة الضريبة</th>
-                                                <th>قيمة الضريبة</th>
-                                                <th>الاجمالي مع الضريبة</th>
-                                                <th>حالة الفاتورة</th>
-                                                <th>تاريخ المراجعة</th>
-                                                <th>العمليات</th>
+                                                <th>{{ trans('doctor-dashboard_trans.col_hash') }}</th>
+                                                <th>{{ trans('doctor-dashboard_trans.col_invoice_date') }}</th>
+                                                <th>{{ trans('doctor-dashboard_trans.col_service_name') }}</th>
+                                                <th>{{ trans('doctor-dashboard_trans.col_patient_name') }}</th>
+                                                <th>{{ trans('doctor-dashboard_trans.col_service_price') }}</th>
+                                                <th>{{ trans('doctor-dashboard_trans.col_discount_value') }}</th>
+                                                <th>{{ trans('doctor-dashboard_trans.col_tax_rate') }}</th>
+                                                <th>{{ trans('doctor-dashboard_trans.col_tax_value') }}</th>
+                                                <th>{{ trans('doctor-dashboard_trans.col_total_with_tax') }}</th>
+                                                <th>{{ trans('doctor-dashboard_trans.col_invoice_status') }}</th>
+                                                <th>{{ trans('doctor-dashboard_trans.col_review_date') }}</th>
+                                                <th>{{ trans('doctor-dashboard_trans.col_processes') }}</th>
                                             </tr>
                                             </thead>
                                             <tbody>
@@ -67,11 +67,11 @@
                                                    <td>{{ number_format($invoice->total_with_tax, 2) }}</td>
                                                    <td>
                                                       @if($invoice->invoice_status == 1)
-                                                           <span class="badge badge-danger">تحت الاجراء</span>
+                                                           <span class="badge badge-danger">{{ trans('doctor-dashboard_trans.status_in_progress') }}</span>
                                                       @elseif($invoice->invoice_status == 2)
-                                                           <span class="badge badge-warning">مراجعة</span>
+                                                           <span class="badge badge-warning">{{ trans('doctor-dashboard_trans.status_review') }}</span>
                                                        @else
-                                                          <span class="badge badge-success">مكتملة</span>
+                                                          <span class="badge badge-success">{{ trans('doctor-dashboard_trans.status_completed_badge') }}</span>
                                                        @endif
                                                    </td>
 
@@ -80,11 +80,11 @@
                                                        <div class="dropdown">
                                                            <button aria-expanded="false" aria-haspopup="true" class="btn ripple btn-outline-primary btn-sm" data-toggle="dropdown" type="button">{{trans('doctors.Processes')}}<i class="fas fa-caret-down mr-1"></i></button>
                                                            <div class="dropdown-menu tx-13">
-                                                               <a class="dropdown-item" href="#" data-toggle="modal" data-target="#add_diagnosis{{$invoice->id}}"><i class="text-primary fa fa-stethoscope"></i>&nbsp;&nbsp;اضافة تشخيص </a>
-                                                               <a class="dropdown-item" href="#"><i  class="text-warning far fa-file-alt"></i>&nbsp;&nbsp; اضافة مراجعة </a>
-                                                               <a class="dropdown-item" href="#" data-toggle="modal" data-target="#update_password"><i class="text-primary fas fa-x-ray"></i>&nbsp;&nbsp;تحويل الي الاشعة</a>
-                                                               <a class="dropdown-item" href="#" data-toggle="modal" data-target="#update_status"><i class="text-warning fas fa-syringe"></i>&nbsp;&nbsp;تحويل الي المختبر</a>
-                                                               <a class="dropdown-item" href="#" data-toggle="modal" data-target="#delete"><i class="text-danger  ti-trash"></i>&nbsp;&nbsp;حذف البيانات</a>
+                                                               <a class="dropdown-item" href="#" data-toggle="modal" data-target="#add_diagnosis{{$invoice->id}}"><i class="text-primary fa fa-stethoscope"></i>&nbsp;&nbsp;{{ trans('doctor-dashboard_trans.action_add_diagnosis') }} </a>
+                                                               <a class="dropdown-item" href="#"><i  class="text-warning far fa-file-alt"></i>&nbsp;&nbsp; {{ trans('doctor-dashboard_trans.action_add_review') }} </a>
+                                                               <a class="dropdown-item" href="#" data-toggle="modal" data-target="#update_password"><i class="text-primary fas fa-x-ray"></i>&nbsp;&nbsp;{{ trans('doctor-dashboard_trans.action_convert_to_xray') }}</a>
+                                                               <a class="dropdown-item" href="#" data-toggle="modal" data-target="#update_status"><i class="text-warning fas fa-syringe"></i>&nbsp;&nbsp;{{ trans('doctor-dashboard_trans.action_convert_to_lab') }}</a>
+                                                               <a class="dropdown-item" href="#" data-toggle="modal" data-target="#delete"><i class="text-danger  ti-trash"></i>&nbsp;&nbsp;{{ trans('doctor-dashboard_trans.action_delete_data') }}</a>
                                                            </div>
                                                        </div>
                                                    </td>

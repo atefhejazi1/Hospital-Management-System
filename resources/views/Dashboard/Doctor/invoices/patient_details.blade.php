@@ -3,7 +3,7 @@
     <link href="{{URL::asset('dashboard/plugins/notify/css/notifIt.css')}}" rel="stylesheet"/>
 @endsection
 @section('title')
-    معلومات المريض
+    {{ trans('doctor-dashboard_trans.patient_information_title') }}
 @endsection
 @section('page-header')
     <!-- breadcrumb -->
@@ -31,9 +31,9 @@
                                     <div class="tabs-menu1">
                                         <!-- Tabs -->
                                         <ul class="nav panel-tabs main-nav-line">
-                                            <li class="nav-item"><a href="#tab1" class="nav-link active" data-toggle="tab">سجل المريض</a></li>
-                                            <li class="nav-item"><a href="#tab2" class="nav-link" data-toggle="tab">الاشعة</a></li>
-                                            <li class="nav-item"><a href="#tab3" class="nav-link" data-toggle="tab">المختبر</a>
+                                            <li class="nav-item"><a href="#tab1" class="nav-link active" data-toggle="tab">{{ trans('doctor-dashboard_trans.tab_patient_record') }}</a></li>
+                                            <li class="nav-item"><a href="#tab2" class="nav-link" data-toggle="tab">{{ trans('doctor-dashboard_trans.tab_radiology') }}</a></li>
+                                            <li class="nav-item"><a href="#tab3" class="nav-link" data-toggle="tab">{{ trans('doctor-dashboard_trans.tab_laboratory') }}</a>
                                             </li>
                                         </ul>
                                     </div>
@@ -52,7 +52,7 @@
                                                         <div class="timeline-badge"><i class="las la-check-circle"></i></div>
                                                         <div class="timeline-panel">
                                                             <div class="timeline-heading">
-                                                                <h6 class="timeline-title">Art Ramadani posted a status update</h6>
+                                                                <h6 class="timeline-title">{{ trans('doctor-dashboard_trans.status_update_posted') }}</h6>
                                                             </div>
                                                             <div class="timeline-body">
                                                                 <p>{{$patient_record->diagnosis}}</p>
@@ -80,12 +80,12 @@
                                                 <table class="table table-hover text-md-nowrap text-center">
                                                     <thead>
                                                     <tr>
-                                                        <th>#</th>
-                                                        <th>اسم الخدمه</th>
-                                                        <th>اسم الدكتور</th>
-                                                        <th>اسم موظف الاشعة</th>
-                                                        <th>حالة الكشف</th>
-                                                        <th>العمليات</th>
+                                                        <th>{{ trans('doctor-dashboard_trans.col_hash') }}</th>
+                                                        <th>{{ trans('doctor-dashboard_trans.col_service_name_short') }}</th>
+                                                        <th>{{ trans('doctor-dashboard_trans.col_doctor_name') }}</th>
+                                                        <th>{{ trans('doctor-dashboard_trans.col_radiology_employee_name') }}</th>
+                                                        <th>{{ trans('doctor-dashboard_trans.col_exam_status') }}</th>
+                                                        <th>{{ trans('doctor-dashboard_trans.col_processes') }}</th>
                                                     </tr>
                                                     </thead>
                                                     <tbody>
@@ -100,9 +100,9 @@
 
 
                                                             @if($patient_ray->case == 0)
-                                                                <td class="text-danger">غير مكتملة</td>
+                                                                <td class="text-danger">{{ trans('doctor-dashboard_trans.status_incomplete') }}</td>
                                                             @else
-                                                                <td class="text-success"> مكتملة</td>
+                                                                <td class="text-success"> {{ trans('doctor-dashboard_trans.status_complete') }}</td>
                                                             @endif
 
 
@@ -140,10 +140,10 @@
                                                 <table class="table table-hover text-md-nowrap text-center">
                                                     <thead>
                                                     <tr>
-                                                        <th>#</th>
-                                                        <th>اسم الخدمه</th>
-                                                        <th>اسم الدكتور</th>
-                                                        <th>العمليات</th>
+                                                        <th>{{ trans('doctor-dashboard_trans.col_hash') }}</th>
+                                                        <th>{{ trans('doctor-dashboard_trans.col_service_name_short') }}</th>
+                                                        <th>{{ trans('doctor-dashboard_trans.col_doctor_name') }}</th>
+                                                        <th>{{ trans('doctor-dashboard_trans.col_processes') }}</th>
                                                     </tr>
                                                     </thead>
                                                     <tbody>

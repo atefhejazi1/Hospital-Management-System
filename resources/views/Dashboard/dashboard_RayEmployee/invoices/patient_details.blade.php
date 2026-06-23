@@ -1,6 +1,6 @@
 @extends('Dashboard.layouts.master')
 @section('title')
-    الكشوفات
+    {{ trans('staff-dashboard_trans.ray_checkups_title') }}
 @stop
 @section('css')
 
@@ -10,7 +10,7 @@
     <div class="breadcrumb-header justify-content-between">
         <div class="my-auto">
             <div class="d-flex">
-                <h4 class="content-title mb-0 my-auto">صور الاشعة</h4><span class="text-muted mt-1 tx-13 mr-2 mb-0">/ {{$rays->Patient->name}}</span>
+                <h4 class="content-title mb-0 my-auto">{{ trans('staff-dashboard_trans.ray_images_title') }}</h4><span class="text-muted mt-1 tx-13 mr-2 mb-0">/ {{$rays->Patient->name}}</span>
             </div>
         </div>
     </div>
@@ -19,7 +19,7 @@
 @section('content')
 
     <div class="form-group">
-        <label for="exampleFormControlTextarea1">ملاحظات دكتور الاشعة</label>
+        <label for="exampleFormControlTextarea1">{{ trans('staff-dashboard_trans.ray_doctor_notes_label') }}</label>
         <textarea readonly class="form-control" id="exampleFormControlTextarea1" rows="3">{{$rays->description_employee}}</textarea>
     </div>
 

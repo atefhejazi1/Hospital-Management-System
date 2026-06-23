@@ -3,15 +3,14 @@
 
 @endsection
 @section('title')
-    فاتورة مجموعة خدمات
+    {{ trans('invoices_trans.group_invoice_page_title') }}
 @stop
 @section('page-header')
     <!-- breadcrumb -->
     <div class="breadcrumb-header justify-content-between">
         <div class="my-auto">
             <div class="d-flex">
-                <h4 class="content-title mb-0 my-auto">الفواتير</h4><span class="text-muted mt-1 tx-13 mr-2 mb-0">/ فاتورة
-                    مجموعة خدمات</span>
+                <h4 class="content-title mb-0 my-auto">{{ trans('invoices_trans.breadcrumb_invoices') }}</h4><span class="text-muted mt-1 tx-13 mr-2 mb-0">/ {{ trans('invoices_trans.breadcrumb_group_invoice') }}</span>
             </div>
         </div>
     </div>

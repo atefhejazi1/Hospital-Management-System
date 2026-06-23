@@ -3,7 +3,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">تحديد مراجعة المريض</h5>
+                <h5 class="modal-title" id="exampleModalLabel">{{ trans('doctor-dashboard_trans.add_review_modal_title') }}</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -17,18 +17,18 @@
                 <input type="hidden" name="doctor_id" value="{{$invoice->doctor_id}}">
 
                 <div class="form-group">
-                    <label for="exampleFormControlTextarea1">التشخيص</label>
+                    <label for="exampleFormControlTextarea1">{{ trans('doctor-dashboard_trans.label_diagnosis') }}</label>
                     <textarea class="form-control" name="diagnosis" rows="6"></textarea>
                 </div>
 
                 <div class="form-group">
-                    <label for="exampleFormControlTextarea1">الادوية</label>
+                    <label for="exampleFormControlTextarea1">{{ trans('doctor-dashboard_trans.label_medicine') }}</label>
                     <textarea class="form-control" name="medicine" rows="6"></textarea>
                 </div>
 
 
                 <div class="form-group" style="position:relative;">
-                    <label>تاريخ المراجعة</label>
+                    <label>{{ trans('doctor-dashboard_trans.label_review_date') }}</label>
                     <input class="form-control fc-datepicker" id="review_date" name="review_date" type="text" required>
                 </div>
 
@@ -36,8 +36,8 @@
 
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">اغلاق</button>
-                <button type="submit" class="btn btn-primary">حفظ البيانات</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ trans('doctor-dashboard_trans.close') }}</button>
+                <button type="submit" class="btn btn-primary">{{ trans('doctor-dashboard_trans.save_data') }}</button>
             </div>
             </form>
         </div>

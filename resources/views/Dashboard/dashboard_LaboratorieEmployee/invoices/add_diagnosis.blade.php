@@ -1,6 +1,6 @@
 @extends('Dashboard.layouts.master')
 @section('title')
-    اضافة تشخيص
+    {{ trans('staff-dashboard_trans.add_diagnosis_title') }}
 @stop
 @section('css')
 
@@ -10,7 +10,7 @@
     <div class="breadcrumb-header justify-content-between">
         <div class="my-auto">
             <div class="d-flex">
-                <h4 class="content-title mb-0 my-auto">اضافة تشخيص</h4><span class="text-muted mt-1 tx-13 mr-2 mb-0">/
+                <h4 class="content-title mb-0 my-auto">{{ trans('staff-dashboard_trans.add_diagnosis_title') }}</h4><span class="text-muted mt-1 tx-13 mr-2 mb-0">/
                     {{ $invoice->Patient->name }}</span>
             </div>
         </div>
@@ -28,14 +28,14 @@
                         @csrf
                         @method('PUT')
                         <div class="form-group">
-                            <label for="exampleFormControlTextarea1">التشخيص</label>
+                            <label for="exampleFormControlTextarea1">{{ trans('staff-dashboard_trans.diagnosis_label') }}</label>
                             <textarea class="form-control" id="exampleFormControlTextarea1" name="description_employee" rows="3"></textarea>
                         </div>
                         <div class="form-group">
-                            <label for="exampleFormControlTextarea1">المرفقات</label>
+                            <label for="exampleFormControlTextarea1">{{ trans('staff-dashboard_trans.attachments_label') }}</label>
                             <input type="file" name="photos[]" accept="image/*" multiple>
                         </div>
-                        <button type="submit" class="btn btn-primary">تاكيد</button>
+                        <button type="submit" class="btn btn-primary">{{ trans('staff-dashboard_trans.confirm_button') }}</button>
                     </form>
                 </div>
             </div>

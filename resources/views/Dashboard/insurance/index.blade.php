@@ -51,7 +51,7 @@
                                     <td>{{$insurance->name}}</td>
                                     <td>{{$insurance->discount_percentage}}</td>
                                     <td>{{$insurance->Company_rate}}</td>
-                                    <td class="{{$insurance->status == 1 ? 'bg-success':'bg-danger'}}">{{$insurance->status == 1 ? 'مفعل' : 'غير مفعل'}}</td>
+                                    <td class="{{$insurance->status == 1 ? 'bg-success':'bg-danger'}}">{{$insurance->status == 1 ? trans('insurance.status_active') : trans('insurance.status_inactive')}}</td>
                                     <td>{{$insurance->notes}}</td>
                                     <td>
                                         <a href="{{route('insurance.edit',$insurance->id)}}" class="btn btn-sm btn-success"><i class="fas fa-edit"></i></a>
