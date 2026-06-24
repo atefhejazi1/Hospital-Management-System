@@ -52,10 +52,7 @@
                                          src="{{Url::asset('Dashboard/img/doctors/'.$doctor->image->filename)}}"
                                          height="150px" width="150px" alt="">
                                 @else
-                                    <img style="border-radius:50%"
-                                         src="{{Url::asset('Dashboard/img/doctor_default.png')}}"
-                                         height="50px"
-                                         width="50px" alt="">
+                                    <span class="mc-avatar-initials" style="width: 80px; height: 80px; font-size: 1.6rem;">{{ \Illuminate\Support\Str::of($doctor->name)->explode(' ')->map(fn ($w) => mb_substr($w, 0, 1))->take(2)->implode('') }}</span>
                                 @endif
                             </div>
                             <br><br>

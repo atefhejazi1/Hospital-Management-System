@@ -62,14 +62,7 @@
                                     </td>
                                     <td>{{ $doctor->name }}</td>
                                     <td>
-                                        @if($doctor->image)
-                                            <img src="{{Url::asset('Dashboard/img/doctors/'.$doctor->image->filename)}}"
-                                                 height="50px" width="50px" alt="">
-
-                                        @else
-                                            <img src="{{Url::asset('Dashboard/img/doctor_default.png')}}" height="50px"
-                                                 width="50px" alt="">
-                                        @endif
+                                        <span class="mc-avatar-initials" style="width: 40px; height: 40px; font-size: .85rem;">{{ \Illuminate\Support\Str::of($doctor->name)->explode(' ')->map(fn ($w) => mb_substr($w, 0, 1))->take(2)->implode('') }}</span>
                                     </td>
                                     <td>{{ $doctor->email }}</td>
                                     <td>{{ $doctor->section->name}}</td>

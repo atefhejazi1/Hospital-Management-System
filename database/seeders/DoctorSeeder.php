@@ -2,9 +2,8 @@
 
 namespace Database\Seeders;
 
-use App\Models\Appointment;
 use App\Models\Doctor;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Section;
 use Illuminate\Database\Seeder;
 
 class DoctorSeeder extends Seeder
@@ -14,18 +13,24 @@ class DoctorSeeder extends Seeder
      */
     public function run(): void
     {
+        $sections = Section::all();
+        $arFaker = fake('ar_SA');
 
-        Doctor::factory()->count(30)->create();
-        // $Appointments = Appointment::all();
+        foreach ($sections as $section) {
+            for ($i = 0; $i < 5; $i++) {
+                $doctor = new Doctor();
+                $doctor->email = fake()->unique()->safeEmail();
+                $doctor->email_verified_at = now();
+                $doctor->password = 'password';
+                $doctor->phone = fake()->numerify('05########');
+                $doctor->status = fake()->boolean(85) ? 1 : 0;
+                $doctor->section_id = $section->id;
+                $doctor->save();
 
-        // //        foreach ($doctors as $doctor){
-        // //            $Appointments = Appointment::all()->random()->id;
-        // //            $doctor->doctorappointments()->attach($Appointments);
-        // //        }
-        // Doctor::all()->each(function ($doctor) use ($Appointments) {
-        //     $doctor->doctorappointments()->attach(
-        //         $Appointments->random(rand(1, 7))->pluck('id')->toArray()
-        //     );
-        // });
+                $doctor->translateOrNew('en')->name = 'Dr. ' . fake()->firstName() . ' ' . fake()->lastName();
+                $doctor->translateOrNew('ar')->name = 'د. ' . $arFaker->firstName() . ' ' . $arFaker->lastName();
+                $doctor->save();
+            }
+        }
     }
 }

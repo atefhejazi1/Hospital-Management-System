@@ -2,11 +2,11 @@
 
 namespace Database\Seeders;
 
-use App\Models\RayEmployee;
+use App\Models\LaboratorieEmployee;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 
-class RayEmployeeTableSeeder extends Seeder
+class LaboratorieEmployeeSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -15,14 +15,14 @@ class RayEmployeeTableSeeder extends Seeder
     {
         $arFaker = fake('ar_SA');
 
-        RayEmployee::create([
-            'name' => 'محمود محمود',
-            'email' => 'm@gmail.com',
+        LaboratorieEmployee::create([
+            'name' => 'سارة أحمد',
+            'email' => 'lab@gmail.com',
             'password' => Hash::make('123456789'),
         ]);
 
         for ($i = 0; $i < 4; $i++) {
-            RayEmployee::create([
+            LaboratorieEmployee::create([
                 'name' => $arFaker->firstName() . ' ' . $arFaker->lastName(),
                 'email' => fake()->unique()->safeEmail(),
                 'password' => Hash::make('123456789'),
