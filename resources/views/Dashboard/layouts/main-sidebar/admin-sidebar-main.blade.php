@@ -1,28 +1,3 @@
-<style>
-    .side-menu__item.active {
-        background: rgba(2, 132, 199, .08) !important;
-        color: #0284c7 !important;
-        border-left: 3px solid #0284c7;
-    }
-    .side-menu__item.active .side-menu__icon { color: #0284c7 !important; fill: #0284c7 !important; }
-    .side-menu__item.active .side-menu__label { color: #0284c7 !important; font-weight: 700; }
-    .slide-item.active { color: #0284c7 !important; font-weight: 600; }
-
-    .app-sidebar .side-menu__item { border-radius: 0 8px 8px 0; transition: background-color .15s, color .15s; }
-    .app-sidebar .side-menu__item:not(.active):hover { background: rgba(2, 132, 199, .05); color: #0284c7; }
-    .app-sidebar .side-menu__item:not(.active):hover .side-menu__icon { color: #0284c7; fill: #0284c7; }
-
-    .app-sidebar .side-item-category {
-        font-size: .72rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase;
-        color: #94a3b8; padding: 18px 20px 8px;
-    }
-
-    .app-sidebar .slide-item { transition: color .15s, background-color .15s; border-radius: 6px; }
-    .app-sidebar .slide-item:not(.active):hover { color: #0284c7 !important; background: rgba(2, 132, 199, .04); }
-
-    .app-sidebar .angle { transition: transform .2s; }
-</style>
-
 <div class="main-sidemenu">
     <div class="app-sidebar__user clearfix">
         <div class="dropdown user-pro-body">
@@ -35,7 +10,8 @@
             </div>
             <div class="user-info">
                 <h4 class="font-weight-semibold mt-3 mb-0">{{ $adminName }}</h4>
-                <span class="mb-0 text-muted">{{ Auth::guard('admin')->user()->email }}</span>
+                <span class="mb-0 text-muted">{{ Auth::guard('admin')->user()->email }}</span><br>
+                <span class="mc-role-tag">{{ trans('main-header_trans.role_admin') }}</span>
             </div>
         </div>
     </div>

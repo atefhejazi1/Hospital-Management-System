@@ -66,6 +66,13 @@
         .site-nav { border-bottom: 1px solid var(--border); background: #fff; padding: 14px 0; }
         .site-nav .nav-link-mc { color: var(--dark); font-weight: 500; font-size: .92rem; margin: 0 16px; }
         .site-nav .nav-link-mc:hover { color: var(--primary); }
+        .lang-switch-mc {
+            display: inline-flex; align-items: center; gap: 6px;
+            color: var(--dark); font-weight: 600; font-size: .85rem;
+            border: 1px solid var(--border); border-radius: 8px; padding: 8px 14px;
+            transition: border-color .15s, color .15s;
+        }
+        .lang-switch-mc:hover { color: var(--primary); border-color: var(--primary); }
 
         /* ── Hero ──────────────────────────────────────────────── */
         .hero { padding: 76px 0; background: #ffffff; }
@@ -221,6 +228,9 @@
                 <a href="#book-appointment" class="nav-link-mc">{{ trans('landing_trans.nav_book_appointment') }}</a>
             </div>
             <div class="d-flex align-items-center gap-2">
+                <a href="{{ LaravelLocalization::getLocalizedURL(App::getLocale() === 'ar' ? 'en' : 'ar', null, [], true) }}" class="lang-switch-mc">
+                    <i class="bi bi-globe2"></i> {{ App::getLocale() === 'ar' ? 'English' : 'العربية' }}
+                </a>
                 <a href="{{ route('login') }}" class="btn-brand">{{ trans('landing_trans.cta_patient_portal') }}</a>
                 <a href="{{ route('login') }}" class="btn-brand-dark">{{ trans('landing_trans.cta_staff_login') }}</a>
             </div>

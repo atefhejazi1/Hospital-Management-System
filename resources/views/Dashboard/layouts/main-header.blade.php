@@ -27,7 +27,7 @@
                 <a class="close-toggle" href="#"><i class="header-icons fe fe-x"></i></a>
             </div>
             <div class="main-header-center mr-3 d-sm-none d-md-none d-lg-block">
-                <input class="form-control" placeholder="Search for anything..." type="search">
+                <input class="form-control" placeholder="{{ trans('main-header_trans.search_placeholder') }}" type="search">
                 <button class="btn"><i class="fas fa-search d-none d-md-block"></i></button>
             </div>
         </div>
@@ -99,12 +99,12 @@
                     <div class="dropdown-menu">
                         <div class="menu-header-content bg-primary text-right">
                             <div class="d-flex">
-                                <h6 class="dropdown-title mb-1 tx-15 text-white font-weight-semibold">{{ App::getLocale() == 'ar' ? 'الرسائل' : 'Messages' }}</h6>
+                                <h6 class="dropdown-title mb-1 tx-15 text-white font-weight-semibold">{{ trans('main-header_trans.messages') }}</h6>
                             </div>
                         </div>
                         <div class="main-message-list chat-scroll">
                             <div class="text-center text-muted p-4" style="font-size: .85rem;">
-                                {{ App::getLocale() == 'ar' ? 'لا توجد رسائل جديدة' : 'No new messages yet' }}
+                                {{ trans('main-header_trans.no_new_messages') }}
                             </div>
                         </div>
                     </div>
@@ -121,9 +121,7 @@
                     <div class="dropdown-menu dropdown-notifications">
                         <div class="menu-header-content bg-primary text-right">
                             <div class="d-flex">
-                                <h6 class="dropdown-title mb-1 tx-15 text-white font-weight-semibold">الاشعارات</h6>
-                                <span class="badge badge-pill badge-warning mr-auto my-auto float-left">Mark All
-                                    Read</span>
+                                <h6 class="dropdown-title mb-1 tx-15 text-white font-weight-semibold">{{ trans('main-header_trans.notifications') }}</h6>
                             </div>
                             @if(auth()->check())
                                 <p data-count="{{ App\Models\Notification::CountNotification(auth()->user()->id)->count() }}"
@@ -150,7 +148,8 @@
                                     </a>
                                 </div>
 
-                                @foreach (App\Models\Notification::where('user_id', auth()->user()->id)->where('reader_status', 0)->get() as $notification)
+                                @php $unreadNotifications = App\Models\Notification::where('user_id', auth()->user()->id)->where('reader_status', 0)->get(); @endphp
+                                @forelse ($unreadNotifications as $notification)
                                     <a class="d-flex p-3 border-bottom" href="#">
                                         <div class="notifyimg bg-pink">
                                             <i class="la la-file-alt text-white"></i>
@@ -163,11 +162,12 @@
                                             <i class="las la-angle-left text-left text-muted"></i>
                                         </div>
                                     </a>
-                                @endforeach
+                                @empty
+                                    <div class="text-center text-muted p-4" style="font-size: .85rem;">
+                                        {{ trans('main-header_trans.no_new_notifications') }}
+                                    </div>
+                                @endforelse
                             @endif
-                        </div>
-                        <div class="dropdown-footer">
-                            <a href="">VIEW ALL</a>
                         </div>
                     </div>
                 </div>
@@ -198,8 +198,6 @@
                                     </div>
                                 </div>
                             </div>
-                            <a class="dropdown-item" href=""><i class="bx bx-user-circle"></i>الملف الشخصي</a>
-                            <a class="dropdown-item" href=""><i class="bx bx-cog"></i>تعديل الملف الشخصي</a>
                             @if (auth('web')->check())
                                 <form method="POST" action="{{ route('logout.user') }}" id="logout-form">
                             @elseif(auth('admin')->check())
@@ -217,21 +215,10 @@
                                 <a class="dropdown-item" href="#"
                                     onclick="event.preventDefault();
                                             document.getElementById('logout-form').submit();"><i
-                                        class="bx bx-log-out"></i> Logout</a>
+                                        class="bx bx-log-out"></i> {{ trans('main-header_trans.logout') }}</a>
                             </form>
                         </div>
                     @endif
-                </div>
-                <div class="dropdown main-header-message right-toggle">
-                    <a class="nav-link pr-0" data-toggle="sidebar-left" data-target=".sidebar-left">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="header-icon-svgs" viewBox="0 0 24 24"
-                            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                            stroke-linejoin="round" class="feather feather-menu">
-                            <line x1="3" y1="12" x2="21" y2="12"></line>
-                            <line x1="3" y1="6" x2="21" y2="6"></line>
-                            <line x1="3" y1="18" x2="21" y2="18"></line>
-                        </svg>
-                    </a>
                 </div>
             </div>
         </div>
