@@ -28,9 +28,9 @@ Route::group(
     function () {
 
         //################################ dashboard patient ########################################
-        Route::get('/portal/patient', function () {
-            return view('Dashboard.dashboard_patient.dashboard');
-        })->middleware(['auth:patient', 'verified'])->name('dashboard.patient');
+        Route::get('/portal/patient', [PatientController::class, 'index'])
+            ->middleware(['auth:patient', 'verified'])
+            ->name('dashboard.patient');
         //################################ end dashboard patient #####################################
 
         Route::middleware(['auth:patient'])->group(function () {

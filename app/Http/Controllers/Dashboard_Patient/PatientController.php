@@ -12,6 +12,53 @@ use Illuminate\Support\Facades\Auth;
 
 class PatientController extends Controller
 {
+    public function index()
+    {
+        $patient = Auth::guard('patient')->user();
+
+        $metrics = [
+            'totalInvoices' => Invoice::where('patient_id', $patient->id)->count(),
+            'reviewInvoices' => Invoice::where('patient_id', $patient->id)->where('invoice_status', 2)->count(),
+            'completedInvoices' => Invoice::where('patient_id', $patient->id)->where('invoice_status', 3)->count(),
+            'totalPaid' => ReceiptAccount::where('patient_id', $patient->id)->sum('amount'),
+        ];
+
+        $rangeStart = today()->subDays(6);
+        $dailyCounts = Invoice::where('patient_id', $patient->id)
+            ->whereBetween('invoice_date', [$rangeStart->copy()->startOfDay(), today()->endOfDay()])
+            ->selectRaw('DATE(invoice_date) as d, COUNT(*) as c')
+            ->groupBy('d')
+            ->pluck('c', 'd');
+
+        $invoiceTrend = collect(range(6, 0))->map(function ($daysAgo) use ($dailyCounts) {
+            $date = today()->subDays($daysAgo);
+            return [
+                'label' => $date->translatedFormat('D'),
+                'count' => (int) ($dailyCounts[$date->format('Y-m-d')] ?? 0),
+            ];
+        })->values();
+
+        $statusBreakdown = [
+            'in_progress' => Invoice::where('patient_id', $patient->id)->where('invoice_status', 1)->count(),
+            'review' => $metrics['reviewInvoices'],
+            'completed' => $metrics['completedInvoices'],
+        ];
+
+        $recentInvoices = Invoice::with('Doctor')->where('patient_id', $patient->id)->latest('invoice_date')->take(6)->get();
+        $recentLabs = Laboratorie::where('patient_id', $patient->id)->latest()->take(5)->get();
+        $recentRays = Ray::where('patient_id', $patient->id)->latest()->take(5)->get();
+
+        return view('Dashboard.dashboard_patient.dashboard', [
+            'patient' => $patient,
+            'metrics' => $metrics,
+            'invoiceTrend' => $invoiceTrend,
+            'statusBreakdown' => $statusBreakdown,
+            'recentInvoices' => $recentInvoices,
+            'recentLabs' => $recentLabs,
+            'recentRays' => $recentRays,
+        ]);
+    }
+
     public function invoices()
     {
 
