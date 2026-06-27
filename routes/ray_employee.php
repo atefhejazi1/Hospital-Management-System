@@ -39,8 +39,8 @@ Route::group(
 
             //############################# invoices route ##########################################
             Route::resource('invoices_ray_employee', InvoiceController::class);
-            Route::get('completed_invoices', [InvoiceController::class, 'completed_invoices'])->name('completed_invoices');
-            Route::get('view_rays/{id}', [InvoiceController::class, 'viewRays'])->name('view_rays');
+            Route::get('completed_invoices_ray_employee', [InvoiceController::class, 'completed_invoices'])->name('completed_invoices_ray_employee');
+            Route::get('view_rays_ray_employee/{id}', [InvoiceController::class, 'viewRays'])->name('view_rays_ray_employee');
             //############################# end invoices route ######################################
 
         });
