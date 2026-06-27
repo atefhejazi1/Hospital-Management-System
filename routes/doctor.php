@@ -89,9 +89,5 @@ Route::group(
                 })->name('404');
             });
         });
-
-
-
-        require __DIR__ . '/auth.php';
     }
 );

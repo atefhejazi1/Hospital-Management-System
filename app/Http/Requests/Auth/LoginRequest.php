@@ -37,19 +37,31 @@ class LoginRequest extends FormRequest
      *
      * @throws \Illuminate\Validation\ValidationException
      */
+    /**
+     * Every role logs in through this one form now, so try each guard in
+     * turn instead of relying on a single per-role form/route to pick the
+     * right one. First guard whose credentials match wins.
+     */
+    private const GUARDS = ['admin', 'doctor', 'patient', 'ray_employee', 'laboratorie_employee', 'web'];
+
     public function authenticate(): void
     {
         $this->ensureIsNotRateLimited();
 
-        if (! Auth::attempt($this->only('email', 'password'), $this->boolean('remember'))) {
-            RateLimiter::hit($this->throttleKey());
+        $credentials = $this->only('email', 'password');
 
-            throw ValidationException::withMessages([
-                'email' => trans('auth.failed'),
-            ]);
+        foreach (self::GUARDS as $guard) {
+            if (Auth::guard($guard)->attempt($credentials, $this->boolean('remember'))) {
+                RateLimiter::clear($this->throttleKey());
+                return;
+            }
         }
 
-        RateLimiter::clear($this->throttleKey());
+        RateLimiter::hit($this->throttleKey());
+
+        throw ValidationException::withMessages([
+            'email' => trans('auth.failed'),
+        ]);
     }
 
     /**

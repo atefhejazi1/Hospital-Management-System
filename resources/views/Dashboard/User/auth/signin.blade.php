@@ -57,10 +57,6 @@
         .role-pill:hover { border-color: var(--primary); color: var(--primary); }
         .role-pill.is-active { background: var(--primary); border-color: var(--primary); color: #fff; }
 
-        .role-panel { display: none; }
-        .role-panel.is-active { display: block; animation: fadeUp .18s ease-out; }
-        @keyframes fadeUp { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
-
         .portal-line { display: flex; align-items: center; gap: 8px; background: var(--bg-soft); color: var(--accent); border-radius: 8px; padding: 9px 13px; font-size: .82rem; font-weight: 600; margin-bottom: 20px; }
 
         .field { margin-bottom: 16px; }
@@ -109,14 +105,21 @@
 
             @php
                 $guards = [
-                    ['key' => 'admin',                'icon' => 'bi-shield-lock-fill', 'label' => trans('login_trans.role_admin'),      'title' => trans('login_trans.title_admin'),      'action' => route('login.admin')],
-                    ['key' => 'doctor',               'icon' => 'bi-heart-pulse-fill', 'label' => trans('login_trans.role_doctor'),     'title' => trans('login_trans.title_doctor'),     'action' => route('login.doctor')],
-                    ['key' => 'patient',              'icon' => 'bi-person-fill',      'label' => trans('login_trans.role_patient'),    'title' => trans('login_trans.title_patient'),    'action' => route('login.patient')],
-                    ['key' => 'ray_employee',         'icon' => 'bi-camera-fill',      'label' => trans('login_trans.role_radiology'),  'title' => trans('login_trans.title_radiology'),  'action' => route('login.ray_employee')],
-                    ['key' => 'laboratorie_employee', 'icon' => 'bi-droplet-fill',     'label' => trans('login_trans.role_laboratory'), 'title' => trans('login_trans.title_laboratory'), 'action' => route('login.laboratorie_employee')],
+                    ['key' => 'admin',                'icon' => 'bi-shield-lock-fill', 'label' => trans('login_trans.role_admin'),      'title' => trans('login_trans.title_admin')],
+                    ['key' => 'doctor',               'icon' => 'bi-heart-pulse-fill', 'label' => trans('login_trans.role_doctor'),     'title' => trans('login_trans.title_doctor')],
+                    ['key' => 'patient',              'icon' => 'bi-person-fill',      'label' => trans('login_trans.role_patient'),    'title' => trans('login_trans.title_patient')],
+                    ['key' => 'ray_employee',         'icon' => 'bi-camera-fill',      'label' => trans('login_trans.role_radiology'),  'title' => trans('login_trans.title_radiology')],
+                    ['key' => 'laboratorie_employee', 'icon' => 'bi-droplet-fill',     'label' => trans('login_trans.role_laboratory'), 'title' => trans('login_trans.title_laboratory')],
                 ];
             @endphp
 
+            <!--
+                Role picked here only changes the displayed title/icon/button
+                label — one single form below always posts to the same
+                endpoint, and the server tries every guard in turn (see
+                LoginRequest::authenticate()). There is exactly one <form> on
+                this page.
+            -->
             <div class="role-pills" role="tablist">
                 @foreach($guards as $g)
                 <button type="button" class="role-pill @if($loop->first) is-active @endif"
@@ -127,58 +130,55 @@
                 @endforeach
             </div>
 
-            @foreach($guards as $g)
-            <div class="role-panel @if($loop->first) is-active @endif" id="panel-{{ $g['key'] }}">
-                <div class="portal-line"><i class="bi {{ $g['icon'] }}"></i> {{ trans('login_trans.signing_in_as', ['title' => $g['title']]) }}</div>
-
-                <form method="POST" action="{{ $g['action'] }}" autocomplete="on">
-                    @csrf
-
-                    <div class="field">
-                        <label for="email-{{ $g['key'] }}">{{ trans('login_trans.email_label') }}</label>
-                        <div class="input-group-mc">
-                            <span class="ig-icon"><i class="bi bi-envelope-fill"></i></span>
-                            <input
-                                type="email"
-                                id="email-{{ $g['key'] }}"
-                                name="email"
-                                value="{{ old('email') }}"
-                                placeholder="you@medicore.test"
-                                wire:loading.attr="disabled"
-                                required
-                                @if($loop->first) autofocus @endif
-                            >
-                        </div>
-                    </div>
-
-                    <div class="field">
-                        <div class="field-row">
-                            <label for="password-{{ $g['key'] }}" style="margin:0;">{{ trans('login_trans.password_label') }}</label>
-                            <a href="{{ route('password.request') }}">{{ trans('login_trans.forgot_password') }}</a>
-                        </div>
-                        <div class="input-group-mc">
-                            <span class="ig-icon"><i class="bi bi-lock-fill"></i></span>
-                            <input
-                                type="password"
-                                id="password-{{ $g['key'] }}"
-                                name="password"
-                                placeholder="••••••••"
-                                autocomplete="current-password"
-                                wire:loading.attr="disabled"
-                                required
-                            >
-                            <button type="button" class="ig-toggle" onclick="lpTogglePw('password-{{ $g['key'] }}', this)">
-                                <i class="bi bi-eye-fill"></i>
-                            </button>
-                        </div>
-                    </div>
-
-                    <button type="submit" class="submit-mc" wire:loading.attr="disabled">
-                        {{ trans('login_trans.sign_in_as', ['label' => $g['label']]) }}
-                    </button>
-                </form>
+            <div class="portal-line" id="portal-line">
+                <i class="bi {{ $guards[0]['icon'] }}"></i>
+                <span id="portal-line-text">{{ trans('login_trans.signing_in_as', ['title' => $guards[0]['title']]) }}</span>
             </div>
-            @endforeach
+
+            <form method="POST" action="{{ route('login.user') }}" autocomplete="on">
+                @csrf
+
+                <div class="field">
+                    <label for="email">{{ trans('login_trans.email_label') }}</label>
+                    <div class="input-group-mc">
+                        <span class="ig-icon"><i class="bi bi-envelope-fill"></i></span>
+                        <input
+                            type="email"
+                            id="email"
+                            name="email"
+                            value="{{ old('email') }}"
+                            placeholder="you@medicore.test"
+                            required
+                            autofocus
+                        >
+                    </div>
+                </div>
+
+                <div class="field">
+                    <div class="field-row">
+                        <label for="password" style="margin:0;">{{ trans('login_trans.password_label') }}</label>
+                        <a href="{{ route('password.request') }}">{{ trans('login_trans.forgot_password') }}</a>
+                    </div>
+                    <div class="input-group-mc">
+                        <span class="ig-icon"><i class="bi bi-lock-fill"></i></span>
+                        <input
+                            type="password"
+                            id="password"
+                            name="password"
+                            placeholder="••••••••"
+                            autocomplete="current-password"
+                            required
+                        >
+                        <button type="button" class="ig-toggle" onclick="lpTogglePw('password', this)">
+                            <i class="bi bi-eye-fill"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <button type="submit" class="submit-mc" id="submit-btn">
+                    {{ trans('login_trans.sign_in_as', ['label' => $guards[0]['label']]) }}
+                </button>
+            </form>
         </div>
 
         <p class="auth-foot">{{ trans('login_trans.footer_copyright', ['year' => date('Y')]) }}</p>
@@ -189,19 +189,26 @@
         'use strict';
 
         var signingInText = @json(trans('login_trans.signing_in_progress'));
+        var signingInAsTemplate = @json(trans('login_trans.signing_in_as', ['title' => '__TITLE__']));
+        var signInAsTemplate = @json(trans('login_trans.sign_in_as', ['label' => '__LABEL__']));
+        var roles = @json(collect($guards)->keyBy('key'));
 
         function selectRole(key) {
+            var role = roles[key];
+            if (!role) return;
+
             document.querySelectorAll('.role-pill').forEach(function (btn) {
                 btn.classList.toggle('is-active', btn.dataset.role === key);
             });
-            document.querySelectorAll('.role-panel').forEach(function (panel) {
-                panel.classList.toggle('is-active', panel.id === 'panel-' + key);
-            });
-            var panel = document.getElementById('panel-' + key);
-            if (panel) {
-                var email = panel.querySelector('input[type="email"]');
-                if (email) setTimeout(function () { email.focus(); }, 30);
-            }
+
+            var line = document.getElementById('portal-line');
+            var lineText = document.getElementById('portal-line-text');
+            if (line) line.querySelector('i').className = 'bi ' + role.icon;
+            if (lineText) lineText.textContent = signingInAsTemplate.replace('__TITLE__', role.title);
+
+            var submitBtn = document.getElementById('submit-btn');
+            if (submitBtn) submitBtn.textContent = signInAsTemplate.replace('__LABEL__', role.label);
+
             sessionStorage.setItem('hms_last_role', key);
         }
 
@@ -213,28 +220,21 @@
             btn.innerHTML = reveal ? '<i class="bi bi-eye-slash-fill"></i>' : '<i class="bi bi-eye-fill"></i>';
         }
 
-        // Native-form equivalent of a Livewire loading state: this page posts
-        // via plain HTTP (AdminController/DoctorController/etc. expect a
-        // standard form submit, not a Livewire round-trip), so wire:loading
-        // attributes on the inputs/button above are inert here — Livewire
-        // only wires those up inside an actual Livewire component (see the
-        // booking form on the homepage, where the same attribute genuinely
-        // works). This listener gives the same disabled/busy UX without
-        // faking a framework hook that isn't actually running on this page.
-        document.querySelectorAll('.role-panel form').forEach(function (form) {
-            form.addEventListener('submit', function () {
-                var btn = form.querySelector('.submit-mc');
+        var loginForm = document.querySelector('.auth-card form');
+        if (loginForm) {
+            loginForm.addEventListener('submit', function () {
+                var btn = document.getElementById('submit-btn');
                 if (!btn) return;
                 btn.disabled = true;
                 btn.textContent = signingInText;
             });
-        });
+        }
 
         window.lpSelectRole = selectRole;
         window.lpTogglePw = togglePw;
 
         var lastRole = sessionStorage.getItem('hms_last_role');
-        if (lastRole && document.getElementById('panel-' + lastRole)) {
+        if (lastRole && roles[lastRole]) {
             selectRole(lastRole);
         }
     }());

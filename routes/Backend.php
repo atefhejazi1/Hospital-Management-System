@@ -141,9 +141,5 @@ Route::group(
             Route::get('appointments/approval', [AppointmentController::class, 'index2'])->name('appointments.index2');
 
         });
-
-
-
-        require __DIR__ . '/auth.php';
     }
 );

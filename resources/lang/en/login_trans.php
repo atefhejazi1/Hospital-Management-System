@@ -4,7 +4,9 @@ return array (
   'meta_title' => 'Sign In — MediCore HMS',
   'back_to_home' => 'Back to home',
   'welcome_title' => 'Welcome back',
-  'welcome_sub' => 'Select your role, then sign in to continue.',
+  'welcome_sub' => 'Sign in to continue.',
+  'roles_hint' => 'Works for Admin, Doctor, Patient, Radiology, and Laboratory accounts.',
+  'sign_in' => 'Sign In',
 
   'role_admin' => 'Admin',
   'role_doctor' => 'Doctor',

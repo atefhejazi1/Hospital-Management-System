@@ -14,6 +14,8 @@ Route::group(
     function () {
 
         Route::get('/', [HomeController::class, 'index'])->name('home');
+
+        require __DIR__ . '/auth.php';
     }
 );
 
