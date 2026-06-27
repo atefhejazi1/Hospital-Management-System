@@ -89,7 +89,7 @@
     </div>
     <div class="d-flex gap-2">
         <a href="{{ route('invoices_ray_employee.index') }}" class="mc-action-btn"><i class="bi bi-receipt"></i> {{ trans('staff-dashboard_trans.view_invoices') }}</a>
-        <a href="{{ route('completed_invoices') }}" class="mc-action-btn is-primary"><i class="bi bi-clipboard-check"></i> {{ trans('staff-dashboard_trans.view_completed') }}</a>
+        <a href="{{ route('completed_invoices_ray_employee') }}" class="mc-action-btn is-primary"><i class="bi bi-clipboard-check"></i> {{ trans('staff-dashboard_trans.view_completed') }}</a>
     </div>
 </div>
 @endsection
