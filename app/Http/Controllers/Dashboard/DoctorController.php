@@ -50,6 +50,12 @@ class DoctorController extends Controller
     }
 
 
+    public function schedule($id, Request $request)
+    {
+        return $this->Doctors->schedule($id, $request->query('date'));
+    }
+
+
     public function update(Request $request)
     {
         return $this->Doctors->update($request);

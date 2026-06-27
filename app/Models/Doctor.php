@@ -12,7 +12,7 @@ class Doctor extends Authenticatable
 {
     use Translatable;
     use HasFactory;
-    public $translatedAttributes = ['name', 'appointments'];
+    public $translatedAttributes = ['name'];
     protected $fillable = ['email', 'email_verified_at', 'password', 'phone', 'status', 'name',  'section_id'];
 
     protected $hidden = [
@@ -42,8 +42,43 @@ class Doctor extends Authenticatable
         return $this->belongsTo(Section::class);
     }
 
-    public function doctorappointments()
+    public function appointments()
     {
-        return $this->belongsToMany(Appointment::class, 'appointment_doctor');
+        return $this->hasMany(Appointment::class, 'doctor_id');
+    }
+
+    public function slots()
+    {
+        return $this->hasMany(DoctorSlot::class);
+    }
+
+    /**
+     * This doctor's fixed slots for $date's day of week (e.g. every
+     * Wednesday), with booked status and the booking appointment (if any)
+     * for that exact date. Single source of truth shared by the admin
+     * schedule view and the patient booking page.
+     */
+    public function scheduleForDate(string $date): \Illuminate\Support\Collection
+    {
+        $dayOfWeek = \Carbon\Carbon::parse($date)->format('l');
+
+        $appointments = $this->appointments()
+            ->whereDate('appointment', $date)
+            ->get()
+            ->keyBy(fn ($appointment) => $appointment->appointment->format('H:i:s'));
+
+        return $this->slots
+            ->where('day_of_week', $dayOfWeek)
+            ->sortBy('start_time')
+            ->map(function (DoctorSlot $slot) use ($appointments) {
+                $appointment = $appointments->get($slot->start_time);
+
+                return [
+                    'slot' => $slot,
+                    'booked' => $appointment !== null,
+                    'appointment' => $appointment,
+                ];
+            })
+            ->values();
     }
 }

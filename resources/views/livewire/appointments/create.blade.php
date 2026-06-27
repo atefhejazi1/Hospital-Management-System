@@ -29,7 +29,7 @@
 
             <div class="col-md-6">
                 <label class="form-label">{{ trans('landing_trans.form_doctor') }}</label>
-                <select class="form-select" wire:model="doctor">
+                <select class="form-select" wire:model.live="doctor">
                     <option value="">{{ trans('landing_trans.form_doctor_placeholder') }}</option>
                     @foreach ($doctors as $doctor)
                         <option value="{{ $doctor->id }}">{{ $doctor->name }}</option>
@@ -43,12 +43,45 @@
             </div>
 
             <div class="col-md-6">
+                <label class="form-label">{{ trans('landing_trans.form_date') }}</label>
+                <input type="date" class="form-control" wire:model.live="date" min="{{ now()->toDateString() }}">
+            </div>
+
+            <div class="col-md-6">
                 <label class="form-label">{{ trans('landing_trans.form_notes') }}</label>
                 <input type="text" class="form-control" wire:model="notes" placeholder="{{ trans('landing_trans.form_notes_placeholder') }}">
             </div>
 
+            @if ($doctor)
+                <div class="col-12">
+                    <label class="form-label">{{ trans('landing_trans.form_slot') }}</label>
+                    @if ($slotTaken)
+                        <div class="alert alert-warning">{{ trans('landing_trans.slot_taken') }}</div>
+                    @endif
+                    @if (count($schedule) === 0)
+                        <div class="text-muted">{{ trans('landing_trans.slot_none') }}</div>
+                    @else
+                        <div class="d-flex flex-wrap gap-2">
+                            @foreach ($schedule as $row)
+                                <button
+                                    type="button"
+                                    wire:click="selectSlot('{{ $row['slot']->start_time }}')"
+                                    @disabled($row['booked'])
+                                    class="btn btn-sm {{ $row['booked'] ? 'btn-light text-muted' : ($selectedSlot === $row['slot']->start_time ? 'btn-brand border-0' : 'btn-outline-secondary') }}"
+                                >
+                                    {{ \Carbon\Carbon::parse($row['slot']->start_time)->format('h:i A') }}
+                                    @if ($row['booked'])
+                                        &mdash; {{ trans('landing_trans.slot_booked') }}
+                                    @endif
+                                </button>
+                            @endforeach
+                        </div>
+                    @endif
+                </div>
+            @endif
+
             <div class="col-12 mt-4">
-                <button type="submit" class="btn-brand w-100 border-0" style="padding:13px 0; font-size:.95rem;" wire:loading.attr="disabled">
+                <button type="submit" class="btn-brand w-100 border-0" style="padding:13px 0; font-size:.95rem;" wire:loading.attr="disabled" @disabled(!$selectedSlot)>
                     <i class="bi bi-calendar2-check-fill me-1"></i> {{ trans('landing_trans.form_submit') }}
                 </button>
             </div>

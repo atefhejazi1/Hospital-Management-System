@@ -101,22 +101,26 @@
 
                             </div>
 
-                            <div class="row row-xs align-items-center mg-b-20">
+                            <div class="row row-xs mg-b-20">
                                 <div class="col-md-1">
-                                    <label for="exampleInputEmail1">
-                                        {{trans('doctors.appointments')}}</label>
+                                    <label>{{trans('doctors.schedule')}}</label>
                                 </div>
-
-                                <div class="col-md-11 mg-t-5 mg-md-t-0">
-                                    <select multiple="multiple" class="testselect2" name="appointments[]">
-                                        <option selected name="appointments[]" value="" selected disabled>-- {{trans('doctors.choose_appointments')}} --</option>
-                                        @foreach($appointments as $appointment)
-                                            <option value="{{$appointment->id}}">{{$appointment->name}}</option>
-                                        @endforeach
-                                    </select>
-
+                                <div class="col-md-11">
+                                    @foreach($days as $day)
+                                        <div class="row row-xs align-items-center mg-b-10">
+                                            <div class="col-md-2">
+                                                <label class="mb-0">{{ trans('doctors.day_' . strtolower($day)) }}</label>
+                                            </div>
+                                            <div class="col-md-10">
+                                                <select multiple="multiple" class="testselect2" name="slots[{{ $day }}][]">
+                                                    @foreach($slotOptions as $option)
+                                                        <option value="{{ $option['start'] }}">{{ $option['label'] }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+                                    @endforeach
                                 </div>
-
                             </div>
 
                             <div class="row row-xs align-items-center mg-b-20">

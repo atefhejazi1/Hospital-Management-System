@@ -28,4 +28,7 @@ interface DoctorRepositoryInterface
    // update_status
    public function update_status($request);
 
+   // doctor schedule for a given date
+   public function schedule($id, $date);
+
 }

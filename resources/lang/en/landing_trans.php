@@ -98,5 +98,10 @@ return array (
   'form_phone_placeholder' => 'Your phone number',
   'form_notes' => 'Notes (optional)',
   'form_notes_placeholder' => 'Anything we should know?',
+  'form_date' => 'Date',
+  'form_slot' => 'Available time slots',
+  'slot_booked' => 'Booked',
+  'slot_none' => 'This doctor has no time slots set up yet.',
+  'slot_taken' => 'That slot was just booked by someone else — please pick another.',
   'form_submit' => 'Confirm Appointment Request',
 );

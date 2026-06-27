@@ -68,9 +68,17 @@
                                     <td>{{ $doctor->section->name}}</td>
                                     <td>{{ $doctor->phone}}</td>
                                     <td>
-                                        @foreach($doctor->doctorappointments as $appointment)
-                                            {{$appointment->name}}
-                                        @endforeach
+                                        @forelse($doctor->appointments->sortByDesc('appointment')->take(5) as $appointment)
+                                            <div class="mb-1">
+                                                <span>{{ $appointment->name }}</span>
+                                                <span class="text-muted tx-12">&mdash; {{ $appointment->appointment?->format('Y-m-d h:i A') }}</span>
+                                            </div>
+                                        @empty
+                                            <span class="text-muted">-</span>
+                                        @endforelse
+                                        @if($doctor->appointments->count() > 5)
+                                            <span class="text-muted tx-12">+{{ $doctor->appointments->count() - 5 }}</span>
+                                        @endif
                                     </td>
                                     <td>
                                         <div
@@ -85,6 +93,7 @@
                                             <button aria-expanded="false" aria-haspopup="true" class="btn ripple btn-outline-primary btn-sm" data-toggle="dropdown" type="button">{{trans('doctors.Processes')}}<i class="fas fa-caret-down mr-1"></i></button>
                                             <div class="dropdown-menu tx-13">
                                                 <a class="dropdown-item" href="{{route('Doctors.edit',$doctor->id)}}"><i style="color: #0ba360" class="text-success ti-user"></i>&nbsp;&nbsp;{{trans('doctors.edit_data')}}</a>
+                                                <a class="dropdown-item" href="{{route('Doctors.schedule',$doctor->id)}}"><i class="text-info ti-calendar"></i>&nbsp;&nbsp;{{trans('doctors.view_schedule')}}</a>
                                                 <a class="dropdown-item" href="#" data-toggle="modal" data-target="#update_password{{$doctor->id}}"><i   class="text-primary ti-key"></i>&nbsp;&nbsp;{{trans('doctors.update_password')}}</a>
                                                 <a class="dropdown-item" href="#" data-toggle="modal" data-target="#update_status{{$doctor->id}}"><i   class="text-warning ti-back-right"></i>&nbsp;&nbsp;{{trans('doctors.update_status')}}</a>
                                                 <a class="dropdown-item" href="#" data-toggle="modal" data-target="#delete{{$doctor->id}}"><i   class="text-danger  ti-trash"></i>&nbsp;&nbsp;{{trans('doctors.delete_data')}}</a>

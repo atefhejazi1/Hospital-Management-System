@@ -98,5 +98,10 @@ return array (
   'form_phone_placeholder' => 'رقم هاتفك',
   'form_notes' => 'ملاحظات (اختياري)',
   'form_notes_placeholder' => 'هل هناك ما يجب أن نعرفه؟',
+  'form_date' => 'التاريخ',
+  'form_slot' => 'الأوقات المتاحة',
+  'slot_booked' => 'محجوز',
+  'slot_none' => 'لا توجد أوقات محددة لهذا الطبيب حتى الآن.',
+  'slot_taken' => 'تم حجز هذا الوقت للتو من شخص آخر — يرجى اختيار وقت آخر.',
   'form_submit' => 'تأكيد طلب الموعد',
 );

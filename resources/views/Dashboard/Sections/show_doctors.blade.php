@@ -50,9 +50,17 @@
                                         <td>{{ $doctor->section->name }}</td>
                                         <td>{{ $doctor->phone }}</td>
                                         <td>
-                                            @foreach ($doctor->doctorappointments as $appointment)
-                                                {{ $appointment->name }}
-                                            @endforeach
+                                            @forelse ($doctor->appointments->sortByDesc('appointment')->take(5) as $appointment)
+                                                <div class="mb-1">
+                                                    <span>{{ $appointment->name }}</span>
+                                                    <span class="text-muted tx-12">&mdash; {{ $appointment->appointment?->format('Y-m-d h:i A') }}</span>
+                                                </div>
+                                            @empty
+                                                <span class="text-muted">-</span>
+                                            @endforelse
+                                            @if($doctor->appointments->count() > 5)
+                                                <span class="text-muted tx-12">+{{ $doctor->appointments->count() - 5 }}</span>
+                                            @endif
                                         </td>
                                         <td>
                                             <div class="dot-label bg-{{ $doctor->status == 1 ? 'success' : 'danger' }} ml-1">

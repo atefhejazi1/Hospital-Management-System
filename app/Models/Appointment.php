@@ -13,6 +13,10 @@ class Appointment extends Model
     //public $translatedAttributes = ['name'];
     public $fillable = ['name', 'email', 'phone', 'notes', 'doctor_id', 'section_id', 'type', 'appointment'];
 
+    protected $casts = [
+        'appointment' => 'datetime',
+    ];
+
     public function doctor()
     {
         return $this->belongsTo(Doctor::class, 'doctor_id');

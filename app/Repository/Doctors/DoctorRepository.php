@@ -3,8 +3,8 @@
 namespace App\Repository\Doctors;
 
 use App\Interfaces\Doctors\DoctorRepositoryInterface;
-use App\Models\Appointment;
 use App\Models\Doctor;
+use App\Models\DoctorSlot;
 use App\Models\Image;
 use App\Models\Section;
 use App\Traits\UploadTrait;
@@ -18,15 +18,16 @@ class DoctorRepository implements DoctorRepositoryInterface
     public function index()
     {
         // $doctors = Doctor::all();
-        $doctors = Doctor::with('doctorappointments')->get();
+        $doctors = Doctor::with('appointments')->get();
         return view('Dashboard.Doctors.index', compact('doctors'));
     }
 
     public function create()
     {
         $sections = Section::all();
-        $appointments = Appointment::all();
-        return view('Dashboard.Doctors.add', compact('sections', 'appointments'));
+        $slotOptions = DoctorSlot::fixedSlotOptions();
+        $days = DoctorSlot::DAYS;
+        return view('Dashboard.Doctors.add', compact('sections', 'slotOptions', 'days'));
     }
 
 
@@ -46,15 +47,10 @@ class DoctorRepository implements DoctorRepositoryInterface
             $doctors->save();
             // store trans
             $doctors->name = $request->name;
-            // store appointments with array
-            // $doctors->appointments = implode(",", $request->appointments);
-
-
-            // insert pivot tABLE
-            $doctors->doctorappointments()->attach($request->appointments);
 
             $doctors->save();
 
+            $this->syncSlots($doctors, $request->slots ?? []);
 
             //Upload img
             $this->verifyAndStoreImage($request, 'photo', 'doctors', 'upload_image', $doctors->id, Doctor::class);
@@ -83,8 +79,7 @@ class DoctorRepository implements DoctorRepositoryInterface
             $doctor->name = $request->name;
             $doctor->save();
 
-            // update pivot tABLE
-            $doctor->doctorappointments()->sync($request->appointments);
+            $this->syncSlots($doctor, $request->slots ?? []);
 
             // update photo
             if ($request->has('photo')) {
@@ -143,9 +138,51 @@ class DoctorRepository implements DoctorRepositoryInterface
     public function edit($id)
     {
         $sections = Section::all();
-        $appointments = Appointment::all();
+        $slotOptions = DoctorSlot::fixedSlotOptions();
+        $days = DoctorSlot::DAYS;
         $doctor = Doctor::findorfail($id);
-        return view('Dashboard.Doctors.edit', compact('sections', 'appointments', 'doctor'));
+        return view('Dashboard.Doctors.edit', compact('sections', 'slotOptions', 'days', 'doctor'));
+    }
+
+    public function schedule($id, $date)
+    {
+        $doctor = Doctor::findorfail($id);
+        $date = $date ?: now()->toDateString();
+        $schedule = $doctor->scheduleForDate($date);
+
+        return view('Dashboard.Doctors.schedule', compact('doctor', 'schedule', 'date'));
+    }
+
+    /**
+     * Replace a doctor's assigned weekly slots from the submitted
+     * ['Saturday' => ['08:00:00', ...], 'Sunday' => [...]] structure,
+     * matched against the fixed master list for each end_time.
+     */
+    private function syncSlots(Doctor $doctor, array $slotsByDay): void
+    {
+        $doctor->slots()->delete();
+
+        $options = collect(DoctorSlot::fixedSlotOptions())->keyBy('start');
+
+        foreach ($slotsByDay as $day => $startTimes) {
+            if (!in_array($day, DoctorSlot::DAYS, true)) {
+                continue;
+            }
+
+            foreach ($startTimes as $start) {
+                $option = $options->get($start);
+
+                if (!$option) {
+                    continue;
+                }
+
+                $doctor->slots()->create([
+                    'day_of_week' => $day,
+                    'start_time' => $option['start'],
+                    'end_time' => $option['end'],
+                ]);
+            }
+        }
     }
 
     public function update_password($request)
