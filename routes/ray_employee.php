@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Dashboard_Ray_Employee\DashboardController;
 use App\Http\Controllers\Dashboard_Ray_Employee\InvoiceController;
 use Illuminate\Support\Facades\Route;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
@@ -26,9 +27,9 @@ Route::group(
 
         //################################ dashboard doctor ########################################
 
-        Route::get('/portal/ray_employee', function () {
-            return view('Dashboard.dashboard_RayEmployee.dashboard');
-        })->middleware(['auth:ray_employee', 'verified'])->name('dashboard.ray_employee');
+        Route::get('/portal/ray_employee', [DashboardController::class, 'index'])
+            ->middleware(['auth:ray_employee', 'verified'])
+            ->name('dashboard.ray_employee');
 
 
         //################################ end dashboard doctor #####################################
