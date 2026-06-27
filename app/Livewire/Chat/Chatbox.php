@@ -81,6 +81,12 @@ class Chatbox extends Component
 
     public function load_conversationDoctor(Conversation $conversation, Doctor $receiver)
     {
+        // Defense in depth: this is independently dispatchable as a client
+        // Livewire action, so re-check ownership even though Chatlist also
+        // checks it before dispatching here.
+        if ($conversation->sender_email !== $this->auth_email && $conversation->receiver_email !== $this->auth_email) {
+            abort(403);
+        }
 
         $this->selected_conversation = $conversation;
         $this->receviverUser = $receiver;
@@ -89,6 +95,10 @@ class Chatbox extends Component
 
     public function load_conversationPatient(Conversation $conversation, Patient $receiver)
     {
+        if ($conversation->sender_email !== $this->auth_email && $conversation->receiver_email !== $this->auth_email) {
+            abort(403);
+        }
+
 
         $this->selected_conversation = $conversation;
         $this->receviverUser = $receiver;

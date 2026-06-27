@@ -37,12 +37,22 @@ class SendMessage extends Component
 
     public function updateMessage(Conversation $conversation, Doctor $receiver)
     {
+        // Defense in depth: independently dispatchable client action, so
+        // re-check ownership before allowing sendMessage() to post into it.
+        if ($conversation->sender_email !== $this->auth_email && $conversation->receiver_email !== $this->auth_email) {
+            abort(403);
+        }
+
         $this->selected_conversation = $conversation;
         $this->receviverUser = $receiver;
     }
 
     public function updateMessage2(Conversation $conversation, Patient $receiver)
     {
+        if ($conversation->sender_email !== $this->auth_email && $conversation->receiver_email !== $this->auth_email) {
+            abort(403);
+        }
+
         $this->selected_conversation = $conversation;
         $this->receviverUser = $receiver;
     }

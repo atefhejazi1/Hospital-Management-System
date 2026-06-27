@@ -59,16 +59,23 @@ class Chatlist extends Component
 
     public function chatUserSelected(Conversation $conversation, $receiver_id)
     {
+        // $conversation/$receiver_id arrive from a client-issued Livewire
+        // action call, so both are attacker-controllable. Without this check
+        // any authenticated doctor/patient could read and post into another
+        // user's private conversation just by passing a different id.
+        if ($conversation->sender_email !== $this->auth_email && $conversation->receiver_email !== $this->auth_email) {
+            abort(403);
+        }
 
         $this->selected_conversation = $conversation;
-        $this->receviverUser = Doctor::find($receiver_id);
         if (Auth::guard('patient')->check()) {
+            $this->receviverUser = Doctor::find($receiver_id);
             $this->dispatch('load_conversationDoctor', $this->selected_conversation, $this->receviverUser)
                 ->to('chat.chatbox');
             $this->dispatch('updateMessage', $this->selected_conversation, $this->receviverUser)
                 ->to('chat.send-message');
         } else {
-            // $this->emitTo('chat.chatbox', 'load_conversationPatient', $this->selected_conversation, $this->receviverUser);
+            $this->receviverUser = Patient::find($receiver_id);
             $this->dispatch('load_conversationPatient', $this->selected_conversation, $this->receviverUser)
                 ->to('chat.chatbox');
             $this->dispatch('updateMessage2', $this->selected_conversation, $this->receviverUser)
