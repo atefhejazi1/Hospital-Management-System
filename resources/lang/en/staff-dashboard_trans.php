@@ -67,4 +67,14 @@ return array (
   'col_doctor' => 'Doctor',
   'col_completed_at' => 'Completed At',
   'no_completed_scans' => 'No completed scans yet',
+
+  // Lab employee dashboard (redesign)
+  'lab_greeting_subtitle' => "here's your laboratory queue overview",
+  'lab_pending_queue_count' => 'Pending Tests (Queue)',
+  'lab_total_labs_count' => 'Total Laboratory Cases',
+  'lab_trend_title' => 'My Completed Tests',
+  'lab_status_breakdown_sub' => 'All laboratory cases',
+  'labs_suffix' => 'cases',
+  'lab_recent_completed_title' => 'My Recent Completed Tests',
+  'lab_no_completed_tests' => 'No completed tests yet',
 );
