@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Dashboard\DoctorDashboardController;
 use App\Http\Controllers\Dashboard_Doctor\DiagnosticController;
 use App\Http\Controllers\Dashboard_Doctor\InvoicesController;
 use App\Http\Controllers\Dashboard_Doctor\LaboratorieController;
@@ -20,9 +21,9 @@ Route::group(
     function () {
 
         // ############################# Doctor Dashboard route ##########################################
-        Route::get('/portal/doctor', function () {
-            return view('Dashboard.Doctor.dashboard');
-        })->middleware(['auth:doctor', 'verified'])->name('dashboard.doctor');
+        Route::get('/portal/doctor', [DoctorDashboardController::class, 'index'])
+            ->middleware(['auth:doctor', 'verified'])
+            ->name('dashboard.doctor');
 
 
 

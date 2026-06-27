@@ -1,432 +1,344 @@
 @extends('Dashboard.layouts.master')
+
+@section('title', trans('doctor-dashboard_trans.doctor_dashboard_title'))
+
 @section('css')
-<!--  Owl-carousel css-->
-<link href="{{URL::asset('Dashboard/plugins/owl-carousel/owl.carousel.css')}}" rel="stylesheet" />
-<!-- Maps css -->
-<link href="{{URL::asset('Dashboard/plugins/jqvmap/jqvmap.min.css')}}" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+
+<style>
+    :root {
+        --mc-primary: #0284c7;
+        --mc-accent: #0369a1;
+        --mc-dark: #0f172a;
+        --mc-bg-soft: #f0f9ff;
+        --mc-border: #e2e8f0;
+        --mc-muted: #64748b;
+    }
+
+    .mc-page { font-family: 'Inter', sans-serif; color: var(--mc-dark); }
+
+    .mc-greeting h2 { font-weight: 800; font-size: 1.5rem; margin: 0 0 2px; }
+    .mc-greeting p { color: var(--mc-muted); font-size: .88rem; margin: 0; }
+
+    .mc-action-btn {
+        display: inline-flex; align-items: center; gap: 7px;
+        border-radius: 8px; padding: 9px 16px; font-size: .85rem; font-weight: 700;
+        border: 1.5px solid var(--mc-border) !important; background: #fff !important; color: var(--mc-dark) !important;
+        text-decoration: none !important; transition: border-color .15s, color .15s;
+    }
+    .mc-action-btn:hover { border-color: var(--mc-primary) !important; color: var(--mc-primary) !important; }
+    .mc-action-btn.is-primary { background: var(--mc-primary) !important; border-color: var(--mc-primary) !important; color: #fff !important; }
+    .mc-action-btn.is-primary:hover { background: var(--mc-accent) !important; border-color: var(--mc-accent) !important; color: #fff !important; }
+
+    .mc-metric-card {
+        background: #fff; border: 1px solid var(--mc-border); border-radius: 14px;
+        padding: 20px 22px; height: 100%; border-top: 3px solid var(--mc-primary);
+    }
+    .mc-metric-card .mc-metric-icon {
+        width: 40px; height: 40px; border-radius: 10px; background: var(--mc-bg-soft);
+        color: var(--mc-primary); display: flex; align-items: center; justify-content: center;
+        font-size: 1.15rem; margin-bottom: 14px;
+    }
+    .mc-metric-card .mc-metric-value { font-size: 1.65rem; font-weight: 800; line-height: 1; margin-bottom: 4px; }
+    .mc-metric-card .mc-metric-label { font-size: .82rem; font-weight: 600; color: var(--mc-muted); }
+
+    .mc-panel { background: #fff; border: 1px solid var(--mc-border); border-radius: 14px; padding: 22px; height: 100%; }
+    .mc-panel-head { display: flex; align-items: center; justify-content: between; margin-bottom: 18px; }
+    .mc-panel-title { font-size: 1.02rem; font-weight: 800; margin: 0; }
+    .mc-panel-sub { font-size: .8rem; color: var(--mc-muted); margin: 2px 0 0; }
+
+    .mc-table thead th {
+        font-size: .74rem; text-transform: uppercase; letter-spacing: .04em;
+        color: var(--mc-muted); font-weight: 700; border-bottom: 1.5px solid var(--mc-border);
+        padding-bottom: 10px; white-space: nowrap;
+    }
+    .mc-table tbody td { padding: 13px 8px; border-bottom: 1px solid var(--mc-border); font-size: .87rem; vertical-align: middle; }
+    .mc-table tbody tr:last-child td { border-bottom: 0; }
+
+    .mc-badge { display: inline-block; padding: 4px 11px; border-radius: 999px; font-size: .76rem; font-weight: 700; }
+    .mc-badge.badge-pending { background: #fef9c3; color: #854d0e; }
+    .mc-badge.badge-confirmed { background: #e0f2fe; color: #075985; }
+    .mc-badge.badge-completed { background: #dcfce7; color: #166534; }
+    .mc-badge.badge-available { background: #dcfce7; color: #166534; }
+    .mc-badge.badge-booked { background: #fee2e2; color: #991b1b; }
+
+    .mc-empty { text-align: center; padding: 36px 12px; color: var(--mc-muted); font-size: .88rem; }
+    .mc-empty i { font-size: 1.6rem; color: var(--mc-border); display: block; margin-bottom: 10px; }
+
+    .mc-chart-wrap { position: relative; height: 250px; }
+    .mc-donut-wrap { position: relative; height: 170px; margin: 0 auto 18px; max-width: 170px; }
+    .mc-donut-total { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center; }
+    .mc-donut-total .num { font-size: 1.5rem; font-weight: 800; line-height: 1; }
+    .mc-donut-total .lbl { font-size: .68rem; color: var(--mc-muted); font-weight: 600; }
+
+    .mc-legend-row { display: flex; align-items: center; justify-content: space-between; padding: 7px 0; font-size: .85rem; }
+    .mc-legend-key { display: flex; align-items: center; gap: 8px; font-weight: 600; }
+    .mc-legend-dot { width: 9px; height: 9px; border-radius: 50%; display: inline-block; flex-shrink: 0; }
+    .mc-legend-count { font-weight: 700; color: var(--mc-muted); }
+
+    .mc-slot-row { display: flex; align-items: center; justify-content: space-between; padding: 11px 0; border-bottom: 1px solid var(--mc-border); }
+    .mc-slot-row:last-child { border-bottom: 0; }
+    .mc-slot-time { font-weight: 700; font-size: .87rem; }
+    .mc-slot-patient { font-size: .78rem; color: var(--mc-muted); margin-top: 2px; }
+</style>
 @endsection
+
 @section('page-header')
-				<!-- breadcrumb -->
-				<div class="breadcrumb-header justify-content-between">
-					<div class="left-content">
-						<div>
-						  <h2 class="main-content-title tx-24 mg-b-1 mg-b-lg-1">{{ trans('doctor-dashboard_trans.doctor_dashboard_title') }}</h2>
-						</div>
-					</div>
-				</div>
-				<!-- /breadcrumb -->
+<div class="mc-page d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
+    <div class="mc-greeting">
+        @php
+            $mcGreetingKey = now()->hour < 12 ? 'greeting_morning' : (now()->hour < 18 ? 'greeting_afternoon' : 'greeting_evening');
+        @endphp
+        <h2>{{ trans('doctor-dashboard_trans.' . $mcGreetingKey) }}, {{ $doctor->name }}</h2>
+        <p>{{ now()->translatedFormat('l, d F Y') }} — {{ trans('doctor-dashboard_trans.greeting_subtitle') }}</p>
+    </div>
+    <div class="d-flex gap-2">
+        <a href="{{ route('invoices.index') }}" class="mc-action-btn"><i class="bi bi-receipt"></i> {{ trans('doctor-dashboard_trans.view_invoices') }}</a>
+        <a href="{{ route('reviewInvoices') }}" class="mc-action-btn"><i class="bi bi-clipboard-check"></i> {{ trans('doctor-dashboard_trans.review_invoices_action') }}</a>
+        <a href="{{ route('chat.patients') }}" class="mc-action-btn is-primary"><i class="bi bi-chat-dots"></i> {{ trans('doctor-dashboard_trans.chat_patients') }}</a>
+    </div>
+</div>
 @endsection
+
 @section('content')
-				<!-- row -->
-				<div class="row row-sm">
-					<div class="col-xl-3 col-lg-6 col-md-6 col-xm-12">
-						<div class="card overflow-hidden sales-card bg-primary-gradient">
-							<div class="pl-3 pt-3 pr-3 pb-2 pt-0">
-								<div class="">
-									<h6 class="mb-3 tx-12 text-white">{{ trans('doctor-dashboard_trans.total_invoices') }}</h6>
-								</div>
-								<div class="pb-0 mt-0">
-									<div class="d-flex">
-										<div class="">
-											<h4 class="tx-20 font-weight-bold mb-1 text-white">{{App\Models\Invoice::where('doctor_id',Auth::user()->id)->count()}}</h4>
-										</div>
-									</div>
-								</div>
-							</div>
-							<span id="compositeline" class="pt-1">5,9,5,6,4,12,18,14,10,15,12,5,8,5,12,5,12,10,16,12</span>
-						</div>
-					</div>
-					<div class="col-xl-3 col-lg-6 col-md-6 col-xm-12">
-						<div class="card overflow-hidden sales-card bg-danger-gradient">
-							<div class="pl-3 pt-3 pr-3 pb-2 pt-0">
-								<div class="">
-									<h6 class="mb-3 tx-12 text-white">{{ trans('doctor-dashboard_trans.invoices_in_progress') }}</h6>
-								</div>
-								<div class="pb-0 mt-0">
-									<div class="d-flex">
-										<div class="">
-											<h4 class="tx-20 font-weight-bold mb-1 text-white">
-                                                {{App\Models\Invoice::where('doctor_id',Auth::user()->id)->where('invoice_status',1)->count()}}
-                                            </h4>
-										</div>
-									</div>
-								</div>
-							</div>
-							<span id="compositeline2" class="pt-1">3,2,4,6,12,14,8,7,14,16,12,7,8,4,3,2,2,5,6,7</span>
-						</div>
-					</div>
-					<div class="col-xl-3 col-lg-6 col-md-6 col-xm-12">
-						<div class="card overflow-hidden sales-card bg-success-gradient">
-							<div class="pl-3 pt-3 pr-3 pb-2 pt-0">
-								<div class="">
-									<h6 class="mb-3 tx-12 text-white">{{ trans('doctor-dashboard_trans.completed_invoices_count') }}</h6>
-								</div>
-								<div class="pb-0 mt-0">
-									<div class="d-flex">
-										<div class="">
-											<h4 class="tx-20 font-weight-bold mb-1 text-white">
-                                                {{App\Models\Invoice::where('doctor_id',Auth::user()->id)->where('invoice_status',3)->count()}}
-                                            </h4>
-										</div>
-									</div>
-								</div>
-							</div>
-							<span id="compositeline3" class="pt-1">5,10,5,20,22,12,15,18,20,15,8,12,22,5,10,12,22,15,16,10</span>
-						</div>
-					</div>
-					<div class="col-xl-3 col-lg-6 col-md-6 col-xm-12">
-						<div class="card overflow-hidden sales-card bg-warning-gradient">
-							<div class="pl-3 pt-3 pr-3 pb-2 pt-0">
-								<div class="">
-									<h6 class="mb-3 tx-12 text-white">{{ trans('doctor-dashboard_trans.review_invoices_count') }}</h6>
-								</div>
-								<div class="pb-0 mt-0">
-									<div class="d-flex">
-										<div class="">
-											<h4 class="tx-20 font-weight-bold mb-1 text-white">
-                                                {{App\Models\Invoice::where('doctor_id',Auth::user()->id)->where('invoice_status',2)->count()}}
-                                            </h4>
-										</div>
-									</div>
-								</div>
-							</div>
-							<span id="compositeline4" class="pt-1">5,9,5,6,4,12,18,14,10,15,12,5,8,5,12,5,12,10,16,12</span>
-						</div>
-					</div>
-				</div>
-				<!-- row closed -->
+<div class="mc-page">
 
-				<!-- row opened -->
-				<div class="row row-sm">
-					<div class="col-md-12 col-lg-12 col-xl-7">
-						<div class="card">
-							<div class="card-header bg-transparent pd-b-0 pd-t-20 bd-b-0">
-								<div class="d-flex justify-content-between">
-									<h4 class="card-title mb-0">Order status</h4>
-									<i class="mdi mdi-dots-horizontal text-gray"></i>
-								</div>
-								<p class="tx-12 text-muted mb-0">Order Status and Tracking. Track your order from ship date to arrival. To begin, enter your order number.</p>
-							</div>
-							<div class="card-body">
-								<div class="total-revenue">
-									<div>
-									  <h4>120,750</h4>
-									  <label><span class="bg-primary"></span>success</label>
-									</div>
-									<div>
-									  <h4>56,108</h4>
-									  <label><span class="bg-danger"></span>Pending</label>
-									</div>
-									<div>
-									  <h4>32,895</h4>
-									  <label><span class="bg-warning"></span>Failed</label>
-									</div>
-								  </div>
-								<div id="bar" class="sales-bar mt-4"></div>
-							</div>
-						</div>
-					</div>
-					<div class="col-lg-12 col-xl-5">
-						<div class="card card-dashboard-map-one">
-							<label class="main-content-label">Sales Revenue by Customers in USA</label>
-							<span class="d-block mg-b-20 text-muted tx-12">Sales Performance of all states in the United States</span>
-							<div class="">
-								<div class="vmap-wrapper ht-180" id="vmap2"></div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<!-- row closed -->
+    <!-- KPI cards -->
+    <div class="row row-sm mb-1">
+        <div class="col-xl-3 col-lg-6 col-md-6">
+            <div class="mc-metric-card">
+                <div class="mc-metric-icon"><i class="bi bi-calendar-day"></i></div>
+                <div class="mc-metric-value">{{ $metrics['appointmentsToday'] }}</div>
+                <div class="mc-metric-label">{{ trans('doctor-dashboard_trans.appointments_today') }}</div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-lg-6 col-md-6">
+            <div class="mc-metric-card">
+                <div class="mc-metric-icon"><i class="bi bi-calendar-week"></i></div>
+                <div class="mc-metric-value">{{ $metrics['appointmentsThisWeek'] }}</div>
+                <div class="mc-metric-label">{{ trans('doctor-dashboard_trans.appointments_this_week') }}</div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-lg-6 col-md-6">
+            <div class="mc-metric-card">
+                <div class="mc-metric-icon"><i class="bi bi-clipboard-check"></i></div>
+                <div class="mc-metric-value">{{ $metrics['reviewInvoices'] }}</div>
+                <div class="mc-metric-label">{{ trans('doctor-dashboard_trans.review_invoices_count') }}</div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-lg-6 col-md-6">
+            <div class="mc-metric-card">
+                <div class="mc-metric-icon"><i class="bi bi-check-circle"></i></div>
+                <div class="mc-metric-value">{{ $metrics['completedInvoices'] }}</div>
+                <div class="mc-metric-label">{{ trans('doctor-dashboard_trans.completed_invoices_count') }}</div>
+            </div>
+        </div>
+    </div>
 
-				<!-- row opened -->
-				<div class="row row-sm">
-					<div class="col-xl-4 col-md-12 col-lg-12">
-						<div class="card">
-							<div class="card-header pb-1">
-								<h3 class="card-title mb-2">Recent Customers</h3>
-								<p class="tx-12 mb-0 text-muted">A customer is an individual or business that purchases the goods service has evolved to include real-time</p>
-							</div>
-							<div class="card-body p-0 customers mt-1">
-								<div class="list-group list-lg-group list-group-flush">
-									<div class="list-group-item list-group-item-action" href="#">
-										<div class="media mt-0">
-											<img class="avatar-lg rounded-circle ml-3 my-auto" src="{{URL::asset('Dashboard/img/faces/3.jpg')}}" alt="Image description">
-											<div class="media-body">
-												<div class="d-flex align-items-center">
-													<div class="mt-0">
-														<h5 class="mb-1 tx-15">Samantha Melon</h5>
-														<p class="mb-0 tx-13 text-muted">User ID: #1234 <span class="text-success ml-2">Paid</span></p>
-													</div>
-													<span class="mr-auto wd-45p fs-16 mt-2">
-														<div id="spark1" class="wd-100p"></div>
-													</span>
-												</div>
-											</div>
-										</div>
-									</div>
-									<div class="list-group-item list-group-item-action" href="#">
-										<div class="media mt-0">
-											<img class="avatar-lg rounded-circle ml-3 my-auto" src="{{URL::asset('Dashboard/img/faces/11.jpg')}}" alt="Image description">
-											<div class="media-body">
-												<div class="d-flex align-items-center">
-													<div class="mt-1">
-														<h5 class="mb-1 tx-15">Jimmy Changa</h5>
-														<p class="mb-0 tx-13 text-muted">User ID: #1234 <span class="text-danger ml-2">Pending</span></p>
-													</div>
-													<span class="mr-auto wd-45p fs-16 mt-2">
-														<div id="spark2" class="wd-100p"></div>
-													</span>
-												</div>
-											</div>
-										</div>
-									</div>
-									<div class="list-group-item list-group-item-action" href="#">
-										<div class="media mt-0">
-											<img class="avatar-lg rounded-circle ml-3 my-auto" src="{{URL::asset('Dashboard/img/faces/17.jpg')}}" alt="Image description">
-											<div class="media-body">
-												<div class="d-flex align-items-center">
-													<div class="mt-1">
-														<h5 class="mb-1 tx-15">Gabe Lackmen</h5>
-														<p class="mb-0 tx-13 text-muted">User ID: #1234<span class="text-danger ml-2">Pending</span></p>
-													</div>
-													<span class="mr-auto wd-45p fs-16 mt-2">
-														<div id="spark3" class="wd-100p"></div>
-													</span>
-												</div>
-											</div>
-										</div>
-									</div>
-									<div class="list-group-item list-group-item-action" href="#">
-										<div class="media mt-0">
-											<img class="avatar-lg rounded-circle ml-3 my-auto" src="{{URL::asset('Dashboard/img/faces/15.jpg')}}" alt="Image description">
-											<div class="media-body">
-												<div class="d-flex align-items-center">
-													<div class="mt-1">
-														<h5 class="mb-1 tx-15">Manuel Labor</h5>
-														<p class="mb-0 tx-13 text-muted">User ID: #1234<span class="text-success ml-2">Paid</span></p>
-													</div>
-													<span class="mr-auto wd-45p fs-16 mt-2">
-														<div id="spark4" class="wd-100p"></div>
-													</span>
-												</div>
-											</div>
-										</div>
-									</div>
-									<div class="list-group-item list-group-item-action br-br-7 br-bl-7" href="#">
-										<div class="media mt-0">
-											<img class="avatar-lg rounded-circle ml-3 my-auto" src="{{URL::asset('Dashboard/img/faces/6.jpg')}}" alt="Image description">
-											<div class="media-body">
-												<div class="d-flex align-items-center">
-													<div class="mt-1">
-														<h5 class="mb-1 tx-15">Sharon Needles</h5>
-														<p class="b-0 tx-13 text-muted mb-0">User ID: #1234<span class="text-success ml-2">Paid</span></p>
-													</div>
-													<span class="mr-auto wd-45p fs-16 mt-2">
-														<div id="spark5" class="wd-100p"></div>
-													</span>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="col-xl-4 col-md-12 col-lg-6">
-						<div class="card">
-							<div class="card-header pb-1">
-								<h3 class="card-title mb-2">Sales Activity</h3>
-								<p class="tx-12 mb-0 text-muted">Sales activities are the tactics that salespeople use to achieve their goals and objective</p>
-							</div>
-							<div class="product-timeline card-body pt-2 mt-1">
-								<ul class="timeline-1 mb-0">
-									<li class="mt-0"> <i class="ti-pie-chart bg-primary-gradient text-white product-icon"></i> <span class="font-weight-semibold mb-4 tx-14 ">Total Products</span> <a href="#" class="float-left tx-11 text-muted">3 days ago</a>
-										<p class="mb-0 text-muted tx-12">1.3k New Products</p>
-									</li>
-									<li class="mt-0"> <i class="mdi mdi-cart-outline bg-danger-gradient text-white product-icon"></i> <span class="font-weight-semibold mb-4 tx-14 ">Total Sales</span> <a href="#" class="float-left tx-11 text-muted">35 mins ago</a>
-										<p class="mb-0 text-muted tx-12">1k New Sales</p>
-									</li>
-									<li class="mt-0"> <i class="ti-bar-chart-alt bg-success-gradient text-white product-icon"></i> <span class="font-weight-semibold mb-4 tx-14 ">Toatal Revenue</span> <a href="#" class="float-left tx-11 text-muted">50 mins ago</a>
-										<p class="mb-0 text-muted tx-12">23.5K New Revenue</p>
-									</li>
-									<li class="mt-0"> <i class="ti-wallet bg-warning-gradient text-white product-icon"></i> <span class="font-weight-semibold mb-4 tx-14 ">Toatal Profit</span> <a href="#" class="float-left tx-11 text-muted">1 hour ago</a>
-										<p class="mb-0 text-muted tx-12">3k New profit</p>
-									</li>
-									<li class="mt-0"> <i class="si si-eye bg-purple-gradient text-white product-icon"></i> <span class="font-weight-semibold mb-4 tx-14 ">Customer Visits</span> <a href="#" class="float-left tx-11 text-muted">1 day ago</a>
-										<p class="mb-0 text-muted tx-12">15% increased</p>
-									</li>
-									<li class="mt-0 mb-0"> <i class="icon-note icons bg-primary-gradient text-white product-icon"></i> <span class="font-weight-semibold mb-4 tx-14 ">Customer Reviews</span> <a href="#" class="float-left tx-11 text-muted">1 day ago</a>
-										<p class="mb-0 text-muted tx-12">1.5k reviews</p>
-									</li>
-								</ul>
-							</div>
-						</div>
-					</div>
-					<div class="col-xl-4 col-md-12 col-lg-6">
-						<div class="card">
-							<div class="card-header pb-0">
-								<h3 class="card-title mb-2">Recent Orders</h3>
-								<p class="tx-12 mb-0 text-muted">An order is an investor's instructions to a broker or brokerage firm to purchase or sell</p>
-							</div>
-							<div class="card-body sales-info ot-0 pt-0 pb-0">
-								<div id="chart" class="ht-150"></div>
-								<div class="row sales-infomation pb-0 mb-0 mx-auto wd-100p">
-									<div class="col-md-6 col">
-										<p class="mb-0 d-flex"><span class="legend bg-primary brround"></span>Delivered</p>
-										<h3 class="mb-1">5238</h3>
-										<div class="d-flex">
-											<p class="text-muted ">Last 6 months</p>
-										</div>
-									</div>
-									<div class="col-md-6 col">
-										<p class="mb-0 d-flex"><span class="legend bg-info brround"></span>Cancelled</p>
-											<h3 class="mb-1">3467</h3>
-										<div class="d-flex">
-											<p class="text-muted">Last 6 months</p>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="card ">
-							<div class="card-body">
-								<div class="row">
-									<div class="col-md-6">
-										<div class="d-flex align-items-center pb-2">
-											<p class="mb-0">Total Sales</p>
-										</div>
-										<h4 class="font-weight-bold mb-2">$7,590</h4>
-										<div class="progress progress-style progress-sm">
-											<div class="progress-bar bg-primary-gradient wd-80p" role="progressbar" aria-valuenow="78" aria-valuemin="0" aria-valuemax="78"></div>
-										</div>
-									</div>
-									<div class="col-md-6 mt-4 mt-md-0">
-										<div class="d-flex align-items-center pb-2">
-											<p class="mb-0">Active Users</p>
-										</div>
-										<h4 class="font-weight-bold mb-2">$5,460</h4>
-										<div class="progress progress-style progress-sm">
-											<div class="progress-bar bg-danger-gradient wd-75" role="progressbar"  aria-valuenow="45" aria-valuemin="0" aria-valuemax="45"></div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<!-- row close -->
+    <!-- Today's schedule + trend chart -->
+    <div class="row row-sm mt-3">
+        <div class="col-xl-5 col-lg-12">
+            <div class="mc-panel">
+                <div class="mc-panel-head">
+                    <div>
+                        <h4 class="mc-panel-title">{{ trans('doctor-dashboard_trans.today_schedule_title') }}</h4>
+                        <p class="mc-panel-sub">{{ trans('doctor-dashboard_trans.today_schedule_sub') }}</p>
+                    </div>
+                </div>
 
-				<!-- row opened -->
-				<div class="row row-sm row-deck">
-					<div class="col-md-12 col-lg-4 col-xl-4">
-						<div class="card card-dashboard-eight pb-2">
-							<h6 class="card-title">Your Top Countries</h6><span class="d-block mg-b-10 text-muted tx-12">Sales performance revenue based by country</span>
-							<div class="list-group">
-								<div class="list-group-item border-top-0">
-									<i class="flag-icon flag-icon-us flag-icon-squared"></i>
-									<p>United States</p><span>$1,671.10</span>
-								</div>
-								<div class="list-group-item">
-									<i class="flag-icon flag-icon-nl flag-icon-squared"></i>
-									<p>Netherlands</p><span>$1,064.75</span>
-								</div>
-								<div class="list-group-item">
-									<i class="flag-icon flag-icon-gb flag-icon-squared"></i>
-									<p>United Kingdom</p><span>$1,055.98</span>
-								</div>
-								<div class="list-group-item">
-									<i class="flag-icon flag-icon-ca flag-icon-squared"></i>
-									<p>Canada</p><span>$1,045.49</span>
-								</div>
-								<div class="list-group-item">
-									<i class="flag-icon flag-icon-in flag-icon-squared"></i>
-									<p>India</p><span>$1,930.12</span>
-								</div>
-								<div class="list-group-item border-bottom-0 mb-0">
-									<i class="flag-icon flag-icon-au flag-icon-squared"></i>
-									<p>Australia</p><span>$1,042.00</span>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="col-md-12 col-lg-8 col-xl-8">
-						<div class="card card-table-two">
-							<div class="d-flex justify-content-between">
-								<h4 class="card-title mb-1">Your Most Recent Earnings</h4>
-								<i class="mdi mdi-dots-horizontal text-gray"></i>
-							</div>
-							<span class="tx-12 tx-muted mb-3 ">This is your most recent earnings for today's date.</span>
-							<div class="table-responsive country-table">
-								<table class="table table-striped table-bordered mb-0 text-sm-nowrap text-lg-nowrap text-xl-nowrap">
-									<thead>
-										<tr>
-											<th class="wd-lg-25p">Date</th>
-											<th class="wd-lg-25p tx-right">Sales Count</th>
-											<th class="wd-lg-25p tx-right">Earnings</th>
-											<th class="wd-lg-25p tx-right">Tax Witheld</th>
-										</tr>
-									</thead>
-									<tbody>
-										<tr>
-											<td>05 Dec 2019</td>
-											<td class="tx-right tx-medium tx-inverse">34</td>
-											<td class="tx-right tx-medium tx-inverse">$658.20</td>
-											<td class="tx-right tx-medium tx-danger">-$45.10</td>
-										</tr>
-										<tr>
-											<td>06 Dec 2019</td>
-											<td class="tx-right tx-medium tx-inverse">26</td>
-											<td class="tx-right tx-medium tx-inverse">$453.25</td>
-											<td class="tx-right tx-medium tx-danger">-$15.02</td>
-										</tr>
-										<tr>
-											<td>07 Dec 2019</td>
-											<td class="tx-right tx-medium tx-inverse">34</td>
-											<td class="tx-right tx-medium tx-inverse">$653.12</td>
-											<td class="tx-right tx-medium tx-danger">-$13.45</td>
-										</tr>
-										<tr>
-											<td>08 Dec 2019</td>
-											<td class="tx-right tx-medium tx-inverse">45</td>
-											<td class="tx-right tx-medium tx-inverse">$546.47</td>
-											<td class="tx-right tx-medium tx-danger">-$24.22</td>
-										</tr>
-										<tr>
-											<td>09 Dec 2019</td>
-											<td class="tx-right tx-medium tx-inverse">31</td>
-											<td class="tx-right tx-medium tx-inverse">$425.72</td>
-											<td class="tx-right tx-medium tx-danger">-$25.01</td>
-										</tr>
-									</tbody>
-								</table>
-							</div>
-						</div>
-					</div>
-				</div>
-				<!-- /row -->
-			</div>
-		</div>
-		<!-- Container closed -->
+                @if (count($todaySchedule) === 0)
+                    <div class="mc-empty">
+                        <i class="bi bi-calendar-x"></i>
+                        {{ trans('doctor-dashboard_trans.no_slots_assigned') }}
+                    </div>
+                @else
+                    <div style="max-height: 360px; overflow-y: auto;">
+                        @foreach ($todaySchedule as $row)
+                            <div class="mc-slot-row">
+                                <div>
+                                    <div class="mc-slot-time">
+                                        {{ \Carbon\Carbon::parse($row['slot']->start_time)->format('h:i A') }}
+                                        – {{ \Carbon\Carbon::parse($row['slot']->end_time)->format('h:i A') }}
+                                    </div>
+                                    @if ($row['booked'])
+                                        <div class="mc-slot-patient">{{ $row['appointment']->name }}</div>
+                                    @endif
+                                </div>
+                                <span class="mc-badge {{ $row['booked'] ? 'badge-booked' : 'badge-available' }}">
+                                    {{ $row['booked'] ? trans('doctor-dashboard_trans.slot_booked') : trans('doctor-dashboard_trans.slot_available') }}
+                                </span>
+                            </div>
+                        @endforeach
+                    </div>
+                @endif
+            </div>
+        </div>
+
+        <div class="col-xl-7 col-lg-12 mt-3 mt-xl-0">
+            <div class="mc-panel">
+                <div class="mc-panel-head">
+                    <div>
+                        <h4 class="mc-panel-title">{{ trans('doctor-dashboard_trans.trend_title') }}</h4>
+                        <p class="mc-panel-sub">{{ trans('doctor-dashboard_trans.trend_sub') }}</p>
+                    </div>
+                </div>
+                <div class="mc-chart-wrap">
+                    <canvas id="mcTrendChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Status breakdown + recent patients -->
+    <div class="row row-sm mt-3">
+        <div class="col-xl-4 col-lg-12">
+            <div class="mc-panel">
+                <div class="mc-panel-head">
+                    <div>
+                        <h4 class="mc-panel-title">{{ trans('doctor-dashboard_trans.status_breakdown_title') }}</h4>
+                        <p class="mc-panel-sub">{{ trans('doctor-dashboard_trans.status_breakdown_sub') }}</p>
+                    </div>
+                </div>
+
+                @php $statusTotal = array_sum($statusBreakdown); @endphp
+
+                <div class="mc-donut-wrap">
+                    <canvas id="mcStatusDonut"></canvas>
+                    <div class="mc-donut-total">
+                        <div class="num">{{ $statusTotal }}</div>
+                        <div class="lbl">{{ trans('doctor-dashboard_trans.appointments_suffix') }}</div>
+                    </div>
+                </div>
+
+                <div class="mc-legend-row">
+                    <span class="mc-legend-key"><span class="mc-legend-dot" style="background:#eab308;"></span>{{ trans('doctor-dashboard_trans.status_pending') }}</span>
+                    <span class="mc-legend-count">{{ $statusBreakdown['pending'] }}</span>
+                </div>
+                <div class="mc-legend-row">
+                    <span class="mc-legend-key"><span class="mc-legend-dot" style="background:#0284c7;"></span>{{ trans('doctor-dashboard_trans.status_confirmed') }}</span>
+                    <span class="mc-legend-count">{{ $statusBreakdown['confirmed'] }}</span>
+                </div>
+                <div class="mc-legend-row">
+                    <span class="mc-legend-key"><span class="mc-legend-dot" style="background:#16a34a;"></span>{{ trans('doctor-dashboard_trans.status_completed') }}</span>
+                    <span class="mc-legend-count">{{ $statusBreakdown['completed'] }}</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-8 col-lg-12 mt-3 mt-xl-0">
+            <div class="mc-panel">
+                <div class="mc-panel-head">
+                    <div>
+                        <h4 class="mc-panel-title">{{ trans('doctor-dashboard_trans.recent_patients_title') }}</h4>
+                        <p class="mc-panel-sub">{{ trans('doctor-dashboard_trans.recent_patients_sub') }}</p>
+                    </div>
+                </div>
+
+                @if ($recentPatients->isEmpty())
+                    <div class="mc-empty">
+                        <i class="bi bi-people"></i>
+                        {{ trans('doctor-dashboard_trans.no_appointments') }}
+                    </div>
+                @else
+                    <div class="table-responsive">
+                        <table class="mc-table w-100">
+                            <thead>
+                                <tr>
+                                    <th>{{ trans('doctor-dashboard_trans.col_patient') }}</th>
+                                    <th>{{ trans('doctor-dashboard_trans.col_contact') }}</th>
+                                    <th>{{ trans('doctor-dashboard_trans.col_datetime') }}</th>
+                                    <th>{{ trans('doctor-dashboard_trans.col_status') }}</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($recentPatients as $appointment)
+                                    @php
+                                        $badgeClass = match ($appointment->type) {
+                                            'مؤكد' => 'badge-confirmed',
+                                            'منتهي' => 'badge-completed',
+                                            default => 'badge-pending',
+                                        };
+                                        $statusLabel = match ($appointment->type) {
+                                            'مؤكد' => trans('doctor-dashboard_trans.status_confirmed'),
+                                            'منتهي' => trans('doctor-dashboard_trans.status_completed'),
+                                            default => trans('doctor-dashboard_trans.status_pending'),
+                                        };
+                                    @endphp
+                                    <tr>
+                                        <td>{{ $appointment->name }}</td>
+                                        <td>{{ $appointment->phone }}</td>
+                                        <td>{{ $appointment->appointment?->format('Y-m-d h:i A') }}</td>
+                                        <td><span class="mc-badge {{ $badgeClass }}">{{ $statusLabel }}</span></td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                @endif
+            </div>
+        </div>
+    </div>
+
+</div>
 @endsection
+
 @section('js')
-<!--Internal  Chart.bundle js -->
 <script src="{{URL::asset('Dashboard/plugins/chart.js/Chart.bundle.min.js')}}"></script>
-<!-- Moment js -->
-<script src="{{URL::asset('Dashboard/plugins/raphael/raphael.min.js')}}"></script>
-<!--Internal  Flot js-->
-<script src="{{URL::asset('Dashboard/plugins/jquery.flot/jquery.flot.js')}}"></script>
-<script src="{{URL::asset('Dashboard/plugins/jquery.flot/jquery.flot.pie.js')}}"></script>
-<script src="{{URL::asset('Dashboard/plugins/jquery.flot/jquery.flot.resize.js')}}"></script>
-<script src="{{URL::asset('Dashboard/plugins/jquery.flot/jquery.flot.categories.js')}}"></script>
-<script src="{{URL::asset('Dashboard/js/dashboard.sampledata.js')}}"></script>
-<script src="{{URL::asset('Dashboard/js/chart.flot.sampledata.js')}}"></script>
-<!--Internal Apexchart js-->
-<script src="{{URL::asset('Dashboard/js/apexcharts.js')}}"></script>
-<!-- Internal Map -->
-<script src="{{URL::asset('Dashboard/plugins/jqvmap/jquery.vmap.min.js')}}"></script>
-<script src="{{URL::asset('Dashboard/plugins/jqvmap/maps/jquery.vmap.usa.js')}}"></script>
-<script src="{{URL::asset('Dashboard/js/modal-popup.js')}}"></script>
-<!--Internal  index js -->
-<script src="{{URL::asset('Dashboard/js/index.js')}}"></script>
-<script src="{{URL::asset('Dashboard/js/jquery.vmap.sampledata.js')}}"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var trendCtx = document.getElementById('mcTrendChart');
+        if (trendCtx) {
+            new Chart(trendCtx, {
+                type: 'line',
+                data: {
+                    labels: @json($appointmentsTrend->pluck('label')),
+                    datasets: [{
+                        data: @json($appointmentsTrend->pluck('count')),
+                        borderColor: '#0284c7',
+                        backgroundColor: 'rgba(2,132,199,.08)',
+                        borderWidth: 2,
+                        pointBackgroundColor: '#0284c7',
+                        pointRadius: 3,
+                        fill: true,
+                        tension: 0.35,
+                    }]
+                },
+                options: {
+                    legend: { display: false },
+                    scales: { yAxes: [{ ticks: { beginAtZero: true, precision: 0 } }] }
+                }
+            });
+        }
+
+        var donutCtx = document.getElementById('mcStatusDonut');
+        if (donutCtx) {
+            new Chart(donutCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: [
+                        @json(trans('doctor-dashboard_trans.status_pending')),
+                        @json(trans('doctor-dashboard_trans.status_confirmed')),
+                        @json(trans('doctor-dashboard_trans.status_completed'))
+                    ],
+                    datasets: [{
+                        data: [
+                            {{ $statusBreakdown['pending'] }},
+                            {{ $statusBreakdown['confirmed'] }},
+                            {{ $statusBreakdown['completed'] }}
+                        ],
+                        backgroundColor: ['#eab308', '#0284c7', '#16a34a'],
+                        borderWidth: 0,
+                    }]
+                },
+                options: {
+                    legend: { display: false },
+                    cutoutPercentage: 72,
+                }
+            });
+        }
+    });
+</script>
 @endsection
