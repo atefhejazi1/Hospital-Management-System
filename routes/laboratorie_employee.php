@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Dashboard_Laboratorie_Employee\DashboardController;
 use App\Http\Controllers\Dashboard_Laboratorie_Employee\InvoiceController;
 use Illuminate\Support\Facades\Route;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
@@ -26,9 +27,9 @@ Route::group(
 
         //################################ dashboard doctor ########################################
 
-        Route::get('/portal/laboratorie_employee', function () {
-            return view('Dashboard.dashboard_LaboratorieEmployee.dashboard');
-        })->middleware(['auth:laboratorie_employee', 'verified'])->name('dashboard.laboratorie_employee');
+        Route::get('/portal/laboratorie_employee', [DashboardController::class, 'index'])
+            ->middleware(['auth:laboratorie_employee', 'verified'])
+            ->name('dashboard.laboratorie_employee');
         //################################ end dashboard doctor #####################################
 
         Route::middleware(['auth:laboratorie_employee'])->group(function () {
@@ -36,7 +37,7 @@ Route::group(
             //############################# invoices route ##########################################
             Route::resource('invoices_laboratorie_employee', InvoiceController::class);
             Route::get('completed_invoices', [InvoiceController::class, 'completed_invoices'])->name('completed_invoices');
-            Route::get('view_laboratories/{id}', [InvoiceController::class, 'view_laboratories'])->name('view_laboratories');
+            Route::get('view_laboratories_laboratorie_employee/{id}', [InvoiceController::class, 'view_laboratories'])->name('view_laboratories_laboratorie_employee');
             //############################# end invoices route ######################################
 
         });

@@ -67,4 +67,14 @@ return array (
   'col_doctor' => 'الطبيب',
   'col_completed_at' => 'وقت الاكتمال',
   'no_completed_scans' => 'لا توجد فحوصات مكتملة حتي الان',
+
+  // Lab employee dashboard (redesign)
+  'lab_greeting_subtitle' => 'هذه نظرة عامة على قائمة انتظار المختبر',
+  'lab_pending_queue_count' => 'التحاليل قيد الانتظار',
+  'lab_total_labs_count' => 'اجمالي حالات المختبر',
+  'lab_trend_title' => 'التحاليل التي اكملتها',
+  'lab_status_breakdown_sub' => 'جميع حالات المختبر',
+  'labs_suffix' => 'حالة',
+  'lab_recent_completed_title' => 'اخر التحاليل المكتملة',
+  'lab_no_completed_tests' => 'لا توجد تحاليل مكتملة حتي الان',
 );
