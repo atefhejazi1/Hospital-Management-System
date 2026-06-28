@@ -20,12 +20,6 @@ class CreateChat extends Component
     {
         $this->auth_email = Auth::user()->email;
     }
-    public function ww()
-    {
-        dd("Hello form ww");
-    }
-
-
     public function createConversation($receiver_email)
     {
         $chek_Conversation = Conversation::chekConversation($this->auth_email, $receiver_email)->get();
@@ -46,13 +40,9 @@ class CreateChat extends Component
                     'body' => 'السلام عليكم',
                 ]);
                 DB::commit();
-                $this->emitSelf('render');
             } catch (Exception $e) {
                 DB::rollBack();
             }
-        } else {
-
-            dd('Conversation yes');
         }
     }
 

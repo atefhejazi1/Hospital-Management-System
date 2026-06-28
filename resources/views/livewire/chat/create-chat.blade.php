@@ -21,10 +21,6 @@
                                             <button class="btn btn-primary"
                                                 wire:click="createConversation('{{ $user->email }}')">{{ $user->name }}</button>
                                         </td>
-
-                                        <td>
-                                            <button wire:click="ww">ww</button>
-                                        </td>
                                     </tr>
                                 @endforeach
                             </tbody>
