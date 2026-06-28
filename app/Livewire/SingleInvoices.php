@@ -76,9 +76,9 @@ class SingleInvoices extends Component
         $single_invoice = Invoice::findorfail($id);
         return Redirect::route('Print_single_invoices', [
             'invoice_date' => $single_invoice->invoice_date,
-            'doctor_id' => $single_invoice->Doctor->name,
-            'section_id' => $single_invoice->Section->name,
-            'Service_id' => $single_invoice->Service->name,
+            'doctor_id' => $single_invoice->Doctor?->name,
+            'section_id' => $single_invoice->Section?->name,
+            'Service_id' => $single_invoice->Service?->name,
             'type' => $single_invoice->type,
             'price' => $single_invoice->price,
             'discount_value' => $single_invoice->discount_value,
