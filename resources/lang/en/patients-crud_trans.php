@@ -8,6 +8,7 @@ return array (
   'patient_info' => 'Patient Information',
   'name' => 'Patient Name',
   'email' => 'Email',
+  'password' => 'Password',
   'date_birth' => 'Date of Birth',
   'phone' => 'Phone Number',
   'gender' => 'Gender',
