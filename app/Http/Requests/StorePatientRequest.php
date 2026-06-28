@@ -33,6 +33,7 @@ class StorePatientRequest extends FormRequest
             'Date_Birth' => 'required|date|date_format:Y-m-d',
             "Gender" => 'required|integer|in:1,2',
             "Blood_Group" => 'required',
+            "Address" => 'required',
         ];
     }
 
@@ -52,6 +53,7 @@ class StorePatientRequest extends FormRequest
             'Gender.required' => trans('validation.required'),
             'Gender.integer' => trans('validation.integer'),
             'Blood_Group.required' => trans('validation.required'),
+            'Address.required' => trans('validation.required'),
         ];
     }
 }

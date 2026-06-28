@@ -80,7 +80,7 @@
                     <div class="row">
                         <div class="col">
                             <label>{{ trans('patients-crud_trans.address') }}</label>
-                            <textarea rows="5" cols="10" class="form-control" name="Address">{{$Patient->Address}}</textarea>
+                            <textarea rows="5" cols="10" class="form-control @error('Address') is-invalid @enderror" name="Address" required>{{ old('Address', $Patient->Address) }}</textarea>
                         </div>
                     </div>
 

@@ -37,6 +37,10 @@
                             <input type="email" name="email"  value="{{old('email')}}" class="form-control @error('email') is-invalid @enderror" required>
                         </div>
 
+                        <div class="col">
+                            <label>{{ trans('patients-crud_trans.password') }}</label>
+                            <input type="password" name="password" class="form-control @error('password') is-invalid @enderror" required>
+                        </div>
 
                         <div class="col">
                             <label>{{ trans('patients-crud_trans.date_birth') }}</label>
@@ -83,7 +87,7 @@
                     <div class="row">
                         <div class="col">
                             <label>{{ trans('patients-crud_trans.address') }}</label>
-                            <textarea rows="5" cols="10" class="form-control" name="Address"></textarea>
+                            <textarea rows="5" cols="10" class="form-control @error('Address') is-invalid @enderror" name="Address" required>{{ old('Address') }}</textarea>
                         </div>
                     </div>
 
