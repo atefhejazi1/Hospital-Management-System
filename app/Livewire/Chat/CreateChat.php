@@ -15,11 +15,22 @@ class CreateChat extends Component
 {
     public $users;
     public $auth_email;
+    public $search = '';
 
     public function mount()
     {
         $this->auth_email = Auth::user()->email;
     }
+
+    public function getInitials($user): string
+    {
+        return \Illuminate\Support\Str::of((string) $user->name)
+            ->explode(' ')
+            ->map(fn ($w) => mb_substr($w, 0, 1))
+            ->take(2)
+            ->implode('');
+    }
+
     public function createConversation($receiver_email)
     {
         $chek_Conversation = Conversation::chekConversation($this->auth_email, $receiver_email)->get();
@@ -49,14 +60,16 @@ class CreateChat extends Component
 
     public function render()
     {
+        $isPatientViewer = Auth::guard('patient')->check();
+        $users = $isPatientViewer ? Doctor::all() : Patient::all();
 
-        if (Auth::guard('patient')->check()) {
-            $this->users = Doctor::all();
-        } else {
-            $this->users = Patient::all();
+        if ($this->search !== '') {
+            $needle = mb_strtolower($this->search);
+            $users = $users->filter(fn ($user) => str_contains(mb_strtolower((string) $user->name), $needle))->values();
         }
 
+        $this->users = $users;
 
-        return view('livewire.chat.create-chat')->extends('Dashboard.layouts.master');
+        return view('livewire.chat.create-chat', ['isPatientViewer' => $isPatientViewer]);
     }
 }

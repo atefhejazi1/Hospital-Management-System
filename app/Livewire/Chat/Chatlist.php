@@ -16,11 +16,34 @@ class Chatlist extends Component
     public $auth_email;
     public $receviverUser;
     public $selected_conversation;
-    protected $listeners = ['chatUserSelected', 'refresh' => '$refresh'];
+    public $search = '';
 
     public function mount()
     {
         $this->auth_email = Auth::user()->email;
+    }
+
+    /**
+     * Without this, only the open chat thread (Chatbox) refreshes on an
+     * incoming message - the sidebar's last-message preview stays stale
+     * until the page is reloaded, since it has no echo-private listener
+     * of its own.
+     */
+    public function getListeners()
+    {
+        if (Auth::guard('patient')->check()) {
+            $auth_id = Auth::guard('patient')->user()->id;
+            $channel = "echo-private:chat2.$auth_id,MassageSent2";
+        } else {
+            $auth_id = Auth::guard('doctor')->user()->id;
+            $channel = "echo-private:chat.$auth_id,MassageSent";
+        }
+
+        return [
+            $channel => '$refresh',
+            'chatUserSelected',
+            'refresh' => '$refresh',
+        ];
     }
 
     // public function getUsers(Conversation $conversation, $request)
@@ -57,6 +80,17 @@ class Chatlist extends Component
         return 'غير معروف';
     }
 
+    public function getInitials(Conversation $conversation): string
+    {
+        $name = (string) $this->getUsers($conversation, 'name');
+
+        return \Illuminate\Support\Str::of($name)
+            ->explode(' ')
+            ->map(fn ($w) => mb_substr($w, 0, 1))
+            ->take(2)
+            ->implode('');
+    }
+
     public function chatUserSelected(Conversation $conversation, $receiver_id)
     {
         // $conversation/$receiver_id arrive from a client-issued Livewire
@@ -86,9 +120,19 @@ class Chatlist extends Component
 
     public function render()
     {
-        $this->conversations = Conversation::where('sender_email', $this->auth_email)->orwhere('receiver_email', $this->auth_email)
+        $conversations = Conversation::where('sender_email', $this->auth_email)->orwhere('receiver_email', $this->auth_email)
             ->orderBy('created_at', 'DESC')
             ->get();
+
+        if ($this->search !== '') {
+            $needle = mb_strtolower($this->search);
+            $conversations = $conversations->filter(
+                fn (Conversation $conversation) => str_contains(mb_strtolower((string) $this->getUsers($conversation, 'name')), $needle)
+            )->values();
+        }
+
+        $this->conversations = $conversations;
+
         return view('livewire.chat.chatlist');
     }
 }

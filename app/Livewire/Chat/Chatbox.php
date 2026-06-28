@@ -65,6 +65,14 @@ class Chatbox extends Component
     #[On('pushMessage')]
     public function pushMessage($messageId)
     {
+        // No conversation open yet (e.g. just landed on the chat page) -
+        // nothing to append to. Without this guard, any incoming message
+        // crashes this component (and whatever else Livewire batched into
+        // the same request, like Chatlist's own refresh) with a 500.
+        if (! $this->messages) {
+            return;
+        }
+
         // Echo can redeliver the same event after a socket reconnect or when
         // multiple tabs are open; guard against appending the same message twice.
         if ($this->messages->contains('id', $messageId)) {

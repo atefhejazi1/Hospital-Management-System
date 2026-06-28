@@ -1,0 +1,230 @@
+/* MediCore chat redesign — overrides on top of the existing
+   main-chat-list/main-chat-header/main-chat-body markup so the
+   PerfectScrollbar/jQuery hooks in Dashboard/js/chat.js keep working. */
+
+.mc-chat-card {
+    border-radius: 14px;
+    border: 1px solid var(--mc-border);
+    overflow: hidden;
+}
+
+/* ---- list pane header (search) ---- */
+.mc-chat-list-head {
+    padding: 16px 16px 12px;
+    border-bottom: 1px solid var(--mc-border);
+}
+.mc-chat-list-head h6 {
+    font-weight: 700;
+    color: var(--mc-dark);
+    margin-bottom: 10px;
+    font-size: .95rem;
+}
+.mc-chat-search {
+    position: relative;
+}
+.mc-chat-search input {
+    width: 100%;
+    border: 1px solid var(--mc-border);
+    background: var(--mc-bg-soft);
+    border-radius: 100px;
+    padding: 8px 14px 8px 36px;
+    font-size: .85rem;
+    color: var(--mc-dark);
+}
+.mc-chat-search input:focus {
+    outline: none;
+    border-color: var(--mc-primary);
+    background: #fff;
+}
+.mc-chat-search svg {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 15px;
+    height: 15px;
+    color: var(--mc-muted);
+}
+
+/* ---- conversation list rows ---- */
+.main-chat-list { padding: 6px; }
+.main-chat-list .media {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 11px 10px;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: background .15s;
+    border: 1px solid transparent;
+}
+.main-chat-list .media:hover { background: var(--mc-bg-soft); }
+.main-chat-list .media.selected {
+    background: var(--mc-bg-soft);
+    border-color: var(--mc-border);
+}
+.main-chat-list .media.selected .mc-chat-avatar { box-shadow: 0 0 0 2px var(--mc-primary); }
+.main-chat-list .media .mc-chat-avatar { width: 44px; height: 44px; font-size: .95rem; }
+.main-chat-list .media .media-body { flex: 1; min-width: 0; }
+.main-chat-list .media .media-contact-name {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 8px;
+}
+.main-chat-list .media .media-contact-name span:first-child {
+    font-weight: 700;
+    color: var(--mc-dark);
+    font-size: .87rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.main-chat-list .media .media-contact-name span:last-child {
+    font-size: .7rem;
+    color: var(--mc-muted);
+    flex-shrink: 0;
+}
+.main-chat-list .media p {
+    margin: 2px 0 0;
+    font-size: .8rem;
+    color: var(--mc-muted);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.mc-chat-empty-list {
+    padding: 36px 20px;
+    text-align: center;
+    color: var(--mc-muted);
+}
+.mc-chat-empty-list svg { width: 40px; height: 40px; opacity: .35; margin-bottom: 10px; }
+.mc-chat-empty-list p { font-size: .85rem; margin: 0; }
+
+/* ---- chat header ---- */
+.main-chat-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 18px;
+    border-bottom: 1px solid var(--mc-border);
+}
+.main-chat-header .mc-chat-avatar { width: 42px; height: 42px; font-size: .9rem; }
+.main-chat-header .main-chat-msg-name { flex: 1; min-width: 0; }
+.main-chat-header .main-chat-msg-name h6 {
+    margin: 0;
+    font-weight: 700;
+    color: var(--mc-dark);
+    font-size: .92rem;
+}
+.main-chat-header .mc-role-tag {
+    display: inline-block; font-size: .62rem; font-weight: 700; letter-spacing: .04em;
+    text-transform: uppercase; color: var(--mc-primary); background: var(--mc-bg-soft);
+    padding: 1px 8px; border-radius: 100px; margin-top: 2px;
+}
+
+/* ---- avatar (shared) ---- */
+.mc-chat-avatar {
+    display: inline-flex; align-items: center; justify-content: center;
+    border-radius: 50%; background: var(--mc-primary); color: #fff; font-weight: 700;
+    flex-shrink: 0; line-height: 1;
+}
+
+/* ---- message bubbles ---- */
+/* Positioning (own message left, received right) is handled by the
+   template's existing .media-body { align-items: flex-start/flex-end }
+   mechanism — only the bubble's own look is overridden here. Several
+   properties already exist on the same selectors in style.css, which
+   loads after this file, so !important is needed to win. */
+.main-chat-body { background: var(--mc-bg-soft) !important; }
+.main-chat-body .content-inner { padding: 18px !important; }
+.main-chat-body .media + .media { margin-top: 14px !important; }
+.main-msg-wrapper {
+    border-radius: 16px !important;
+    padding: 10px 14px !important;
+    font-size: .87rem !important;
+    line-height: 1.45;
+    word-break: break-word;
+    background: #fff !important;
+    color: var(--mc-dark);
+    box-shadow: 0 1px 2px rgba(15,23,42,.06);
+}
+.main-chat-body .media.flex-row-reverse .main-msg-wrapper {
+    background: var(--mc-primary) !important;
+    color: #fff;
+}
+.main-chat-body .media-body > div:last-child {
+    font-size: .68rem !important;
+    color: var(--mc-muted) !important;
+}
+
+.mc-chat-empty-body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    min-height: 360px;
+    color: var(--mc-muted);
+    text-align: center;
+    padding: 30px;
+}
+.mc-chat-empty-body svg { width: 56px; height: 56px; opacity: .3; margin-bottom: 14px; }
+.mc-chat-empty-body h6 { color: var(--mc-dark); font-weight: 700; margin-bottom: 4px; }
+.mc-chat-empty-body p { font-size: .85rem; margin: 0; }
+
+/* ---- composer ---- */
+.main-chat-footer {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 18px;
+    border-top: 1px solid var(--mc-border);
+}
+.main-chat-footer input {
+    flex: 1;
+    border: 1px solid var(--mc-border);
+    border-radius: 100px;
+    padding: 10px 16px;
+    font-size: .87rem;
+}
+.main-chat-footer input:focus { outline: none; border-color: var(--mc-primary); }
+.main-chat-footer .main-msg-send {
+    width: 40px; height: 40px; flex-shrink: 0;
+    border-radius: 50%;
+    background: var(--mc-primary);
+    color: #fff;
+    display: flex; align-items: center; justify-content: center;
+    border: none;
+    transition: background .15s;
+}
+.main-chat-footer .main-msg-send:hover { background: var(--mc-accent); }
+
+/* ---- create-chat contact picker ---- */
+.mc-contact-card {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 14px;
+    border: 1px solid var(--mc-border);
+    border-radius: 14px;
+    margin-bottom: 10px;
+    transition: box-shadow .15s, border-color .15s;
+}
+.mc-contact-card:hover { border-color: var(--mc-primary); box-shadow: 0 4px 14px rgba(2,132,199,.1); }
+.mc-contact-card .mc-chat-avatar { width: 42px; height: 42px; font-size: .85rem; }
+.mc-contact-card .mc-contact-name { flex: 1; min-width: 0; font-weight: 700; color: var(--mc-dark); font-size: .87rem; }
+.mc-contact-card .btn-mc-start {
+    background: var(--mc-primary);
+    color: #fff;
+    border: none;
+    border-radius: 100px;
+    padding: 7px 16px;
+    font-size: .8rem;
+    font-weight: 600;
+    white-space: nowrap;
+    transition: background .15s;
+}
+.mc-contact-card .btn-mc-start:hover { background: var(--mc-accent); color: #fff; }

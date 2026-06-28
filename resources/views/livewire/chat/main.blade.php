@@ -1,6 +1,7 @@
 {{-- @extends('Dashboard.layouts.master') --}}
 <div>
     @section('css')
+        <link rel="stylesheet" href="{{ URL::asset('Dashboard/css/mc-chat.css') }}">
     @endsection
     @section('page-header')
         <!-- breadcrumb -->
@@ -18,17 +19,14 @@
         <!-- row -->
         <div class="row row-sm main-content-app mb-4">
             <div class="col-xl-4 col-lg-5">
-                <div class="card">
+                <div class="card mc-chat-card">
                     <div class="main-content-left main-content-left-chat">
-                        <nav class="nav main-nav-line main-nav-line-chat">
-                            <a class="nav-link active" data-toggle="tab" href="">{{ trans('chat_trans.recent_conversations') }}</a>
-                        </nav>
                         @livewire('chat.chatlist')
                     </div>
                 </div>
             </div>
             <div class="col-xl-8 col-lg-7">
-                <div class="card">
+                <div class="card mc-chat-card">
                     <a class="main-header-arrow" href="" id="ChatBodyHide"><i class="icon ion-md-arrow-back"></i></a>
                     @livewire('chat.chatbox')
                     @livewire('chat.send-message')
