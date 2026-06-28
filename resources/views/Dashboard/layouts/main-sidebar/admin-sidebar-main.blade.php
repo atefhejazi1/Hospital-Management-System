@@ -5,8 +5,8 @@
                 $adminName = Auth::guard('admin')->user()->name;
                 $adminInitials = \Illuminate\Support\Str::of($adminName)->explode(' ')->map(fn ($w) => mb_substr($w, 0, 1))->take(2)->implode('');
             @endphp
-            <div class="">
-                <span class="avatar avatar-xl brround mc-avatar-initials" style="font-size: 1.1rem;">{{ $adminInitials }}</span><span class="avatar-status profile-status bg-green"></span>
+            <div class="text-center">
+                <span class="avatar avatar-xl brround mc-avatar-initials" style="font-size: 1.1rem; margin: 0 auto;">{{ $adminInitials }}</span><span class="avatar-status profile-status bg-green"></span>
             </div>
             <div class="user-info">
                 <h4 class="font-weight-semibold mt-3 mb-0">{{ $adminName }}</h4>

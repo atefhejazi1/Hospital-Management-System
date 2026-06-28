@@ -5,8 +5,8 @@
                     $patientName = Auth::guard('patient')->user()->name;
                     $patientInitials = \Illuminate\Support\Str::of($patientName)->explode(' ')->map(fn ($w) => mb_substr($w, 0, 1))->take(2)->implode('');
                 @endphp
-                <div class="">
-                    <span class="avatar avatar-xl brround mc-avatar-initials" style="font-size: 1.1rem;">{{ $patientInitials }}</span><span
+                <div class="text-center">
+                    <span class="avatar avatar-xl brround mc-avatar-initials" style="font-size: 1.1rem; margin: 0 auto;">{{ $patientInitials }}</span><span
                         class="avatar-status profile-status bg-green"></span>
                 </div>
                 <div class="user-info">
