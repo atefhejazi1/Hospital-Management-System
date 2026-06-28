@@ -20,6 +20,16 @@ class PatientPolicy
     }
 
     /**
+     * Only admins may register a new patient (granted via before()). Without
+     * this method, Gate::resolvePolicyCallback() bails out before before()
+     * even runs, denying admins too.
+     */
+    public function create(Authenticatable $user): bool
+    {
+        return false;
+    }
+
+    /**
      * A patient may view their own record. A doctor may view a patient's
      * record only if they have actually treated/billed them — derived from
      * an existing invoice between the two, since this app has no explicit
